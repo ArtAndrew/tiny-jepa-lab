@@ -1,0 +1,20 @@
+.intro{margin:0 0 28px;padding:25px 28px;background:linear-gradient(115deg,#15232980,#141625);border:1px solid var(--line);border-radius:16px}
+.intro>.eyebrow{font-size:9px;color:var(--mint);margin:0 0 11px}
+.intro h2{font-size:clamp(19px,2.1vw,25px);font-weight:550;line-height:1.3;letter-spacing:-.5px;margin:0 0 19px}
+.intro h3{color:var(--text);font-size:13px;line-height:1.5;font-weight:550;margin:0 0 7px}
+.intro p{color:var(--muted);font-size:13px;line-height:1.75;margin:0}
+.intro-overview{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.intro-details{border-top:1px solid var(--line);margin-top:20px}
+.intro-details summary{cursor:pointer;color:var(--accent);font-size:13px;line-height:1.6;padding:16px 0;min-height:44px}
+.intro-details summary:hover{color:var(--text)}
+.intro-comparison{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 18px}
+.intro-comparison article{background:#0b111d;border:1px solid var(--line);border-radius:10px;padding:17px 19px;min-width:0}
+.intro .intro-scope{margin-top:14px;font-size:12px}
+.intro .intro-sources{display:flex;flex-wrap:wrap;align-items:center;gap:7px 16px;font-size:11px;margin-top:14px;padding-bottom:19px}
+.intro-sources a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.intro-sources a:hover{color:var(--mint)}
+.intro-footer{border-top:1px solid var(--line);padding-top:17px;display:flex;align-items:center;gap:24px;justify-content:space-between}
+.intro-start{flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border-radius:8px;background:var(--mint);color:#0a1516;font-size:12px;font-weight:600;text-decoration:none}
+.intro-start:hover{background:#a1f3e5}
+.intro-footer p{font-size:11px;max-width:440px}
+@media(max-width:760px){.intro{padding:21px 18px;margin-bottom:23px}.intro-overview,.intro-comparison{grid-template-columns:1fr;gap:18px}.intro p{font-size:12px}.intro h2{font-size:21px}.intro-footer{align-items:stretch;flex-direction:column;gap:11px}.intro-start{white-space:normal;text-align:center}.intro-footer p{max-width:none}.intro-details summary{font-size:12px}}

@@ -29,6 +29,11 @@ assert len(weights) == manifest["byteLength"]
 assert hashlib.sha256(weights).hexdigest() == manifest["sha256"]
 
 i18n = embedded(source, "orbit-i18n")
+introduction = json.loads((ROOT / "source/introduction.json").read_text())
+intro_html = (ROOT / "source/introduction.html").read_text()
+intro_css = (ROOT / "source/introduction.css").read_text()
+for language, values in introduction.items():
+    i18n[language].update(values)
 updates = {
     "en": {
         "offlineSubmit": "Online leaderboard is not connected in this release. Your scores stay on this device.",
@@ -60,6 +65,8 @@ for language, values in updates.items():
 
 for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = source
+    text = text.replace('</style>', intro_css + '\n</style>', 1)
+    text = text.replace('<div id="notice"', intro_html + '\n<div id="notice"', 1)
     config = embedded(text, "orbit-config")
     config.update(lang=language, offline=False, live=False, published=True,
                   baseUrl=BASE, repo="ArtAndrew/tiny-jepa-lab",
