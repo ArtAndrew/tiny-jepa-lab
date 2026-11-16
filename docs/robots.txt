@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://artandrew.github.io/tiny-jepa-lab/sitemap.xml
