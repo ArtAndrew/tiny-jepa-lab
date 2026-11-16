@@ -46,14 +46,17 @@ introduction = json.loads((ROOT / "source/introduction.json").read_text())
 intro_html = (ROOT / "source/introduction.html").read_text()
 intro_css = (ROOT / "source/introduction.css").read_text()
 explainer = json.loads((ROOT / "source/explainer.json").read_text())
+glass = json.loads((ROOT / 'source/glass-example.json').read_text())
 intro_html = intro_html.replace('<details class="intro-details">',
+    (ROOT / 'source/glass-example.html').read_text() + '\n' +
     (ROOT / "source/explainer.html").read_text() + '\n<details class="intro-details">')
-extra_css = '\n'.join((ROOT / ("source/" + name + ".css")).read_text() for name in ["explainer", "theme", "controls"])
+extra_css = '\n'.join((ROOT / ("source/" + name + ".css")).read_text() for name in ["explainer", "theme", "controls", "glass-example"])
 theme_js = (ROOT / "source/theme.js").read_text()
 theme_html = (ROOT / "source/theme.html").read_text()
 for language, values in introduction.items():
     i18n[language].update(values)
     i18n[language].update(explainer[language])
+    i18n[language].update(glass[language])
 
 
 def replace_once(text, old, new):
@@ -75,7 +78,8 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = source
     text = replace_once(text, '</style>', intro_css + '\n' + extra_css + '\n</style>')
     text = replace_once(text, '<style>', '<script>' + theme_js + '</script>\n<style>')
-    text = replace_once(text, '<div id="notice"', intro_html + '\n<div id="notice"')
+    localized_intro = intro_html.replace('{{ASSET_PREFIX}}', '../assets/' if route else 'assets/')
+    text = replace_once(text, '<div id="notice"', localized_intro + '\n<div id="notice"')
     text = replace_once(text, '<div class="languages"', theme_html + '<div class="languages"')
     text = replace_once(text, '<p id="board-note" class="board-note">',
                         '<p id="board-note" class="board-note" role="status" aria-live="polite">')
@@ -91,6 +95,7 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = text[:fetch_start] + 'await loadLeaderboard();' + text[fetch_end:]
     text = replace_once(text, "b.type='button';b.dataset.step=i;", "b.append(el('span','choice-caption',T(a===-1?'choiceLeft':a===1?'choiceRight':'choiceCoast')));b.type='button';b.dataset.step=i;")
     text = replace_once(text, "txt('model-id',manifest?manifest.modelId.slice(0,8):'');", "txt('model-id','');")
+    text = replace_once(text, "document.title=T('pageTitle');", "document.title=T('pageTitle');document.querySelectorAll('[data-t-alt]').forEach(n=>n.alt=T(n.dataset.tAlt));")
     text = replace_once(text, "mode==='daily'?day+' UTC':C.RULES.toUpperCase()", "mode==='daily'?day+' UTC':T('playground')")
     text = replace_once(text, "mode==='daily'?`${day} · ${round+1}/5 · ${C.RULES}`:`SEED ${scene?.seed??'—'} · ${C.RULES}`", "mode==='daily'?`${day} · ${round+1}/5`:T('playground')")
     text = themed_canvas(text, 'function draw(){', 'function renderInspection(){')
@@ -134,6 +139,8 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     # Translate existing text-only labels before JavaScript boots.
     text = re.sub(r'(<([a-z0-9]+)\b[^>]*\bdata-t="([^"]+)"[^>]*>)([^<]*)(</\2>)',
                   lambda m: m[1] + html.escape(i18n[language].get(m[3], html.unescape(m[4]))) + m[5], text)
+    text = re.sub(r'(<img\b[^>]*\bdata-t-alt="([^"]+)"[^>]*\balt=")[^"]*(")',
+                  lambda m: m[1] + html.escape(i18n[language][m[2]], quote=True) + m[3], text)
     destination = ROOT / "docs" / route / "index.html"
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(text)

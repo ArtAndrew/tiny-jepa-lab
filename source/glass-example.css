@@ -1,0 +1,19 @@
+.glass-example{margin:26px 0 24px;padding:24px 0 0;border-top:1px solid var(--line);scroll-margin-top:24px}
+.intro .glass-example>h3{font-size:22px;line-height:1.35;margin:0 0 14px}
+.intro .glass-intro{font-size:15px;line-height:1.75;margin-bottom:22px;max-width:950px}
+.glass-row{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;align-items:center;padding:20px 0;border-top:1px solid var(--line)}
+.glass-row img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:15px;border:1px solid var(--line)}
+.glass-row h4{font-size:17px;line-height:1.5;color:var(--text);margin:0 0 9px}
+.intro .glass-row p{font-size:14px;line-height:1.75;margin:0 0 9px}
+.intro .glass-row p:last-child{margin-bottom:0}
+.intro .glass-caption{font-size:11px;margin:0 0 20px;line-height:1.7}
+.glass-takeaway{padding:18px 21px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:14px;line-height:1.75;color:var(--text)}
+.glass-takeaway strong{color:var(--accent);font-size:15px}
+.glass-takeaway ul{padding-left:21px;margin:10px 0 12px}
+.glass-takeaway li+li{margin-top:6px}
+.intro .glass-takeaway p{font-size:13px;line-height:1.75}
+.intro .glass-orbit{font-size:14px;margin:16px 0 12px;line-height:1.75;color:var(--text)}
+.intro .glass-sources{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;line-height:1.7}
+.glass-sources a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.glass-sources a:hover{color:var(--accent)}
+@media(max-width:760px){.glass-row{grid-template-columns:1fr;gap:14px}.glass-row img{max-width:320px}.intro .glass-example>h3{font-size:20px}.intro .glass-row p,.intro .glass-intro{font-size:14px}.glass-takeaway{padding:15px}.glass-row h4{font-size:16px}}

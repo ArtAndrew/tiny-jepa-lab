@@ -24,6 +24,36 @@ In ORBIT, the “world” is deliberately small: **a ball, walls, and a target**
 
 The predictor does not generate future video frames. Its forecast can be wrong — seeing those mistakes is part of the demo. This is an independent educational implementation inspired by JEPA, with its own trained weights and a narrow task; it does not run Meta's V-JEPA model.
 
+<!-- glass-example:start -->
+## LLMs and JEPA: a simple example with a glass
+
+Imagine a glass of water at the edge of a table. What happens if you push it over the edge? This example helps explain what different models are trained to do.
+
+<table>
+<tr>
+<td width="220"><img src="docs/assets/glass-standing.jpg" width="220" alt="A glass of water near the edge of a wooden table, illustrating the initial situation"></td>
+<td><strong>An LLM explains in words</strong><p>Given a description of the situation, a language model might answer: “The glass will fall, the water will spill, and the glass may break.”</p><p>It draws on patterns learned from text and other training data. A multimodal model can also take an image of the scene as input.</p></td>
+</tr>
+<tr>
+<td width="220"><img src="docs/assets/glass-falling.jpg" width="220" alt="A tipping glass spilling water, illustrating a possible consequence"></td>
+<td><strong>JEPA predicts a representation of the scene</strong><p>From observations, such a model learns to predict hidden or future information as numerical features — an internal description of the scene.</p><p>If the model is additionally trained to account for actions, its predictions can help evaluate the effects of different pushes before executing them.</p></td>
+</tr>
+</table>
+
+*The photos illustrate the glass example. They are not predictions from ORBIT, which was trained only on ball motion.*
+
+**The key distinction here is the training objective.**
+
+- During pretraining, many LLMs primarily learn to predict the next token: a word or part of a word.
+- JEPA learns to predict a latent representation of missing information; in dynamics models, this can include a future state.
+
+An LLM can also give a correct explanation and, with enough initial information, help calculate a trajectory. JEPA alone is not a complete agent: it is an approach to learning predictive representations that can support world models and planning systems.
+
+ORBIT demonstrates this idea with a ball: the model observes two frames, predicts the effects of 27 plans, and picks one. The simulator then reveals whether it got closer to the goal.
+
+Primary sources: [I-JEPA: predicting representations](https://ai.meta.com/blog/yann-lecun-ai-model-i-jepa/) · [V-JEPA 2: actions and planning](https://ai.meta.com/blog/v-jepa-2-world-model-benchmarks/) · [Llama 3: language-model training](https://arxiv.org/html/2407.21783v3#S2).
+<!-- glass-example:end -->
+
 ## Play
 
 Choose **Left**, **No push**, or **Right** for each of three actions, then launch your plan. Complete five daily rounds; a smaller distance to the target earns more points. In the playground, try different plans and add image noise to explore the model's mistakes.
