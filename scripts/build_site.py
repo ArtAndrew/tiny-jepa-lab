@@ -6,11 +6,24 @@ import html
 import json
 import re
 import base64
+import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://artandrew.github.io/tiny-jepa-lab/"
 REPO = "https://github.com/ArtAndrew/tiny-jepa-lab"
 source = (ROOT / "source/ORBIT_JEPA_RU_EN_ZH.html").read_text()
+parser = argparse.ArgumentParser()
+parser.add_argument('--leaderboard', type=Path, help='Verified leaderboard snapshot to embed')
+args = parser.parse_args()
+board = json.loads(args.leaderboard.read_text()) if args.leaderboard else {"version": 1, "updated": None, "entries": []}
+assert board.get('version') == 1 and isinstance(board.get('entries'), list)
+
+# Server verification executes the exact same deterministic rules as the browser.
+executables = [body for attr, body in re.findall(r'<script\b([^>]*)>(.*?)</script>', source, re.S) if 'type=' not in attr]
+assert len(executables) == 3 and 'rankPlans' in executables[1]
+(ROOT / 'game').mkdir(exist_ok=True)
+for name, body in zip(['engine.js', 'orbit.js'], executables[:2]):
+    (ROOT / 'game' / name).write_text(body)
 
 
 def embedded(text, key):
@@ -35,7 +48,7 @@ intro_css = (ROOT / "source/introduction.css").read_text()
 explainer = json.loads((ROOT / "source/explainer.json").read_text())
 intro_html = intro_html.replace('<details class="intro-details">',
     (ROOT / "source/explainer.html").read_text() + '\n<details class="intro-details">')
-extra_css = '\n'.join((ROOT / ("source/" + name + ".css")).read_text() for name in ["explainer", "theme"])
+extra_css = '\n'.join((ROOT / ("source/" + name + ".css")).read_text() for name in ["explainer", "theme", "controls"])
 theme_js = (ROOT / "source/theme.js").read_text()
 theme_html = (ROOT / "source/theme.html").read_text()
 for language, values in introduction.items():
@@ -54,32 +67,7 @@ def themed_canvas(text, start, end):
     block = re.sub(r"'(#(?:[a-fA-F0-9]{8}|[a-fA-F0-9]{6}))'",
                    lambda m: "window.OrbitTheme.color('" + m[1] + "')", text[a:b])
     return text[:a] + block + text[b:]
-updates = {
-    "en": {
-        "offlineSubmit": "Online leaderboard is not connected in this release. Your scores stay on this device.",
-        "submitNote": "Save a result card or copy the challenge link to share it yourself.",
-        "boardEmpty": "The public leaderboard is not connected in this release.",
-        "boardNotLive": "Play the daily challenge and view your scores under This device.",
-        "boardRules": "Online replay submission is disabled. Local scores are not verified.",
-        "previousLab": "Read the release report ↗",
-    },
-    "ru": {
-        "offlineSubmit": "Общий рейтинг в этой публикации не подключён. Результаты сохраняются на этом устройстве.",
-        "submitNote": "Сохрани карточку или скопируй ссылку на испытание, чтобы поделиться результатом самостоятельно.",
-        "boardEmpty": "Общий рейтинг в этой публикации не подключён.",
-        "boardNotLive": "Испытание дня работает. Твои результаты доступны во вкладке «Это устройство».",
-        "boardRules": "Отправка повторов в общий рейтинг отключена. Локальные очки не проверены.",
-        "previousLab": "Прочитать отчёт о релизе ↗",
-    },
-    "zh": {
-        "offlineSubmit": "此发布版本尚未连接在线排行榜。成绩保存在本机。",
-        "submitNote": "保存成绩卡或复制挑战链接，然后自行分享。",
-        "boardEmpty": "此发布版本尚未连接公开排行榜。",
-        "boardNotLive": "每日挑战可正常游玩。请在“本机记录”中查看成绩。",
-        "boardRules": "在线回放提交已禁用。本地成绩未经验证。",
-        "previousLab": "阅读发布报告 ↗",
-    },
-}
+updates = json.loads((ROOT / 'source/leaderboard.json').read_text())
 for language, values in updates.items():
     i18n[language].update(values)
 
@@ -89,16 +77,33 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = replace_once(text, '<style>', '<script>' + theme_js + '</script>\n<style>')
     text = replace_once(text, '<div id="notice"', intro_html + '\n<div id="notice"')
     text = replace_once(text, '<div class="languages"', theme_html + '<div class="languages"')
+    text = replace_once(text, '<p id="board-note" class="board-note">',
+                        '<p id="board-note" class="board-note" role="status" aria-live="polite">')
+    text = replace_once(text, '<button id="clear-local"',
+                        '<button id="refresh-board" class="text-btn" data-t="boardRefresh" hidden></button><button id="clear-local"')
+    a, b = text.index('function boardRow('), text.index('function payload(')
+    text = text[:a] + (ROOT / 'source/leaderboard-ui.js').read_text() + '\n' + text[b:]
+    a, b = text.index('function submit(){'), text.index('function card(){')
+    text = text[:a] + """function submit(){if(!finished||!canSubmit())return;const body=T('submissionBody')+'\\n\\n<!-- ORBIT_REPLAY -->\\n```json\\n'+JSON.stringify(payload())+'\\n```';const u=new URL('https://github.com/'+cfg.repo+'/issues/new');u.searchParams.set('title','[ORBIT replay] '+day);u.searchParams.set('body',body);window.open(u.href,'_blank','noopener,noreferrer');toast(T('submitOpened'));}
+""" + text[b:]
+    fetch_start = text.index("if(cfg.live&&!cfg.offline){try{const r=await fetch")
+    fetch_end = text.index("window.dispatchEvent(new CustomEvent('orbit-ready'))", fetch_start)
+    text = text[:fetch_start] + 'await loadLeaderboard();' + text[fetch_end:]
+    text = replace_once(text, "b.type='button';b.dataset.step=i;", "b.append(el('span','choice-caption',T(a===-1?'choiceLeft':a===1?'choiceRight':'choiceCoast')));b.type='button';b.dataset.step=i;")
+    text = replace_once(text, "txt('model-id',manifest?manifest.modelId.slice(0,8):'');", "txt('model-id','');")
+    text = replace_once(text, "mode==='daily'?day+' UTC':C.RULES.toUpperCase()", "mode==='daily'?day+' UTC':T('playground')")
+    text = replace_once(text, "mode==='daily'?`${day} · ${round+1}/5 · ${C.RULES}`:`SEED ${scene?.seed??'—'} · ${C.RULES}`", "mode==='daily'?`${day} · ${round+1}/5`:T('playground')")
     text = themed_canvas(text, 'function draw(){', 'function renderInspection(){')
     text = themed_canvas(text, 'function card(){', '\nasync function boot(')
     text = replace_once(text, 'setLanguage(lang);boot();',
-                        "window.addEventListener('orbit-theme-change',draw);\nsetLanguage(lang);boot();")
+                        "window.addEventListener('orbit-theme-change',draw);\n$('refresh-board').onclick=loadLeaderboard;\nwindow.addEventListener('focus',()=>{if(Date.now()-boardFetchedAt>15000)loadLeaderboard();});\nsetLanguage(lang);boot();")
     config = embedded(text, "orbit-config")
-    config.update(lang=language, offline=False, live=False, published=True,
+    config.update(lang=language, offline=False, live=True, published=True,
                   baseUrl=BASE, repo="ArtAndrew/tiny-jepa-lab",
                   assetPrefix="../assets/" if route else "assets/")
     text = replace_json(text, "orbit-config", config)
     text = replace_json(text, "orbit-i18n", i18n)
+    text = replace_json(text, "orbit-board", board)
     text = re.sub(r'<html lang="[^"]+">', '<html lang="' + ("zh-Hans" if language == "zh" else language) + '">', text, count=1)
     title = html.escape(i18n[language]["pageTitle"], quote=True)
     description = html.escape(i18n[language]["description"], quote=True)
@@ -125,6 +130,8 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     print(destination.relative_to(ROOT), len(text.encode()), "bytes")
 
 (ROOT / "docs/.nojekyll").touch()
+(ROOT / 'docs/assets').mkdir(exist_ok=True)
+(ROOT / 'docs/assets/leaderboard.json').write_text(json.dumps(board, ensure_ascii=False, separators=(',', ':'))+'\n')
 (ROOT / "docs/robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: " + BASE + "sitemap.xml\n")
 (ROOT / "docs/sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +

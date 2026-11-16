@@ -1,0 +1,5 @@
+.action-row{display:block;margin-bottom:12px}.step-label{display:block;margin-bottom:6px}
+.choice-group{max-width:none;width:100%}.choice{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;min-height:55px;padding:7px 2px}
+.choice-caption{font-family:inherit;font-size:10px;line-height:1.25;font-weight:500}
+.replay-link{text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+@media(max-width:760px){.choice{min-height:56px}.choice-caption{font-size:11px}}
