@@ -32,6 +32,7 @@ i18n = embedded(source, "orbit-i18n")
 updates = {
     "en": {
         "offlineSubmit": "Online leaderboard is not connected in this release. Your scores stay on this device.",
+        "submitNote": "Save a result card or copy the challenge link to share it yourself.",
         "boardEmpty": "The public leaderboard is not connected in this release.",
         "boardNotLive": "Play the daily challenge and view your scores under This device.",
         "boardRules": "Online replay submission is disabled. Local scores are not verified.",
@@ -39,6 +40,7 @@ updates = {
     },
     "ru": {
         "offlineSubmit": "Общий рейтинг в этой публикации не подключён. Результаты сохраняются на этом устройстве.",
+        "submitNote": "Сохрани карточку или скопируй ссылку на испытание, чтобы поделиться результатом самостоятельно.",
         "boardEmpty": "Общий рейтинг в этой публикации не подключён.",
         "boardNotLive": "Испытание дня работает. Твои результаты доступны во вкладке «Это устройство».",
         "boardRules": "Отправка повторов в общий рейтинг отключена. Локальные очки не проверены.",
@@ -46,6 +48,7 @@ updates = {
     },
     "zh": {
         "offlineSubmit": "此发布版本尚未连接在线排行榜。成绩保存在本机。",
+        "submitNote": "保存成绩卡或复制挑战链接，然后自行分享。",
         "boardEmpty": "此发布版本尚未连接公开排行榜。",
         "boardNotLive": "每日挑战可正常游玩。请在“本机记录”中查看成绩。",
         "boardRules": "在线回放提交已禁用。本地成绩未经验证。",
