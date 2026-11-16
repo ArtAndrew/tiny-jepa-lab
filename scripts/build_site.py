@@ -114,9 +114,19 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
                       lambda _, a=attr, k=key, v=value: f'<meta {a}="{k}" content="{v}">', text, count=1)
     text = re.sub(r'<link rel="canonical" href="[^"]*">',
                   lambda _: '<link rel="canonical" href="' + BASE + route + '">', text, count=1)
-    # The source references social PNGs and an earlier lab that were not supplied.
-    text = re.sub(r'<meta property="og:image" content="[^"]*">', '', text)
-    text = text.replace('name="twitter:card" content="summary_large_image"', 'name="twitter:card" content="summary"')
+    # Public previews are generated from a real replay by scripts/build_media.py.
+    social_image = BASE + 'assets/orbit-social-' + language + '.png'
+    text = re.sub(r'<meta property="og:image" content="[^"]*">',
+                  lambda _: '<meta property="og:image" content="' + social_image + '">', text)
+    preview_meta = '\n'.join([
+        '<meta property="og:image:width" content="1280">',
+        '<meta property="og:image:height" content="640">',
+        '<meta property="og:image:alt" content="' + description + '">',
+        '<meta name="twitter:image" content="' + social_image + '">',
+        '<meta name="twitter:title" content="' + title + '">',
+        '<meta name="twitter:description" content="' + description + '">',
+    ])
+    text = replace_once(text, '</head>', preview_meta + '\n</head>')
     text = text.replace(BASE + 'predict/', REPO + '/blob/main/materials/ORBIT_RELEASE_REPORT_RU.md')
     # Sharing a public URL is independent of enabling a public replay backend.
     text = text.replace("if(cfg.live)s+='\\n'+shareLink();", "if(cfg.published)s+='\\n'+shareLink();")

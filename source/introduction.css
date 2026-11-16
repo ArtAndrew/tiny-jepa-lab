@@ -18,3 +18,4 @@
 .intro-start:hover{background:#a1f3e5}
 .intro-footer p{font-size:11px;max-width:440px}
 @media(max-width:760px){.intro{padding:21px 18px;margin-bottom:23px}.intro-overview,.intro-comparison{grid-template-columns:1fr;gap:18px}.intro p{font-size:12px}.intro h2{font-size:21px}.intro-footer{align-items:stretch;flex-direction:column;gap:11px}.intro-start{white-space:normal;text-align:center}.intro-footer p{max-width:none}.intro-details summary{font-size:12px}}
+.intro .intro-definition{max-width:850px;font-size:17px;line-height:1.7;color:var(--text);margin:0 0 24px}

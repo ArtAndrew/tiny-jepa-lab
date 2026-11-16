@@ -1,42 +1,46 @@
-# ORBIT — Tiny JEPA Lab
+# ORBIT — a world model you can play
 
-**Три толчка. Одна цель. Сможешь спланировать лучше нейросети?**
+**Can you guide a ball to the target better than a tiny neural network?**
 
-[Играть по-русски](https://artandrew.github.io/tiny-jepa-lab/ru/) · [Play in English](https://artandrew.github.io/tiny-jepa-lab/) · [简体中文](https://artandrew.github.io/tiny-jepa-lab/zh/)
+[**Play now →**](https://artandrew.github.io/tiny-jepa-lab/) · [Играть по-русски](https://artandrew.github.io/tiny-jepa-lab/ru/) · [中文体验](https://artandrew.github.io/tiny-jepa-lab/zh/)
 
-ORBIT — учебная мини-игра, в которой ты соревнуешься с небольшой нейросетью: кто лучше направит шарик к цели за три действия. Можно толкнуть шарик влево, вправо или дать ему двигаться дальше без толчка.
+English · [Русский](README.ru.md) · [简体中文](README.zh-CN.md)
 
-Нейросеть заранее обучили на движении шарика. По двум изображениям она прогнозирует последствия 27 возможных планов и выбирает тот, который, по её прогнозу, приблизит шарик к цели. Затем игра показывает, что произошло на самом деле.
+ORBIT is an **educational world-model demo presented as a browser game**. A small, pretrained, JEPA-inspired neural network predicts the effects of actions and uses those predictions to plan. Choose three actions and compare your result with its plan.
 
-Это маленькая модель мира, вдохновлённая подходом **JEPA**: она прогнозирует компактное числовое описание будущей ситуации. Вся модель работает прямо в браузере, без регистрации и подключения к внешнему AI-сервису.
+[![A real ORBIT replay: choose three actions, compare the two paths, and see the scores.](docs/assets/orbit-demo.gif)](https://artandrew.github.io/tiny-jepa-lab/)
 
-**Зачем играть:** увидеть, как AI использует прогноз для выбора действий, сравнить его план со своей интуицией и разобраться, почему модель иногда промахивается.
+*Illustrated replay generated from the actual game rules and trained model. One example round, not a benchmark or a screen recording.*
 
-Автор: [Andrey Artishchev](https://artishev.com).
+## What is a world model?
 
-Перед игрой есть наглядная схема мини-JEPA и генерации текста LLM. Доступны русский, английский и китайский языки, а также светлая, тёмная и автоматическая темы.
+A world model learns from observations to predict how its environment will change. When those predictions account for actions, it can help answer **“What happens if I do this?”** before choosing a plan.
 
-## Как играть
+In ORBIT, the “world” is deliberately small: **a ball, walls, and a target**.
 
-1. Посмотри, где шарик и куда ему нужно попасть.
-2. Выбери три действия заранее: **← Влево**, **Без толчка** или **Вправо →**.
-3. Нажми **«Запустить мой план»** и сравни результат с AI.
-4. Пройди пять раундов испытания дня. Чем ближе шарик к цели, тем больше очков.
+1. **Observe:** turn two images of the moving ball into compact numerical features.
+2. **Predict:** estimate the effects of 27 possible three-action plans in feature space.
+3. **Choose and test:** select the plan closest to the goal image, then let the simulator reveal what actually happens.
 
-В **свободной лаборатории** можно пробовать разные действия, смотреть прогноз модели и добавлять помехи на изображение. Свои результаты можно сохранить карточкой PNG.
+The predictor does not generate future video frames. Its forecast can be wrong — seeing those mistakes is part of the demo. This is an independent educational implementation inspired by JEPA, with its own trained weights and a narrow task; it does not run Meta's V-JEPA model.
 
-## Общий рейтинг
+## Play
 
-После пяти раундов нажми **«Добавить в общий рейтинг»**. Откроется заполненная форма на GitHub: войди в свой аккаунт и нажми **«Create»** («Создать»).
+Choose **Left**, **No push**, or **Right** for each of three actions, then launch your plan. Complete five daily rounds; a smaller distance to the target earns more points. In the playground, try different plans and add image noise to explore the model's mistakes.
 
-Твой логин и действия станут публичными. Игра автоматически проверит результат и обновит рейтинг — обычно через несколько минут. Вернись на сайт и нажми **«Обновить»** во вкладке **«Общий рейтинг»**.
+- Runs locally in your browser; no account or external AI API is needed to play.
+- Russian, English, and Simplified Chinese; light, dark, and automatic themes.
+- Save a result card and challenge a friend on the same daily scenes.
+- Optional public leaderboard: after five rounds, open the prepared GitHub form and click **Create**. Your GitHub username and actions become public; scores are recomputed automatically. A GitHub account is needed only for this step.
 
-За каждый день учитывается лучший результат аккаунта. Чтобы убрать свою попытку, открой её по ссылке на логине в таблице и закрой заявку. Играть и сохранять результаты на устройстве можно без аккаунта.
+The leaderboard keeps your best accepted result for a day. Close the corresponding GitHub issue to withdraw it. Scores are checked; assisted or automated play is not detected.
 
-Проверяются очки, но не использование подсказок или автоматической игры. Это учебное соревнование без призов.
+## Explore or contribute
 
-## Что можно узнать
+Found a confusing control or a model failure? [Open an issue](https://github.com/ArtAndrew/tiny-jepa-lab/issues/new) with the day, round, and chosen actions. Screenshots and translation improvements are welcome.
 
-Как прогноз помогает выбирать действия — и почему неточный прогноз приводит к ошибке. Здесь намеренно простой мир с шариком: это учебная демонстрация, а не готовая система управления роботами или доказательство превосходства над LLM.
+[Developer guide](DEVELOPMENT.md) · [Original experiment report (RU)](materials/ORBIT_RELEASE_REPORT_RU.md) · [Launch materials](promotion/README.md)
 
-[Подробнее об эксперименте](materials/ORBIT_RELEASE_REPORT_RU.md) · [Для разработчиков](DEVELOPMENT.md)
+The original notebook is preserved as study material; its additional training modules are not included. See the developer guide for the current reproducibility limits.
+
+By [Andrey Artishchev](https://artishev.com) · [MIT License](LICENSE)
