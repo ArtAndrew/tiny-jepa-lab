@@ -1,0 +1,44 @@
+:root{color-scheme:dark;--soft:#0b111d;--wash:#191626;--selected:#303046}
+.header-right{gap:16px}.theme-control{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px;white-space:nowrap}
+.theme-control{position:relative}.theme-control::after{content:'';position:absolute;right:10px;width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);pointer-events:none}
+.theme-control select{-webkit-appearance:none;appearance:none;font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--line);border-radius:8px;min-height:38px;padding:6px 26px 6px 10px;max-width:110px;cursor:pointer}
+select:focus-visible{outline:3px solid var(--mint);outline-offset:4px}
+:root[data-theme="light"]{color-scheme:light;--bg:#f5f7fb;--surface:#ffffff;--panel:#edf2f8;--line:#cdd6e4;--text:#202c42;--muted:#52627b;--accent:#7046ce;--mint:#087b69;--amber:#78521d;--soft:#f0f4fa;--wash:#f1ecfa;--selected:#e9e1f8}
+[data-theme="light"] .header{border-color:var(--line)}
+[data-theme="light"] .languages{background:var(--surface)}
+[data-theme="light"] .languages button.active{background:var(--selected);color:#5931a4}
+[data-theme="light"] .orbit-line{border-color:#c2b2df}[data-theme="light"] .o2{border-color:#b5cfce}[data-theme="light"] .o3{border-color:#c8d1e1}
+[data-theme="light"] .intro{background:linear-gradient(115deg,#e8f5f1,#f1ecfa)}
+[data-theme="light"] .intro-comparison article{background:var(--surface)}
+[data-theme="light"] .intro-start{color:#fff}[data-theme="light"] .intro-start:hover{background:#066757;color:#fff}
+[data-theme="light"] .game-card{border-color:var(--line);box-shadow:0 22px 90px #25355b10}
+[data-theme="light"] .mode-tabs{background:var(--soft);border-color:var(--line)}
+[data-theme="light"] .mode-tabs .active{background:var(--selected);box-shadow:inset 0 0 0 1px #bdacdf}
+[data-theme="light"] .arena-wrap{background:var(--soft);border-color:var(--line)}
+[data-theme="light"] .icon-btn{background:var(--surface);border-color:var(--line)}
+[data-theme="light"] .model-inputs,[data-theme="light"] .control-panel,[data-theme="light"] .running-total,[data-theme="light"] .inspect{border-color:var(--line)}
+[data-theme="light"] .choice-group{border-color:var(--line)}
+[data-theme="light"] .choice{color:var(--muted)}
+[data-theme="light"] .choice.selected{color:var(--accent);background:var(--selected);box-shadow:inset 0 0 0 1px #a28acb}
+[data-theme="light"] .choice:not(:disabled):hover{background:#ded5ed}
+[data-theme="light"] .primary{color:#fff;border-color:var(--accent)}
+[data-theme="light"] .primary:hover:not(:disabled){background:#5e35b1}
+[data-theme="light"] .secondary{background:var(--soft);border-color:var(--line)}
+[data-theme="light"] .secondary:hover:not(:disabled){background:#e1e8f2;border-color:#95a6bc}
+[data-theme="light"] .score-pair>div{background:var(--soft);border-color:var(--line)}
+[data-theme="light"] .latent-cell,[data-theme="light"] .candidate{border-color:var(--line)}
+[data-theme="light"] .latent-cell>small,[data-theme="light"] .empty small,[data-theme="light"] .board-row .rank{color:var(--muted)}
+[data-theme="light"] .board-tabs button.active{background:var(--selected);border-color:#bdacdf}
+[data-theme="light"] .board-card,[data-theme="light"] .learn-grid article{background:var(--surface)}
+[data-theme="light"] .board-row{border-color:var(--line)}
+[data-theme="light"] .board-row.header-row{background:var(--panel);color:var(--muted)}
+[data-theme="light"] .board-row.highlight{background:linear-gradient(90deg,#ede6f8,transparent)}
+[data-theme="light"] .board-row.highlight .rank{color:var(--accent)}
+[data-theme="light"] .pill{background:#e5f3ee;border-color:#9fcfc1}
+[data-theme="light"] .pill.local{background:var(--wash);border-color:#c5b7dd;color:#625078}
+[data-theme="light"] .honesty{background:var(--wash);border-color:#c5b7dd}
+[data-theme="light"] .result-card{background:radial-gradient(ellipse at 90% 30%,#e6d9f780,transparent),#fff;border-color:#c5b7dd}
+[data-theme="light"] .notice{background:#fff5df;border-color:#dbc193}
+[data-theme="light"] #toast{background:#fff;border-color:var(--line);box-shadow:0 8px 30px #25355b22}
+@media(max-width:1100px){.header{gap:16px}.header-right{gap:12px}.header nav{gap:12px}}
+@media(max-width:760px){.header{height:auto;min-height:120px;flex-wrap:wrap;padding:15px 0;gap:13px}.header-right{width:100%;justify-content:space-between;gap:12px}.theme-control select{min-height:38px}}

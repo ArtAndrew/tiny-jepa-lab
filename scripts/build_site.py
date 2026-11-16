@@ -32,8 +32,28 @@ i18n = embedded(source, "orbit-i18n")
 introduction = json.loads((ROOT / "source/introduction.json").read_text())
 intro_html = (ROOT / "source/introduction.html").read_text()
 intro_css = (ROOT / "source/introduction.css").read_text()
+explainer = json.loads((ROOT / "source/explainer.json").read_text())
+intro_html = intro_html.replace('<details class="intro-details">',
+    (ROOT / "source/explainer.html").read_text() + '\n<details class="intro-details">')
+extra_css = '\n'.join((ROOT / ("source/" + name + ".css")).read_text() for name in ["explainer", "theme"])
+theme_js = (ROOT / "source/theme.js").read_text()
+theme_html = (ROOT / "source/theme.html").read_text()
 for language, values in introduction.items():
     i18n[language].update(values)
+    i18n[language].update(explainer[language])
+
+
+def replace_once(text, old, new):
+    assert text.count(old) == 1, f"Expected one injection marker: {old}"
+    return text.replace(old, new, 1)
+
+
+def themed_canvas(text, start, end):
+    """Only replace display colors; physics, inputs and model weights stay intact."""
+    a, b = text.index(start), text.index(end, text.index(start))
+    block = re.sub(r"'(#(?:[a-fA-F0-9]{8}|[a-fA-F0-9]{6}))'",
+                   lambda m: "window.OrbitTheme.color('" + m[1] + "')", text[a:b])
+    return text[:a] + block + text[b:]
 updates = {
     "en": {
         "offlineSubmit": "Online leaderboard is not connected in this release. Your scores stay on this device.",
@@ -65,8 +85,14 @@ for language, values in updates.items():
 
 for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = source
-    text = text.replace('</style>', intro_css + '\n</style>', 1)
-    text = text.replace('<div id="notice"', intro_html + '\n<div id="notice"', 1)
+    text = replace_once(text, '</style>', intro_css + '\n' + extra_css + '\n</style>')
+    text = replace_once(text, '<style>', '<script>' + theme_js + '</script>\n<style>')
+    text = replace_once(text, '<div id="notice"', intro_html + '\n<div id="notice"')
+    text = replace_once(text, '<div class="languages"', theme_html + '<div class="languages"')
+    text = themed_canvas(text, 'function draw(){', 'function renderInspection(){')
+    text = themed_canvas(text, 'function card(){', '\nasync function boot(')
+    text = replace_once(text, 'setLanguage(lang);boot();',
+                        "window.addEventListener('orbit-theme-change',draw);\nsetLanguage(lang);boot();")
     config = embedded(text, "orbit-config")
     config.update(lang=language, offline=False, live=False, published=True,
                   baseUrl=BASE, repo="ArtAndrew/tiny-jepa-lab",
