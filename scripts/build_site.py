@@ -54,6 +54,7 @@ failures_i18n = json.loads((ROOT / 'source/failures.json').read_text())
 failures = json.loads((ROOT / 'docs/assets/failures.json').read_text())
 assert failures['modelId'] == manifest['modelId']
 research_copy = json.loads((ROOT / 'source/research.json').read_text())
+play_copy = json.loads((ROOT / 'source/play-features.json').read_text())
 research_report = json.loads((ROOT / release['benchmark']).read_text())
 model_report = research_report['models'][release['benchmarkModel']]
 for name in ['encoder', 'predictor', 'probe']:
@@ -67,7 +68,7 @@ for name, result in measured.items():
 intro_html = intro_html.replace('<details class="intro-details">',
     (ROOT / 'source/glass-example.html').read_text() + '\n' +
     (ROOT / "source/explainer.html").read_text() + '\n<details class="intro-details">')
-extra_css = '\n'.join((ROOT / ("source/" + name + ".css")).read_text() for name in ["explainer", "theme", "controls", "glass-example", "failures"])
+extra_css = '\n'.join((ROOT / ("source/" + name + ".css")).read_text() for name in ["explainer", "theme", "controls", "glass-example", "failures", "play-features"])
 theme_js = (ROOT / "source/theme.js").read_text()
 theme_html = (ROOT / "source/theme.html").read_text()
 for language, values in introduction.items():
@@ -76,6 +77,7 @@ for language, values in introduction.items():
     i18n[language].update(glass[language])
     i18n[language].update(failures_i18n[language])
     i18n[language].update(research_copy[language])
+    i18n[language].update(play_copy[language])
 
 
 def replace_once(text, old, new):
@@ -113,7 +115,17 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = replace_once(text, 'function newScene(){animationKey++;', 'function newScene(){clearFailure();animationKey++;')
     text = replace_once(text, 'newScene();setLanguage(lang);if(cfg.live', "newScene();if(params.has('example'))openFailure(params.get('example'),false);setLanguage(lang);if(cfg.live")
     localized_intro = intro_html.replace('{{ASSET_PREFIX}}', '../assets/' if route else 'assets/')
-    text = replace_once(text, '<div id="notice"', localized_intro + '\n<div id="notice"')
+    text = replace_once(text, '<section id="learn"', localized_intro + '\n<section id="learn"')
+    text = replace_once(text, '<section id="play"', (ROOT / 'source/play-features.html').read_text() + '\n<section id="play"')
+    text = replace_once(text, '<button id="daily"', '<button id="quick" data-t="quick"></button><button id="hunt" data-t="hunt"></button><button id="daily"')
+    play_controls = (ROOT / 'source/play-controls.html').read_text()
+    hunt_controls, play_controls = play_controls.split('<section id="play-feedback"', 1)
+    round_tools, share_panel = ('<section id="play-feedback"' + play_controls).split('<section id="share-panel"', 1)
+    text = replace_once(text, '<div id="action-controls">', hunt_controls + '<div id="action-controls">')
+    text = replace_once(text, '<div class="running-total">', round_tools + '<div class="running-total">')
+    text = replace_once(text, '<section id="result"', '<section id="share-panel"' + share_panel + '\n<section id="result"')
+    text = replace_once(text, '<h2 id="verdict"></h2>', '<h2 id="verdict"></h2><p id="friend-final" hidden></p>')
+    text = replace_once(text, '/* ORBIT UI.', (ROOT / 'source/challenges.js').read_text() + '\n/* ORBIT UI.')
     text = replace_once(text, '<div class="languages"', theme_html + '<div class="languages"')
     text = replace_once(text, '<p id="board-note" class="board-note">',
                         '<p id="board-note" class="board-note" role="status" aria-live="polite">')
@@ -127,6 +139,9 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     fetch_start = text.index("if(cfg.live&&!cfg.offline){try{const r=await fetch")
     fetch_end = text.index("window.dispatchEvent(new CustomEvent('orbit-ready'))", fetch_start)
     text = text[:fetch_start] + 'await loadLeaderboard();' + text[fetch_end:]
+    # Load a shared scene before any interaction, without waiting for a network leaderboard.
+    text = replace_once(text, "await loadLeaderboard();window.dispatchEvent(new CustomEvent('orbit-ready'));",
+                        "window.dispatchEvent(new CustomEvent('orbit-ready'));await loadLeaderboard();")
     text = replace_once(text, "b.type='button';b.dataset.step=i;", "b.append(el('span','choice-caption',T(a===-1?'choiceLeft':a===1?'choiceRight':'choiceCoast')));b.type='button';b.dataset.step=i;")
     text = replace_once(text, "txt('model-id',manifest?manifest.modelId.slice(0,8):'');", "txt('model-id','');")
     text = replace_once(text, "document.title=T('pageTitle');", "document.title=T('pageTitle');document.querySelectorAll('[data-t-alt]').forEach(n=>n.alt=T(n.dataset.tAlt));")
@@ -135,7 +150,7 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = themed_canvas(text, 'function draw(){', 'function renderInspection(){')
     text = themed_canvas(text, 'function card(){', '\nasync function boot(')
     text = replace_once(text, 'setLanguage(lang);boot();',
-                        (ROOT / 'source/failures-ui.js').read_text() + "\nwindow.addEventListener('orbit-theme-change',draw);\n$('refresh-board').onclick=loadLeaderboard;\nwindow.addEventListener('focus',()=>{if(Date.now()-boardFetchedAt>15000)loadLeaderboard();});\nsetLanguage(lang);boot();")
+                        (ROOT / 'source/failures-ui.js').read_text() + '\n' + (ROOT / 'source/play-ui.js').read_text() + "\nwindow.addEventListener('orbit-theme-change',draw);\n$('refresh-board').onclick=loadLeaderboard;\nwindow.addEventListener('focus',()=>{if(Date.now()-boardFetchedAt>15000)loadLeaderboard();});\nsetLanguage(lang);boot();")
     config = embedded(text, "orbit-config")
     config.update(lang=language, offline=False, live=True, published=True,
                   baseUrl=BASE, repo="ArtAndrew/tiny-jepa-lab",
@@ -145,6 +160,7 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = replace_json(text, "orbit-board", board)
     text = replace_json(text, "orbit-benchmark", benchmark_data)
     text = replace_once(text, 'MIT · v0.3', 'MIT · v' + release['version'])
+    text = replace_once(text, '<span class="version">0.3</span>', '<span class="version">' + release['version'] + '</span>')
     text = re.sub(r'<html lang="[^"]+">', '<html lang="' + ("zh-Hans" if language == "zh" else language) + '">', text, count=1)
     title = html.escape(i18n[language]["pageTitle"], quote=True)
     description = html.escape(i18n[language]["description"], quote=True)

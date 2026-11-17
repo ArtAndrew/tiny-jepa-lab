@@ -1,6 +1,6 @@
 # Current game model / Модель в игре
 
-**ORBIT v0.6 now runs the fully retrained temporal JEPA model `temporal-44`.**
+**ORBIT v0.7 runs the fully retrained temporal JEPA model `temporal-44`.**
 
 **По-русски:** в игре установлена новая модель, целиком обученная с нуля. Она показала лучший результат из трёх полных обучений на опубликованном тесте: **74,45% попаданий** против 69,53% у прежней модели.
 

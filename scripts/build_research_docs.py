@@ -8,7 +8,7 @@ report = json.loads((root/release['benchmark']).read_text())
 entry = report['models'][release['benchmarkModel']]
 normal = entry['conditions']['normal']['aggregate']
 lines = ['# Current game model / Модель в игре', '',
-         '**ORBIT v0.6 now runs the fully retrained temporal JEPA model `temporal-44`.**', '',
+         f'**ORBIT v{release["version"]} runs the fully retrained temporal JEPA model `temporal-44`.**', '',
          '**По-русски:** в игре установлена новая модель, целиком обученная с нуля. Она показала лучший результат из трёх полных обучений на опубликованном тесте: **74,45% попаданий** против 69,53% у прежней модели.', '',
          '## Measured performance / Измеренное качество', '',
          '| Method | Hits | 95% Wilson interval | Mean distance, px |',

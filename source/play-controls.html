@@ -1,0 +1,11 @@
+<section id="hunt-controls" class="hunt-controls" hidden>
+  <p class="mini-label" data-t="huntTask"></p><p class="small" data-t="huntInstructions"></p>
+  <label for="hunt-noise"><span data-t="huntNoise"></span><output id="hunt-noise-value"></output></label>
+  <input id="hunt-noise" type="range" min="0" max="30" step="1" value="3">
+  <label for="hunt-target"><span data-t="huntTarget"></span><output id="hunt-target-value"></output></label>
+  <input id="hunt-target" type="range" min="8" max="92" step="1" value="50">
+  <p id="hunt-feasible" class="small" aria-live="polite"></p>
+</section>
+<section id="play-feedback" class="play-feedback" hidden aria-live="polite"><strong id="play-verdict"></strong><p id="play-explanation" class="small"></p><p id="friend-round" class="small"></p></section>
+<div id="round-tools" class="round-tools" hidden><button id="retry-round" class="secondary" data-t="retryRound"></button><button id="challenge-round" class="primary" data-t="challengeFriend"></button><button id="quick-to-daily" class="text-btn" data-t="continueDaily"></button></div>
+<section id="share-panel" class="share-panel" hidden aria-labelledby="share-heading"><strong id="share-heading" data-t="shareHeading"></strong><p class="small" data-t="shareExplanation"></p><label for="challenge-url" class="small" data-t="challengeUrl"></label><input id="challenge-url" type="url" readonly><div class="two-buttons"><button id="copy-challenge" class="secondary" data-t="copyChallenge"></button><button id="send-challenge" class="secondary" data-t="sendChallenge" hidden></button></div><button id="close-share" class="text-btn" data-t="closeShare"></button><p id="share-status" class="small" role="status"></p></section>

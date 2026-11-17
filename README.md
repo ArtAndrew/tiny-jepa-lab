@@ -56,18 +56,22 @@ Primary sources: [I-JEPA: predicting representations](https://ai.meta.com/blog/y
 
 ## Play
 
-Choose **Left**, **No push**, or **Right** for each of three actions, then launch your plan. Complete five daily rounds; a smaller distance to the target earns more points. In the playground, try different plans and add image noise to explore the model's mistakes.
+Choose **Left**, **No push**, or **Right** for each of three actions, then launch your plan. A smaller distance to the target earns more points.
+
+- **Quick play:** start with one round. See both trajectories, retry, or move on to five daily rounds.
+- **Challenge a friend:** after a round or a complete daily run, copy a link containing your scene and actions. Your friend plays the same challenge; both scores are recalculated in the browser. No account or backend is needed, and the link does not verify a player’s identity.
+- **Find a weakness:** move the target or add image noise, then find a plan that hits while JEPA misses. The game warns if no plan can reach your target. Share a discovered failure as a replayable challenge.
 
 - Runs locally in your browser; no account or external AI API is needed to play.
 - Russian, English, and Simplified Chinese; light, dark, and automatic themes.
-- Save a result card and challenge a friend on the same daily scenes.
+- Save a result card after five daily rounds. Quick play and weakness experiments do not enter the daily leaderboard.
 - Optional public leaderboard: after five rounds, open the prepared GitHub form and click **Create**. Your GitHub username and actions become public; scores are recomputed automatically. A GitHub account is needed only for this step.
 
 The leaderboard keeps your best accepted result for a day. Close the corresponding GitHub issue to withdraw it. Scores are checked; assisted or automated play is not detected.
 
 ## Explore or contribute
 
-Found a confusing control or a model failure? [Open an issue](https://github.com/ArtAndrew/tiny-jepa-lab/issues/new) with the day, round, and chosen actions. Screenshots and translation improvements are welcome.
+Found a confusing control or a model failure? [Open an issue](https://github.com/ArtAndrew/tiny-jepa-lab/issues/new) with a challenge link, or the day, round, and chosen actions. Screenshots and translation improvements are welcome.
 
 [Developer guide](DEVELOPMENT.md) · [Original experiment report (RU)](materials/ORBIT_RELEASE_REPORT_RU.md) · [Launch materials](promotion/README.md)
 
@@ -75,7 +79,7 @@ Found a confusing control or a model failure? [Open an issue](https://github.com
 
 [**Runnable notebook**](materials/ORBIT_Action_Planning.ipynb) · [**Current model weights**](experiments/temporal-44/) · [**Current benchmark**](BENCHMARK.md) · [**Training guide**](REPRODUCIBILITY.md) · [Model card](MODEL_CARD.md)
 
-**v0.6: train the entire model from scratch.** The recovered temporal JEPA code trains the visual encoder and EMA teacher, then the display probe and action predictor. [Run the full training notebook](materials/ORBIT_From_Scratch.ipynb) or follow [the recipe and independently measured results](FROM_SCRATCH.md). Three complete training seeds, logs, separate weights and repeat checks are included. **v0.6 now runs the best of these three complete temporal trainings in the game: 74.45% hits on the selection benchmark.** [Current game model and results](BENCHMARK.md).
+**The entire model can be trained from scratch.** The recovered temporal JEPA code trains the visual encoder and EMA teacher, then the display probe and action predictor. [Run the full training notebook](materials/ORBIT_From_Scratch.ipynb) or follow [the recipe and independently measured results](FROM_SCRATCH.md). Three complete training seeds, logs, separate weights and repeat checks are included. **v0.7 uses the best of these three complete temporal trainings: 74.45% hits on the selection benchmark.** This gameplay release does not change the weights or claim a new benchmark. [Current game model and results](BENCHMARK.md).
 
 [Explore three real model mistakes →](https://artandrew.github.io/tiny-jepa-lab/#failures)
 
