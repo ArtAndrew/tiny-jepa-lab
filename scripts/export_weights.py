@@ -33,7 +33,7 @@ def export():
     provenance = {'origin': 'Exact tensors exported from the supplied v0.3 HTML; no retraining.',
                   'source': 'source/ORBIT_JEPA_RU_EN_ZH.html', 'source_binary_sha256': manifest['sha256'],
                   'model_id': manifest['modelId'], 'files_sha256': files,
-                  'encoder_pretraining': 'Original pretraining code/data are unavailable. Encoder is supplied as a frozen dependency.'}
+                  'encoder_pretraining': 'Recovered original training source is in ml/original-training. This export preserves the historical v0.3 checkpoint.'}
     (destination / 'provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
     print(json.dumps(provenance, indent=2))
 

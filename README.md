@@ -73,9 +73,9 @@ Found a confusing control or a model failure? [Open an issue](https://github.com
 
 ## Run and reproduce the model
 
-[**Runnable notebook**](materials/ORBIT_Action_Planning.ipynb) · [**Separate weights**](artifacts/action_jepa/) · [**Benchmark**](BENCHMARK.md) · [**Training guide**](REPRODUCIBILITY.md) · [Model card](MODEL_CARD.md)
+[**Runnable notebook**](materials/ORBIT_Action_Planning.ipynb) · [**Current model weights**](experiments/temporal-44/) · [**Current benchmark**](BENCHMARK.md) · [**Training guide**](REPRODUCIBILITY.md) · [Model card](MODEL_CARD.md)
 
-**v0.5: train the entire model from scratch.** The recovered temporal JEPA code trains the visual encoder and EMA teacher, then the display probe and action predictor. [Run the full training notebook](materials/ORBIT_From_Scratch.ipynb) or follow [the recipe and independently measured results](FROM_SCRATCH.md). Three complete training seeds, logs, separate weights and repeat checks are included. The browser continues to use the original model.
+**v0.6: train the entire model from scratch.** The recovered temporal JEPA code trains the visual encoder and EMA teacher, then the display probe and action predictor. [Run the full training notebook](materials/ORBIT_From_Scratch.ipynb) or follow [the recipe and independently measured results](FROM_SCRATCH.md). Three complete training seeds, logs, separate weights and repeat checks are included. **v0.6 now runs the best of these three complete temporal trainings in the game: 74.45% hits on the selection benchmark.** [Current game model and results](BENCHMARK.md).
 
 [Explore three real model mistakes →](https://artandrew.github.io/tiny-jepa-lab/#failures)
 
@@ -83,7 +83,7 @@ Found a confusing control or a model failure? [Open an issue](https://github.com
 # Python 3.12, from the repository root
 python -m pip install -r requirements-notebook.txt
 python scripts/execute_notebook.py
-python -m planning.benchmark --out reports/my-benchmark.json
+python -m planning.benchmark --no-released --model-dirs experiments/temporal-44 --out reports/my-benchmark.json
 ```
 
 See the training guide for an isolated environment, PyTorch installation and commands to retrain. The original notebook remains in `materials/archive/`.

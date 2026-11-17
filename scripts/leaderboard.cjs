@@ -1,9 +1,7 @@
 'use strict';
 const C = require('../game/orbit.js');
-const { readFileSync } = require('node:fs');
-const { resolve } = require('node:path');
-const source = readFileSync(resolve(__dirname, '../source/ORBIT_JEPA_RU_EN_ZH.html'), 'utf8');
-const manifest = JSON.parse(source.match(/<script id="orbit-manifest"[^>]*>(.*?)<\/script>/s)[1]);
+const {manifest, release} = require('./model_pack.cjs');
+const supportedModels = new Set([manifest.modelId, ...release.previousModels]);
 const MARKER = '<!-- ORBIT_REPLAY -->';
 const DAY_MS = 86400000;
 
@@ -17,7 +15,7 @@ function validateReplay(body, { now = new Date(), createdAt = now.toISOString() 
   if (!replay || Array.isArray(replay) || typeof replay !== 'object' ||
       Object.keys(replay).sort().join(',') !== 'actions,day,model,version') throw Error('invalid-fields');
   if (replay.version !== C.RULES) throw Error('unsupported-rules');
-  if (replay.model !== manifest.modelId) throw Error('unsupported-model');
+  if (!supportedModels.has(replay.model)) throw Error('unsupported-model');
   if (!C.validDay(replay.day)) throw Error('invalid-day');
   const today = now.toISOString().slice(0, 10);
   const age = Date.parse(today) - Date.parse(replay.day);
@@ -32,7 +30,7 @@ function validateReplay(body, { now = new Date(), createdAt = now.toISOString() 
   // Coordinates and claimed scores are never accepted from the browser.
   const rounds = replay.actions.map((actions, i) => C.outcome(C.roundScene(replay.day, i), actions));
   return {
-    day: replay.day, model: manifest.modelId, rules: C.RULES,
+    day: replay.day, model: replay.model, rules: C.RULES,
     score: rounds.reduce((total, round) => total + round.pointsScore, 0),
     hits: rounds.filter(round => round.hit).length,
     roundScores: rounds.map(round => round.pointsScore)
@@ -56,7 +54,7 @@ function buildLeaderboard(issues, now = new Date()) {
       }
       const row = { ...result, user: issue.user.login, issue: issue.number };
       delete row.roundScores;
-      const key = issue.user.id + '|' + result.day;
+      const key = issue.user.id + '|' + result.day + '|' + result.model;
       const old = best.get(key);
       if (!old || row.score > old.score || (row.score === old.score && row.issue < old.issue)) best.set(key, row);
       checks.push({ issue: issue.number, status: 'accepted', score: result.score });

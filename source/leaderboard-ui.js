@@ -13,7 +13,7 @@ function renderBoard() {
     host.append(boardRow('#',T('model'),T('success'),T('error'),'header-row'));
     const names={oracle:'modelOracle',model:'modelJEPA',no_push:'modelCoast',random:'modelRandom',shuffled_actions:'modelShuffled'};
     Object.keys(names).sort((a,b)=>benchmark[b].hit_rate.mean-benchmark[a].hit_rate.mean).forEach((k,i)=>{
-      host.append(boardRow(String(i+1).padStart(2,'0'),T(names[k]),(100*benchmark[k].hit_rate.mean).toFixed(1)+'%',benchmark[k].goal_distance_px.mean.toFixed(2)+' px',k==='model'?'highlight':''));
+      host.append(boardRow(String(i+1).padStart(2,'0'),T(names[k]),(100*benchmark[k].hit_rate.mean).toLocaleString(lang==='zh'?'zh-CN':lang,{minimumFractionDigits:2,maximumFractionDigits:2})+'%',benchmark[k].goal_distance_px.mean.toFixed(2)+' px',k==='model'?'highlight':''));
     });
     txt('board-note',T('benchmarkNote')); return;
   }

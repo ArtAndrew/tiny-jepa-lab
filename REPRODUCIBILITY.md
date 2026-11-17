@@ -1,88 +1,87 @@
-# Reproduce ORBIT / Как повторить эксперимент
+# Run and reproduce ORBIT / Запуск и воспроизведение ORBIT
 
-**v0.5 now includes the recovered full training recipe:** visual encoder + EMA teacher + temporal predictor, display probe and action predictor, all from random initialization. Start with [FROM_SCRATCH.md](FROM_SCRATCH.md) or the [training notebook](materials/ORBIT_From_Scratch.ipynb). The sections below also preserve the v0.4 inference, benchmark and predictor-only recipe.
+**Current game: ORBIT v0.6, fully trained model `temporal-44`.** [Benchmark](BENCHMARK.md) · [Architecture](MODEL_CARD.md) · [Full training recipe](FROM_SCRATCH.md).
 
-**По-русски:** исходный код предобучения восстановлен и проверен. Теперь можно обучить всю цепочку без готовых весов. [Полная инструкция и измерения](FROM_SCRATCH.md). В игре используется исходная модель; новые модели доступны как отдельные эксперименты.
+**По-русски:** ниже — команды для той модели, которая сейчас работает в игре. Она показала 74,45% попаданий на тесте из 3 072 сцен, по которому её выбрали из трёх полных обучений. Можно запустить готовую модель или повторить всю цепочку обучения с нуля.
 
-## 1. Install
+## 1. Install / Установка
 
-Use Python **3.12** and Node.js **24**. From a fresh clone:
+Use Python 3.12 and Node.js 24:
 
 ```sh
 git clone https://github.com/ArtAndrew/tiny-jepa-lab.git
 cd tiny-jepa-lab
 python3.12 -m venv .venv
-# Windows: .venv\Scripts\activate
 source .venv/bin/activate
+# Windows: .venv\Scripts\activate
 python -m pip install -r requirements-notebook.txt
 ```
 
-NumPy is the only dependency for inference and benchmarks (`requirements.txt`). PyTorch is needed only for training. The notebook dependencies provide a kernel and headless execution; use your existing Jupyter/VS Code interface to edit cells interactively.
+NumPy is sufficient for inference and benchmarks. PyTorch is needed for training; no external dataset, model service or GPU is required.
 
-## 2. Run the notebook and checks
+## 2. Run the current game model / Запустить модель из игры
 
 ```sh
 python scripts/execute_notebook.py
-python -m unittest discover -s tests -v
-node --test scripts/test_*.cjs
 ```
 
-[Open the executed notebook](materials/ORBIT_Action_Planning.ipynb). All seven code cells are run by the execution command; failures stop the command. It loads the weights, chooses a plan from images, executes it in the simulator, illustrates an error and **actually evaluates 256 fresh scenes**. Its final cell separately reads the larger published report.
+[The inference notebook](materials/ORBIT_Action_Planning.ipynb) loads the exact deployed model, chooses a plan from images, illustrates a measured failure and evaluates 256 fresh scenes. All seven code cells are executed and any error stops the command.
 
-The tests compare Python and JavaScript observations, feature vectors, all 27 plan predictions, decoded coordinates and simulation outcomes. Training tests are skipped when PyTorch is absent. Set `NODE=/absolute/path/to/node` if Node is outside `PATH`.
+To load the current model in Python:
 
-The original notebook is preserved in [materials/archive](materials/archive/ORBIT_Action_Planning_v03.ipynb), with its original missing-dependency limitation.
+```python
+from planning.model import load_active_model
+model = load_active_model()
+```
 
-## 3. Repeat the published-model benchmark
+## 3. Repeat the benchmark / Повторить бенчмарк
 
 ```sh
-OPENBLAS_NUM_THREADS=1 python -m planning.benchmark --out reports/my-benchmark.json
+OPENBLAS_NUM_THREADS=1 python -m planning.benchmark --no-released --model-dirs experiments/temporal-44 --out reports/current-model.json
 ```
 
-On Windows, set the environment variable separately or omit it. Defaults: evaluation seeds `99017 99018 99019`, 1,024 scenes per seed, four conditions. The command uses the original model and evaluates 12,288 scene/condition pairs. See [the protocol and results](BENCHMARK.md). Output paths may be changed without changing the protocol.
+The command loads the complete deployed encoder, predictor and probe and evaluates 1,024 scenes for each of seeds 99017, 99018 and 99019 under four conditions. On Windows, set the environment variable separately or omit it. [Measured results and selection limits](BENCHMARK.md).
 
-For a quick check:
+For a quick execution check:
 
 ```sh
-python -m planning.benchmark --per-seed 32 --conditions normal --out reports/quick.json
+python -m planning.benchmark --no-released --model-dirs experiments/temporal-44 --per-seed 32 --conditions normal --out reports/quick.json
 ```
 
-This smaller run is not comparable to the published sample size. Three **evaluation seeds** are not three independent **training seeds**.
+This smaller check is not comparable to the full sample size.
 
-## 4. Train an action predictor
+## 4. Train from scratch / Обучить с нуля
 
 ```sh
 python -m pip install -r requirements-training.txt
-python -m planning.training --config configs/train-actions.json --seed 31001 --out runs/my-seed-31001
-python -m planning.training --config configs/train-actions.json --seed 31003 --out runs/my-seed-31003
-python -m planning.training --config configs/train-actions.json --seed 31005 --out runs/my-seed-31005
-python -m planning.benchmark --predictors runs/my-seed-31001/predictor.npz runs/my-seed-31003/predictor.npz runs/my-seed-31005/predictor.npz --out reports/my-comparison.json
+python -m planning.original_training --seed 44 --action-seed 31005 --out runs/my-model
+python -m planning.benchmark --no-released --model-dirs runs/my-model --out reports/my-model.json
 ```
 
-On Linux without CUDA, the official CPU wheel can be installed with `python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu` after installing `requirements.txt`. All training in this recipe uses CPU explicitly.
+On Linux, a CPU-only PyTorch wheel can be installed with `python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu`. The tested recipe uses CPU explicitly.
 
-Each training output directory must be **new**. It receives `predictor.npz` and `training.json`: complete configuration, validation history, chosen step, hashes, software versions, elapsed time and process peak RSS. The committed [experiments](experiments/) also contain captured console logs for all three full 5,000-step runs.
+Every output directory must be new. The runner starts the visual encoder, EMA teacher, temporal predictor, display probe and action predictor from random initialization. It uses the recovered numerical code in a fresh workspace without pretrained checkpoints and records configuration, environment, logs, hashes and measured results. [Full method and three independent runs](FROM_SCRATCH.md).
 
-The frozen encoder maps images to features. A randomly initialized action predictor learns future features from synthetic trajectories. Its loss contains **no coordinate targets, reward or oracle cost**. The coordinate probe is not trained or used to select actions. Validation seed `41002` selects the checkpoint; benchmark scenes are never used for training or checkpoint selection. See [the model card](MODEL_CARD.md) for exact architecture and data generation.
-
-This v0.4 section trains only the predictor. Multiple runs here vary the predictor initialization, training trajectories and minibatches while sharing that same frozen encoder and validation set. They are **not** independent end-to-end JEPA pretrainings.
-
-## 5. Exact weights and data provenance
-
-The three standalone files are [encoder.npz](artifacts/action_jepa/encoder.npz), [predictor.npz](artifacts/action_jepa/predictor.npz) and [probe.npz](artifacts/action_jepa/probe.npz). They were exported without changing any tensor from the supplied HTML. [Provenance and hashes](artifacts/action_jepa/provenance.json) and [tensor shapes](artifacts/action_jepa/manifest.json) are included.
+The [training notebook](materials/ORBIT_From_Scratch.ipynb) executes this full process:
 
 ```sh
-python scripts/export_weights.py
-node scripts/build_failures.cjs
-python3 scripts/build_site.py
+python scripts/execute_notebook.py --notebook materials/ORBIT_From_Scratch.ipynb
 ```
 
-The export regenerates the original weights, not newly trained weights. New predictors stay in their experiment directories and do not replace the browser model or change the leaderboard version.
+## 5. Verify and build / Проверить и собрать
 
-## Limits of reproducibility
+```sh
+python -m unittest discover -s tests -v
+node scripts/build_failures.cjs
+python scripts/build_research_docs.py
+python3 scripts/build_site.py
+node --test scripts/test_*.cjs
+```
 
-- Identical seeds and pinned dependencies repeat the tested CPU recipe. Bitwise agreement across other operating systems, BLAS libraries or PyTorch versions is not promised; [PyTorch documents this limitation](https://docs.pytorch.org/docs/2.5/notes/randomness.html).
-- `experiments/environment-macos.txt` records the complete environment used for the published measurements; it is a platform-specific record, not a universal requirements file.
-- Wall-clock time includes dataset encoding, optimization, validation and weight export, but excludes process startup/imports. Peak RSS is the whole process high-water mark, not tensor memory alone; it is recorded as `null` when the platform lacks the standard-library counter (Windows). Hardware model was unavailable to this sandbox and is recorded as `null`; no CPU model is guessed.
-- The historical report's 67.8% describes a different scene namespace. Its recovered source and logs now live in `ml/original-training/`. The new multi-seed reports remain explicitly labelled `orbit-v04-eval`.
-- Full encoder training is now available in the separate guide. No real-world robotics benchmark, moving target or closed-loop MPC is claimed.
+Set `NODE=/absolute/path/to/node` if Node is outside `PATH`. Python/JavaScript parity checks compare observations, embeddings, all 27 plans, decoded coordinates and outcomes. GitHub Actions also executes both notebooks, including full training from scratch.
+
+The deployed bundle is selected by `source/model-release.json`. The builder verifies its binary hash and all NPZ hashes against the measured report. The game, gallery, illustrations and leaderboard use that same selection. Training never deploys automatically.
+
+## Limits / Ограничения
+
+Identical seeds repeat in the tested local environment. Bitwise equality across operating systems, hardware or PyTorch versions is not guaranteed. The deployed model was selected using the displayed benchmark; this is not an independent post-selection evaluation. The experiment concerns a synthetic ball world, not real-world robotics or an LLM comparison.

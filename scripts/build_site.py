@@ -36,8 +36,11 @@ def replace_json(text, key, value):
                   lambda m: m[1] + payload + m[2], text, flags=re.S)
 
 
-manifest = embedded(source, "orbit-manifest")
-weights = base64.b64decode(re.search(r'<script id="orbit-bytes"[^>]*>(.*?)</script>', source, re.S)[1])
+release = json.loads((ROOT / 'source/model-release.json').read_text())
+model_directory = ROOT / release['directory']
+manifest = json.loads((model_directory / 'manifest.json').read_text())
+weights = (model_directory / 'model.bin').read_bytes()
+assert manifest['modelId'] == release['modelId'] and manifest['sha256'] == release['sha256']
 assert len(weights) == manifest["byteLength"]
 assert hashlib.sha256(weights).hexdigest() == manifest["sha256"]
 
@@ -51,8 +54,11 @@ failures_i18n = json.loads((ROOT / 'source/failures.json').read_text())
 failures = json.loads((ROOT / 'docs/assets/failures.json').read_text())
 assert failures['modelId'] == manifest['modelId']
 research_copy = json.loads((ROOT / 'source/research.json').read_text())
-research_report = json.loads((ROOT / 'reports/benchmark.json').read_text())
-measured = research_report['models']['released_v03']['conditions']['normal']['aggregate']
+research_report = json.loads((ROOT / release['benchmark']).read_text())
+model_report = research_report['models'][release['benchmarkModel']]
+for name in ['encoder', 'predictor', 'probe']:
+    assert hashlib.sha256((model_directory / (name + '.npz')).read_bytes()).hexdigest() == model_report[name + '_sha256']
+measured = model_report['conditions']['normal']['aggregate']
 benchmark_data = {'n': research_report['per_seed'] * len(research_report['seeds']),
                   'protocol': research_report['protocol'], 'evaluation_seeds': research_report['seeds']}
 for name, result in measured.items():
@@ -86,9 +92,15 @@ def themed_canvas(text, start, end):
 updates = json.loads((ROOT / 'source/leaderboard.json').read_text())
 for language, values in updates.items():
     i18n[language].update(values)
+    i18n[language].update(research_copy[language])
+    rate = f"{100 * measured['model']['hit_rate']:.2f}"
+    i18n[language]['releaseNote'] = i18n[language]['releaseNote'].replace('{hitRate}', rate.replace('.', ',') if language == 'ru' else rate)
 
 for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = source
+    text = replace_json(text, 'orbit-manifest', manifest)
+    text = re.sub(r'(<script id="orbit-bytes"[^>]*>).*?(</script>)',
+                  lambda m: m[1] + base64.b64encode(weights).decode() + m[2], text, flags=re.S)
     text = replace_once(text, '</style>', intro_css + '\n' + extra_css + '\n</style>')
     text = replace_once(text, '<style>', '<script>' + theme_js + '</script>\n<style>')
     text = replace_once(text, '<style>', '<script>' + (ROOT / 'source/navigation.js').read_text() + '</script>\n<style>')
@@ -132,7 +144,7 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = replace_json(text, "orbit-i18n", i18n)
     text = replace_json(text, "orbit-board", board)
     text = replace_json(text, "orbit-benchmark", benchmark_data)
-    text = replace_once(text, 'MIT · v0.3', 'MIT · v0.5')
+    text = replace_once(text, 'MIT · v0.3', 'MIT · v' + release['version'])
     text = re.sub(r'<html lang="[^"]+">', '<html lang="' + ("zh-Hans" if language == "zh" else language) + '">', text, count=1)
     title = html.escape(i18n[language]["pageTitle"], quote=True)
     description = html.escape(i18n[language]["description"], quote=True)
@@ -183,4 +195,4 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
 (ROOT / "docs/sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     ''.join('<url><loc>' + BASE + route + '</loc></url>\n' for route in ["", "ru/", "zh/"]) + '</urlset>\n')
-print("Original model verified:", manifest["modelId"], manifest["sha256"])
+print("Active model verified:", manifest["modelId"], manifest["sha256"])

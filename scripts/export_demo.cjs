@@ -2,12 +2,8 @@
 // Generate the promotion fixture using the shipped neural weights and game rules.
 const fs = require('node:fs');
 const path = require('node:path');
-const C = require('../game/orbit.js');
+const {C, pack, manifest} = require('./model_pack.cjs');
 const root = path.resolve(__dirname, '..');
-const source = fs.readFileSync(path.join(root, 'source/ORBIT_JEPA_RU_EN_ZH.html'), 'utf8');
-const manifest = JSON.parse(source.match(/<script id="orbit-manifest"[^>]*>(.*?)<\/script>/s)[1]);
-const binary = Buffer.from(source.match(/<script id="orbit-bytes"[^>]*>(.*?)<\/script>/s)[1], 'base64');
-const pack = C.unpack(manifest, binary.buffer.slice(binary.byteOffset, binary.byteOffset + binary.byteLength));
 const day = '2026-11-16', round = 0;
 const scene = C.roundScene(day, round), playerActions = [0, 0, 0];
 const modelActions = C.rankPlans(pack, scene.frames, scene.goalFrame)[0].actions;

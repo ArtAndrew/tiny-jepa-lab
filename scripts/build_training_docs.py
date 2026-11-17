@@ -5,8 +5,8 @@ from pathlib import Path
 root = Path(__file__).resolve().parents[1]
 vicreg = json.loads((root/'reports/from-scratch.json').read_text())
 temporal = json.loads((root/'reports/temporal.json').read_text())
-rows = [('Released browser model', vicreg['models']['released_v03'])]
-rows += [(name, entry) for name, entry in temporal['models'].items()]
+rows = []
+rows += [(name + (' (current game)' if name == json.loads((root/'source/model-release.json').read_text())['benchmarkModel'] else ''), entry) for name, entry in temporal['models'].items()]
 rows += [('VICReg '+name.removeprefix('scratch-'), entry)
          for name, entry in vicreg['models'].items() if name != 'released_v03']
 table = ['| Model | Normal hits, 95% CI | More image noise | Weaker push | Stronger push |',

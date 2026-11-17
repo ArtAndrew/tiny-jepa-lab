@@ -8,5 +8,5 @@
     "predictor.npz": "eb886daffd1d67f1f775523ff704d9900836b52bce28c11ba343fc6d6b3087eb",
     "probe.npz": "e5245f0a104dc9f82e01f7a2160f5508ced79d5899f62ec3c95b8345324e6d15"
   },
-  "encoder_pretraining": "Original pretraining code/data are unavailable. Encoder is supplied as a frozen dependency."
+  "encoder_pretraining": "Recovered original training source is in ml/original-training. This export preserves the historical v0.3 checkpoint."
 }

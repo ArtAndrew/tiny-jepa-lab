@@ -1,6 +1,6 @@
 # Train ORBIT from scratch / Обучить ORBIT с нуля
 
-**v0.5 includes the recovered original temporal JEPA training code and independent full reruns. No pretrained weights are required.** The published browser game retains its original model; training creates a separate complete model bundle.
+**ORBIT includes the complete temporal JEPA training code and independent full reruns. No pretrained weights are required.** **Since v0.6, the browser runs `temporal-44`, the best of the three published temporal trainings on the selection benchmark.** [Current model](BENCHMARK.md). New training commands create separate bundles and do not deploy automatically.
 
 **По-русски:** восстановлен исходный рецепт обучения энкодера: модель по двум изображениям учится предсказывать признаки будущего кадра. Затем обучаются отдельный координатный probe для рисунка и предиктор действий. Всё начинается со случайных весов. Нужны только Python, PyTorch, NumPy и Node.js; данные генерируются локально.
 
@@ -15,7 +15,7 @@ python3.12 -m venv .venv
 source .venv/bin/activate
 # Windows: .venv\Scripts\activate
 python -m pip install -r requirements-training.txt
-python -m planning.original_training --out runs/original-42 --ablation
+python -m planning.original_training --seed 44 --action-seed 31005 --out runs/temporal-44
 ```
 
 The tested local stack is Python 3.12.14, PyTorch 2.5.1, NumPy 2.1.3, macOS arm64 / Apple M2, two PyTorch CPU threads. Linux CI uses Python 3.12 and PyTorch 2.5.1 CPU. For Linux, the CPU-only install is:
@@ -45,7 +45,7 @@ python -m planning.original_training --seed 44 --action-seed 31005 --out runs/te
 python -m planning.benchmark --no-released --model-dirs runs/temporal-42 runs/temporal-43 runs/temporal-44 --out reports/my-temporal.json
 ```
 
-Load all components together: `load_model(model_dir="runs/temporal-42")`. Mixing a new encoder with an old predictor is invalid. Pass complete bundles via `--model-dirs`; `--predictors` is reserved for v0.4 experiments sharing the released encoder.
+Load all components together: `load_model(model_dir="runs/temporal-44")`. Mixing a new encoder with an old predictor is invalid. Pass complete bundles via `--model-dirs`.
 
 ## What is trained
 
@@ -68,10 +68,9 @@ The separately supervised probe only draws predictions. The planner ranks 27 act
 <!-- measured:start -->
 | Model | Normal hits, 95% CI | More image noise | Weaker push | Stronger push |
 |---|---:|---:|---:|---:|
-| Released browser model | 69.53% [67.88, 71.13] | 27.54% | 64.06% | 36.17% |
 | temporal-42 | 68.65% [66.99, 70.27] | 27.67% | 64.84% | 35.55% |
 | temporal-43 | 67.51% [65.84, 69.15] | 28.06% | 64.65% | 37.40% |
-| temporal-44 | 74.45% [72.87, 75.96] | 32.29% | 65.89% | 37.47% |
+| temporal-44 (current game) | 74.45% [72.87, 75.96] | 32.29% | 65.89% | 37.47% |
 | VICReg 51001 | 43.78% [42.04, 45.54] | 34.05% | 57.42% | 32.03% |
 | VICReg 51003 | 46.58% [44.82, 48.35] | 34.47% | 59.54% | 32.65% |
 | VICReg 51005 | 45.54% [43.79, 47.31] | 34.47% | 58.92% | 31.48% |
@@ -81,7 +80,7 @@ Random control: **18.78%** normal-condition hits; exact-physics oracle: **100%**
 [Temporal report](reports/temporal.json) · [VICReg and released-model report](reports/from-scratch.json) · [All checkpoints and logs](experiments/)
 <!-- measured:end -->
 
-The evaluation uses the unchanged [v0.4 protocol](BENCHMARK.md): 1,024 scenes for each of seeds 99017, 99018 and 99019, 3,072 scenes per condition, hit radius 0.06. Intervals are 95% Wilson intervals across scenes, not confidence intervals across training seeds. The oracle knows the physics and goals are reachable by construction. Noise and impulse changes are the same for every model.
+The evaluation uses the shared [evaluation protocol](BENCHMARK.md): 1,024 scenes for each of seeds 99017, 99018 and 99019, 3,072 scenes per condition, hit radius 0.06. Intervals are 95% Wilson intervals across scenes, not confidence intervals across training seeds. The oracle knows the physics and goals are reachable by construction. Noise and impulse changes are the same for every model.
 
 The earlier VICReg experiment is preserved in `planning/from_scratch.py`, `configs/train-from-scratch.json` and `experiments/scratch-*`. It aligns two noisy views of one state, without EMA or a temporal pretraining target. Repeat it with:
 
@@ -109,4 +108,4 @@ python -m unittest discover -s tests -v
 node --test scripts/test_*.cjs
 ```
 
-The notebook trains all components, loads the new bundle and actually evaluates 256 fresh scenes. CI runs the full recipe, including all original tests. `ORBIT_NOTEBOOK_SMOKE=1` optionally reduces training and is explicitly labelled an execution check. The published notebook contains a full local run. The current game and daily leaderboard continue using their original weights; retraining never automatically replaces them.
+The notebook trains all components, loads the new bundle and actually evaluates 256 fresh scenes. CI runs the full recipe, including all original tests. `ORBIT_NOTEBOOK_SMOKE=1` optionally reduces training and is explicitly labelled an execution check. The published notebook contains a full local run. The current game uses `temporal-44`; retraining never automatically deploys a model. Historical and current leaderboard results are kept separately.

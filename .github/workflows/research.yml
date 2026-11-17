@@ -2,9 +2,9 @@ name: Verify model and notebook
 on:
   push:
     branches: [main]
-    paths: ['ml/**', 'configs/**', 'source/ORBIT_JEPA_RU_EN_ZH.html', 'planning/**', 'tests/**', 'artifacts/**', 'experiments/**', 'materials/*.ipynb', 'scripts/**', 'requirements*.txt', '.github/workflows/research.yml']
+    paths: ['ml/**', 'configs/**', 'source/ORBIT_JEPA_RU_EN_ZH.html', 'source/model-release.json', 'planning/**', 'tests/**', 'artifacts/**', 'experiments/**', 'materials/*.ipynb', 'scripts/**', 'requirements*.txt', '.github/workflows/research.yml']
   pull_request:
-    paths: ['ml/**', 'configs/**', 'source/ORBIT_JEPA_RU_EN_ZH.html', 'planning/**', 'tests/**', 'artifacts/**', 'experiments/**', 'materials/*.ipynb', 'scripts/**', 'requirements*.txt', '.github/workflows/research.yml']
+    paths: ['ml/**', 'configs/**', 'source/ORBIT_JEPA_RU_EN_ZH.html', 'source/model-release.json', 'planning/**', 'tests/**', 'artifacts/**', 'experiments/**', 'materials/*.ipynb', 'scripts/**', 'requirements*.txt', '.github/workflows/research.yml']
   workflow_dispatch:
 permissions:
   contents: read

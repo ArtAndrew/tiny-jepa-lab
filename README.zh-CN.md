@@ -73,9 +73,9 @@ ORBIT 用小球演示这个思路：模型观察两帧图像，预测 27 种计�
 
 ## 运行与复现实验
 
-[**可运行的 notebook**](materials/ORBIT_Action_Planning.ipynb) · [**独立权重**](artifacts/action_jepa/) · [**评测报告**](BENCHMARK.md) · [**训练指南**](REPRODUCIBILITY.md) · [模型说明](MODEL_CARD.md)
+[**可运行的 notebook**](materials/ORBIT_Action_Planning.ipynb) · [**当前模型权重**](experiments/temporal-44/) · [**当前评测报告**](BENCHMARK.md) · [**训练指南**](REPRODUCIBILITY.md) · [模型说明](MODEL_CARD.md)
 
-**v0.5：可以从零训练整个模型。** 恢复的 temporal JEPA 代码训练视觉编码器及 EMA 目标网络，再训练坐标探针和动作预测器。[完整训练 notebook](materials/ORBIT_From_Scratch.ipynb) · [训练方法与独立实测结果](FROM_SCRATCH.md)。仓库提供三个训练种子的完整权重、日志和重复性检查。浏览器继续使用原始模型。
+**v0.6：可以从零训练整个模型。** 恢复的 temporal JEPA 代码训练视觉编码器及 EMA 目标网络，再训练坐标探针和动作预测器。[完整训练 notebook](materials/ORBIT_From_Scratch.ipynb) · [训练方法与独立实测结果](FROM_SCRATCH.md)。仓库提供三个训练种子的完整权重、日志和重复性检查。**v0.6 已在游戏中启用三次完整训练中成绩最好的模型：在用于选型的测试中命中率为 74.45%。** [当前模型与结果](BENCHMARK.md)。
 
 [查看三个真实的模型错误 →](https://artandrew.github.io/tiny-jepa-lab/zh/#failures)
 
@@ -83,7 +83,7 @@ ORBIT 用小球演示这个思路：模型观察两帧图像，预测 27 种计�
 # Python 3.12，在仓库根目录运行
 python -m pip install -r requirements-notebook.txt
 python scripts/execute_notebook.py
-python -m planning.benchmark --out reports/my-benchmark.json
+python -m planning.benchmark --no-released --model-dirs experiments/temporal-44 --out reports/my-benchmark.json
 ```
 
 隔离环境、PyTorch 安装和重新训练命令见训练指南。原始 notebook 保存在 `materials/archive/`。

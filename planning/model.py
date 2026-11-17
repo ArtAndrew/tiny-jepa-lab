@@ -6,10 +6,19 @@ JavaScript Number. Model methods receive images/features, never simulator state.
 from dataclasses import dataclass
 from itertools import product
 from pathlib import Path
+import json
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACTS = ROOT / 'artifacts/action_jepa'
+
+
+def load_active_model():
+    """Load the deployed bundle; historical experiments keep explicit old defaults."""
+    release = json.loads((ROOT / 'source/model-release.json').read_text())
+    return load_model(model_dir=ROOT / release['directory'])
+
+
 PLANS = np.array(list(product([-1, 0, 1], repeat=3)), dtype=np.int64)
 MARGIN, IMPULSE, MAX_SPEED, HIT = .08, .035, .14, .06
 

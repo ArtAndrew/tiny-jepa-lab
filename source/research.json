@@ -1,26 +1,41 @@
 {
   "ru": {
-    "benchmarkNote": "3 072 новые синтетические сцены, три тестовых seed. Радиус цели — 1,38 пикселя. Здесь показана модель, которая работает в игре. Условия и доверительные интервалы — в отчёте.",
+    "benchmarkNote": "3 072 тестовые сцены. В игре используется лучшая из трёх моделей, выбранная по этому тесту. Радиус цели — 1,38 пикселя. Подробные условия и доверительные интервалы — в отчёте.",
     "previousLab": "Как обучить модель с нуля ↗",
     "researchNotebook": "Открыть работающий notebook",
     "researchBenchmark": "Условия и результаты бенчмарка",
     "researchModel": "Архитектура и ограничения",
-    "researchTraining": "Notebook: обучение с нуля"
+    "researchTraining": "Notebook: обучение с нуля",
+    "releaseNote": "В игре — обновлённая JEPA, полностью обученная с нуля. Она попала в цель в {hitRate}% случаев на тесте из 3 072 сцен. Выбрали лучший результат из трёх обучений; в отдельных играх модель всё ещё ошибается.",
+    "modelJEPA": "JEPA · обновлённая",
+    "mismatch": "Ссылка создана для прежней модели. Сейчас ты играешь с обновлённой JEPA; сравнение с её прежним результатом будет отличаться.",
+    "honesty": "Как обучили модель",
+    "honestyBody": "Энкодер и предиктор действий обучены с нуля на синтетическом движении шарика. Отдельная сеть переводит прогноз в точки на экране и не выбирает план. Полный код обучения и веса доступны. Это маленький учебный мир: модель не обучалась на реальных предметах, а алгоритм с известной физикой решает эту задачу точнее."
   },
   "en": {
-    "benchmarkNote": "3,072 new synthetic scenes across three evaluation seeds. Goal radius: 1.38 pixels. This table measures the model running in the game. See the report for conditions and confidence intervals.",
+    "benchmarkNote": "3,072 test scenes. The game uses the best of three models, selected on this test. Goal radius: 1.38 pixels. See the report for detailed conditions and confidence intervals.",
     "previousLab": "Train the model from scratch ↗",
     "researchNotebook": "Open the runnable notebook",
     "researchBenchmark": "Benchmark protocol and results",
     "researchModel": "Architecture and limitations",
-    "researchTraining": "From-scratch training notebook"
+    "researchTraining": "From-scratch training notebook",
+    "releaseNote": "The game now uses an updated JEPA, trained entirely from scratch. It reached the goal in {hitRate}% of 3,072 test scenes. We selected the best of three training runs; it can still make mistakes in individual games.",
+    "modelJEPA": "JEPA · updated",
+    "mismatch": "This link was created with the previous model. You are now playing against the updated JEPA, so its result can differ from the earlier comparison.",
+    "honesty": "How the model was trained",
+    "honestyBody": "The encoder and action predictor were trained from scratch on synthetic ball motion. A separate network turns predictions into points on the screen and does not choose the plan. The full training code and weights are available. This is a small educational world: the model has not learned real objects, and an algorithm with exact physics solves this task more accurately."
   },
   "zh": {
-    "benchmarkNote": "使用三个评测种子的 3,072 个新合成场景。目标半径为 1.38 像素。此表评测的是游戏中运行的模型。实验条件与置信区间见报告。",
+    "benchmarkNote": "共 3,072 个测试场景。游戏使用三次训练中在此测试上表现最好的模型。目标半径为 1.38 像素，详细条件与置信区间见报告。",
     "previousLab": "从零训练模型 ↗",
     "researchNotebook": "打开可运行的 notebook",
     "researchBenchmark": "评测条件与结果",
     "researchModel": "架构与局限",
-    "researchTraining": "从零训练 notebook"
+    "researchTraining": "从零训练 notebook",
+    "releaseNote": "游戏已换用完全从零训练的新版 JEPA。在 3,072 个测试场景中，它的命中率为 {hitRate}%。我们选择了三次训练中成绩最好的一次；在具体回合中，它仍可能出错。",
+    "modelJEPA": "JEPA · 新版",
+    "mismatch": "此链接由旧模型创建。你现在面对的是新版 JEPA，因此与旧模型的比较结果可能不同。",
+    "honesty": "模型如何训练",
+    "honestyBody": "编码器和动作预测器都在合成的小球运动数据上从零训练。另一个网络将预测转换成屏幕上的点，不负责选择计划。完整训练代码和权重均已公开。这是一个小型教学世界：模型没有学习真实物体，而已知精确物理规则的算法在此任务上表现更好。"
   }
 }

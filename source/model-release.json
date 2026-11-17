@@ -1,0 +1,10 @@
+{
+  "version": "0.6",
+  "directory": "experiments/temporal-44",
+  "modelId": "d7aff1ecd184",
+  "sha256": "d7aff1ecd184c6119820413b95ecf83156764f81d0e1fc5626d28da50d41adf6",
+  "benchmark": "reports/temporal.json",
+  "benchmarkModel": "temporal-44",
+  "previousModels": ["982181571c5e"],
+  "selection": "Best normal-condition result among three fully trained temporal models on the reported 3072-scene benchmark; not an independent post-selection test."
+}

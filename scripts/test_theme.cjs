@@ -95,11 +95,12 @@ test('older media listeners work; canvas colors follow the active palette', () =
   assert.equal(b.window.OrbitTheme.color('#77e6cd'), '#087b69');
 });
 
-test('generated pages have valid scripts and unchanged model/physics code', () => {
+test('generated pages use the active weights and unchanged inference/physics code', () => {
   const root = resolve(__dirname, '..');
   const original = readFileSync(resolve(root, 'source/ORBIT_JEPA_RU_EN_ZH.html'), 'utf8');
   const scripts = html => Array.from(html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g));
   const originalExecutable = scripts(original).filter(s => !s[1].includes('type='));
+  const active = require('./model_pack.cjs');
   for (const route of ['', 'ru/', 'zh/']) {
     const html = readFileSync(resolve(root, 'docs', route, 'index.html'), 'utf8');
     const executable = scripts(html).filter(s => !s[1].includes('type='));
@@ -109,12 +110,25 @@ test('generated pages have valid scripts and unchanged model/physics code', () =
       assert.equal(executable.filter(s=>s[2]===originalScript[2]).length,1);
     }
     const bytes = text => text.match(/<script id="orbit-bytes"[^>]*>(.*?)<\/script>/s)[1];
-    assert.equal(bytes(html), bytes(original));
+    assert.equal(bytes(html), active.bytes.toString('base64'));
+    assert.notEqual(bytes(html), bytes(original));
+    const manifest = JSON.parse(html.match(/<script id="orbit-manifest"[^>]*>(.*?)<\/script>/s)[1]);
+    assert.equal(manifest.modelId, active.manifest.modelId);
+    const report = JSON.parse(readFileSync(resolve(root, active.release.benchmark), 'utf8'));
+    const benchmark = JSON.parse(html.match(/<script id="orbit-benchmark"[^>]*>(.*?)<\/script>/s)[1]);
+    const measured = report.models[active.release.benchmarkModel].conditions.normal.aggregate;
+    for (const name of Object.keys(measured)) {
+      assert.equal(benchmark[name].hit_rate.mean, measured[name].hit_rate);
+      assert.equal(benchmark[name].goal_distance_px.mean, measured[name].mean_distance_px);
+    }
+    assert.ok(html.includes('BENCHMARK.md'));
     assert.ok(html.includes("addEventListener('orbit-theme-change',draw)"));
     const ids = Array.from(html.matchAll(/\bid="([^"]+)"/g), m => m[1]);
     assert.equal(new Set(ids).size, ids.length);
     assert.equal((html.match(/id="theme-select"/g) || []).length, 1);
     const i18n = JSON.parse(html.match(/<script id="orbit-i18n"[^>]*>(.*?)<\/script>/s)[1]);
+    assert.equal(i18n.ru.previousLab,'Как обучить модель с нуля ↗');
+    assert.ok(i18n.ru.releaseNote.includes('74,45%'));
     for (const [, key] of html.matchAll(/\bdata-t="([^"]+)"/g)) {
       for (const lang of ['en', 'ru', 'zh']) assert.ok(i18n[lang][key], `${lang}: ${key}`);
     }

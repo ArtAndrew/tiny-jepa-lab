@@ -56,6 +56,17 @@ test('keeps the best verified result per account/day with stable tie ordering', 
   assert.equal(checks.length,3);
 });
 
+test('keeps old and new model results in separate leagues without discarding either', () => {
+  const legacy = {...plain(),model:require('../source/model-release.json').previousModels[0]};
+  assert.notEqual(legacy.model,modelId);
+  assert.equal(validateReplay(body(legacy),{now}).model,legacy.model);
+  const {board,checks}=buildLeaderboard([issue(1,legacy),issue(2),issue(3)],now);
+  assert.equal(board.entries.length,2);
+  assert.deepEqual(new Set(board.entries.map(row=>row.model)),new Set([legacy.model,modelId]));
+  assert.equal(board.entries.find(row=>row.model===modelId).issue,2);
+  assert.ok(checks.every(check=>check.status==='accepted'));
+});
+
 test('closed, excluded, bot and PR submissions cannot enter; smoke checks never add fake scores', () => {
   const {board,checks}=buildLeaderboard([
     issue(1,plain(),{state:'closed'}),issue(2,plain(),{labels:[{name:'orbit-exclude'}]}),

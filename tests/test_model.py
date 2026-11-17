@@ -9,7 +9,7 @@ import subprocess
 import tempfile
 import unittest
 import numpy as np
-from planning.model import ARTIFACTS, PLANS, ROOT, load_model, rollout, scenario, seed_hash
+from planning.model import ARTIFACTS, PLANS, ROOT, load_model, load_active_model, rollout, scenario, seed_hash
 from planning.benchmark import evaluate, summary
 
 
@@ -31,7 +31,7 @@ class ModelTests(unittest.TestCase):
         node = os.environ.get('NODE') or shutil.which('node')
         self.assertIsNotNone(node,'Set NODE to the Node executable for cross-language verification')
         cases = [dict(seed=seed,noise=noise) for seed,noise in [(0,0),(1,.03),(4294967295,.3),(seed_hash('orbit-1|2026-11-16|0'),.03)]]
-        raw = subprocess.check_output([node,str(ROOT/'scripts/reference_predictions.cjs')],input=json.dumps(cases),text=True)
+        raw = subprocess.check_output([node,str(ROOT/'scripts/reference_predictions.cjs'),'--legacy'],input=json.dumps(cases),text=True)
         for case, ref in zip(cases,json.loads(raw)):
             scene = scenario(**case)
             for key in ['p0','p1','v','goal','frames']:
@@ -52,6 +52,23 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(a['aggregate']['oracle']['hit_rate'],1.)
         for impulse in [.0175,.0525]:
             self.assertEqual(evaluate(self.model,[991],8,impulse=impulse)['aggregate']['oracle']['hit_rate'],1.)
+
+    def test_current_deployment_matches_browser_loader_and_measured_checkpoint(self):
+        release=json.loads((ROOT/'source/model-release.json').read_text())
+        model=load_active_model()
+        report=json.loads((ROOT/release['benchmark']).read_text())['models'][release['benchmarkModel']]
+        for name in ['encoder','predictor','probe']:
+            self.assertEqual(hashlib.sha256((ROOT/release['directory']/(name+'.npz')).read_bytes()).hexdigest(),
+                             report[name+'_sha256'])
+        node=os.environ.get('NODE') or shutil.which('node')
+        cases=[{'seed':37,'noise':.03},{'seed':2144274839,'noise':.15}]
+        reference=json.loads(subprocess.check_output([node,str(ROOT/'scripts/reference_predictions.cjs')],
+                                                    input=json.dumps(cases),text=True))
+        for case,row in zip(cases,reference):
+            scene=scenario(**case);best,_,predictions=model.rank(scene['frames'],scene['goal_frame'])
+            self.assertEqual(int(best),row['ranked'][0]['index'])
+            for plan in row['ranked']:
+                np.testing.assert_allclose(predictions[plan['index']],plan['z'],atol=2e-12,rtol=0)
 
     def test_wilson_interval_does_not_collapse_at_perfect_accuracy(self):
         result=summary(np.zeros(100))

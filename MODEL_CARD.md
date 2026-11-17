@@ -18,9 +18,9 @@ Only the predictor's features and the goal image determine the plan. The exact p
 
 ## Released model and provenance
 
-The browser runs the supplied v0.3 model, with exact tensors extracted into `artifacts/action_jepa/`. The source binary hash and each file's hash are in [provenance.json](artifacts/action_jepa/provenance.json). Loading uses `allow_pickle=False`.
+**The v0.6 game runs `temporal-44`, trained entirely from scratch with encoder seed 44 and action seed 31005.** [Current performance and selection limits](BENCHMARK.md) · [Complete weights and logs](experiments/temporal-44/) · [Deployment record](source/model-release.json). It scored 74.45% on the 3,072-scene benchmark used to choose the best of three full runs.
 
-The original training source, histories and separate checkpoints were recovered on 2026-11-17. All 17 supplied source hashes were verified; the EMA teacher, probe and action-predictor tensors exactly match the browser model. See [recovered source](ml/original-training/), [original numeric checkpoints](artifacts/original-training/) and [new independent runs](FROM_SCRATCH.md).
+The complete training source, configurations, logs and numeric checkpoints are available in this repository. Inference loads numeric arrays with `allow_pickle=False`.
 
 ## Recovered visual pretraining
 
@@ -28,27 +28,27 @@ Two 24 × 24 images and a horizon of 1–4 steps feed a trainable encoder and te
 
 The objective is `10 × prediction MSE + 10 × variance penalty + covariance penalty`. Regularization uses the concatenated student features of both context frames and the future frame. The student and temporal predictor train for 2,400 steps with batch 128, AdamW 0.001, weight decay 0.0001 and gradient clipping at 5. The final checkpoint is retained. Synthetic trajectories are generated online, seed 42 in the reference run.
 
-Downstream training uses the **frozen EMA teacher**. The display probe trains on 8,192 observed embeddings with coordinate supervision, 800 steps, Adam 0.003. The action predictor trains on 65,536 trajectories for 5,000 steps, with AdamW and cosine decay to 0.0001. Its checkpoint minimizes validation latent MSE on 2,048 separate trajectories. These recovered settings differ from the v0.4 reconstruction below.
+Downstream training uses the **frozen EMA teacher**. The display probe trains on 8,192 observed embeddings with coordinate supervision, 800 steps, Adam 0.003. The action predictor trains on 65,536 trajectories for 5,000 steps, with AdamW and cosine decay to 0.0001. Its checkpoint minimizes validation latent MSE on 2,048 separate trajectories. See the exact deployed settings below.
 
 All new temporal runs independently initialize the encoder, teacher, temporal predictor, probe and action predictor. A second experimental recipe, `planning/from_scratch.py`, uses same-state VICReg-style image pretraining. It is not the original temporal objective. Its weaker planning results are published as a comparison between complete recipes, not a controlled claim about one loss term.
 
-## New v0.4 training recipe
+## Current action-predictor training
 
-`planning/training.py` is a newly implemented and executed recipe, not a recovered historical script. It keeps the original encoder frozen and initializes a new action predictor for each seed. The probe is excluded from training.
+The deployed run uses visual seed 44 and action seed 31005. It trains every component from random initialization and uses the frozen EMA teacher for both action prediction and the display probe.
 
-- 65,536 independent trajectories per training seed; 2,048 validation trajectories from seed 41002.
-- Start position: uniform `[0.16,0.84]²`. Speed magnitude per axis: uniform `[0.02,0.055]`, independently signed.
-- Three uniformly sampled actions; horizontal impulse 0.035; speed cap 0.14; two simulation ticks per action; reflecting walls at 0.08 and 0.92.
-- Renderer: 24 × 24 Gaussian spot, sigma 0.042; trajectory amplitude uniform `[0.7,1.0]`; independent uniform additive noise `[0,0.03]` per pixel, clipped at 1.
-- Two context images and three future images. Target features use the same frozen encoder; coordinates only drive the renderer.
-- Mean/scale estimated from training context features only; scale floor 0.0001.
-- AdamW, learning rate 0.001, weight decay 0.0001, batch 256, 5,000 steps. MSE of normalized future features; no coordinate/reward loss.
-- Validate every 250 steps and at the end; save the minimum-validation-loss checkpoint. CPU, two threads, deterministic PyTorch algorithms requested.
-- Three complete runs: seeds 31001, 31003, 31005. All outcomes, checkpoints, logs and configurations are committed, rather than only the best run.
+- 65,536 independent training trajectories; 2,048 validation trajectories from seed 31006.
+- Start position: uniform `[0.16,0.84]²`; signed speed magnitude per axis: uniform `[0.02,0.055]`.
+- Three sampled horizontal pushes; impulse 0.035; speed cap 0.14; two simulation ticks per action; reflecting walls at 0.08 and 0.92.
+- 24 × 24 Gaussian images, sigma 0.042; trajectory brightness 0.7–1.0; independent additive pixel noise 0–0.03, clipped at 1.
+- Two context images and three future images; all target embeddings come from the frozen teacher. Coordinates only drive the renderer.
+- Mean and sample standard deviation estimated across all five training-frame embeddings; scale floor 0.01.
+- AdamW, initial learning rate 0.001 with cosine decay to 0.0001, weight decay 0.0001, batch 256, 5,000 steps, gradient clipping at 5.
+- Loss: normalized future-feature MSE, with no coordinate or reward targets. Validation at step 1 and each 250 steps selects the checkpoint; the benchmark is not used for checkpoint selection within a run.
+- Three full runs are published, with visual seeds 42, 43 and 44. The deployed run was subsequently chosen for its best normal-condition result on the shared benchmark. That selection must be considered when interpreting 74.45%.
 
 ## Evaluation and limitations
 
-[BENCHMARK.md](BENCHMARK.md) reports fresh measurements of the released model and all three retrained predictors, with scene-level confidence intervals and separate training-seed variation. The exact physics oracle has privileged information; reachable goals are generated deliberately, explaining its 100% hit rate in this task.
+[BENCHMARK.md](BENCHMARK.md) reports the deployed model, with scene-level confidence intervals and separate training-seed variation. The exact physics oracle has privileged information; reachable goals are generated deliberately, explaining its 100% hit rate in this task.
 
 Noise and changed impulse tests demonstrate sensitivity to observation and dynamics shifts. These selected shifts do not establish broad generalization. The model sees no gravity, moving targets, real camera images or physical objects. The glass photos explain an idea; they are not this model's predictions or training domain.
 
