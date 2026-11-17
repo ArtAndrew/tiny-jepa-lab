@@ -1,0 +1,12 @@
+{
+  "origin": "Exact tensors exported from the supplied v0.3 HTML; no retraining.",
+  "source": "source/ORBIT_JEPA_RU_EN_ZH.html",
+  "source_binary_sha256": "982181571c5e67347e192bd4acab65053c6cc4845e3b07718c7cefa792e7a732",
+  "model_id": "982181571c5e",
+  "files_sha256": {
+    "encoder.npz": "242981f8e6654076a512927a09d83f0df60e9dfdf1cd5222ac43652485abf190",
+    "predictor.npz": "eb886daffd1d67f1f775523ff704d9900836b52bce28c11ba343fc6d6b3087eb",
+    "probe.npz": "e5245f0a104dc9f82e01f7a2160f5508ced79d5899f62ec3c95b8345324e6d15"
+  },
+  "encoder_pretraining": "Original pretraining code/data are unavailable. Encoder is supplied as a frozen dependency."
+}

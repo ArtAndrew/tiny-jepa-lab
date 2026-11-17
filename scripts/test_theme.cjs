@@ -104,9 +104,10 @@ test('generated pages have valid scripts and unchanged model/physics code', () =
     const html = readFileSync(resolve(root, 'docs', route, 'index.html'), 'utf8');
     const executable = scripts(html).filter(s => !s[1].includes('type='));
     for (const s of executable) new vm.Script(s[2]);
-    // The added theme controller precedes the original engine and orbit core.
-    assert.equal(executable[1][2], originalExecutable[0][2]);
-    assert.equal(executable[2][2], originalExecutable[1][2]);
+    // UI controllers may precede the two unchanged engine scripts.
+    for (const originalScript of originalExecutable.slice(0,2)) {
+      assert.equal(executable.filter(s=>s[2]===originalScript[2]).length,1);
+    }
     const bytes = text => text.match(/<script id="orbit-bytes"[^>]*>(.*?)<\/script>/s)[1];
     assert.equal(bytes(html), bytes(original));
     assert.ok(html.includes("addEventListener('orbit-theme-change',draw)"));

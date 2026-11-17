@@ -71,6 +71,21 @@ ORBIT 用小球演示这个思路：模型观察两帧图像，预测 27 种计�
 
 [开发指南（俄语）](DEVELOPMENT.md) · [原始实验报告（俄语）](materials/ORBIT_RELEASE_REPORT_RU.md) · [发布材料](promotion/README.md)
 
-原始 notebook 作为学习材料保留，仓库中未包含它依赖的额外训练模块。当前的复现限制见开发指南。
+## 运行与复现实验
+
+[**可运行的 notebook**](materials/ORBIT_Action_Planning.ipynb) · [**独立权重**](artifacts/action_jepa/) · [**评测报告**](BENCHMARK.md) · [**训练指南**](REPRODUCIBILITY.md) · [模型说明](MODEL_CARD.md)
+
+v0.4 提供经过核对的 Python 实现、每种条件 3,072 个场景的新评测，以及三次完整的动作预测器训练。浏览器仍使用原始模型。编码器原始预训练过程尚不可复现；新方案在固定编码器之上训练动作预测器。
+
+[查看三个真实的模型错误 →](https://artandrew.github.io/tiny-jepa-lab/zh/#failures)
+
+```sh
+# Python 3.12，在仓库根目录运行
+python -m pip install -r requirements-notebook.txt
+python scripts/execute_notebook.py
+python -m planning.benchmark --out reports/my-benchmark.json
+```
+
+隔离环境、PyTorch 安装和重新训练命令见训练指南。原始 notebook 保存在 `materials/archive/`。
 
 作者：[Andrey Artishchev](https://artishev.com) · [MIT 许可证](LICENSE)

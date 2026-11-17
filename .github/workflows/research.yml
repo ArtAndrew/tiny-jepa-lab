@@ -1,0 +1,37 @@
+name: Verify model and notebook
+on:
+  push:
+    branches: [main]
+    paths: ['configs/**', 'source/ORBIT_JEPA_RU_EN_ZH.html', 'planning/**', 'tests/**', 'artifacts/**', 'materials/*.ipynb', 'scripts/**', 'requirements*.txt', '.github/workflows/research.yml']
+  pull_request:
+    paths: ['configs/**', 'source/ORBIT_JEPA_RU_EN_ZH.html', 'planning/**', 'tests/**', 'artifacts/**', 'materials/*.ipynb', 'scripts/**', 'requirements*.txt', '.github/workflows/research.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Create isolated Python environment
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python -m pip install -r requirements-notebook.txt
+          .venv/bin/python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Verify exact weights and cross-language inference
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: .venv/bin/python -m unittest discover -s tests -v
+      - name: Run every notebook cell
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: .venv/bin/python scripts/execute_notebook.py

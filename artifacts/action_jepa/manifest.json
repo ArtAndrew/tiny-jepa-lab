@@ -1,0 +1,177 @@
+{
+  "weights": {
+    "teacher.net.1.bias": {
+      "shape": [
+        128
+      ],
+      "offset": 0,
+      "length": 128
+    },
+    "teacher.net.1.weight": {
+      "shape": [
+        128,
+        576
+      ],
+      "offset": 512,
+      "length": 73728
+    },
+    "teacher.net.3.bias": {
+      "shape": [
+        64
+      ],
+      "offset": 295424,
+      "length": 64
+    },
+    "teacher.net.3.weight": {
+      "shape": [
+        64,
+        128
+      ],
+      "offset": 295680,
+      "length": 8192
+    },
+    "teacher.net.5.bias": {
+      "shape": [
+        8
+      ],
+      "offset": 328448,
+      "length": 8
+    },
+    "teacher.net.5.weight": {
+      "shape": [
+        8,
+        64
+      ],
+      "offset": 328480,
+      "length": 512
+    }
+  },
+  "probe": {
+    "mean": {
+      "shape": [
+        8
+      ],
+      "offset": 330528,
+      "length": 8
+    },
+    "net.0.bias": {
+      "shape": [
+        64
+      ],
+      "offset": 330560,
+      "length": 64
+    },
+    "net.0.weight": {
+      "shape": [
+        64,
+        8
+      ],
+      "offset": 330816,
+      "length": 512
+    },
+    "net.2.bias": {
+      "shape": [
+        64
+      ],
+      "offset": 332864,
+      "length": 64
+    },
+    "net.2.weight": {
+      "shape": [
+        64,
+        64
+      ],
+      "offset": 333120,
+      "length": 4096
+    },
+    "net.4.bias": {
+      "shape": [
+        2
+      ],
+      "offset": 349504,
+      "length": 2
+    },
+    "net.4.weight": {
+      "shape": [
+        2,
+        64
+      ],
+      "offset": 349512,
+      "length": 128
+    },
+    "scale": {
+      "shape": [
+        8
+      ],
+      "offset": 350024,
+      "length": 8
+    }
+  },
+  "action": {
+    "mean": {
+      "shape": [
+        8
+      ],
+      "offset": 350056,
+      "length": 8
+    },
+    "net.0.bias": {
+      "shape": [
+        128
+      ],
+      "offset": 350088,
+      "length": 128
+    },
+    "net.0.weight": {
+      "shape": [
+        128,
+        27
+      ],
+      "offset": 350600,
+      "length": 3456
+    },
+    "net.2.bias": {
+      "shape": [
+        128
+      ],
+      "offset": 364424,
+      "length": 128
+    },
+    "net.2.weight": {
+      "shape": [
+        128,
+        128
+      ],
+      "offset": 364936,
+      "length": 16384
+    },
+    "net.4.bias": {
+      "shape": [
+        24
+      ],
+      "offset": 430472,
+      "length": 24
+    },
+    "net.4.weight": {
+      "shape": [
+        24,
+        128
+      ],
+      "offset": 430568,
+      "length": 3072
+    },
+    "scale": {
+      "shape": [
+        8
+      ],
+      "offset": 442856,
+      "length": 8
+    }
+  },
+  "version": 1,
+  "rules": "orbit-1",
+  "sha256": "982181571c5e67347e192bd4acab65053c6cc4845e3b07718c7cefa792e7a732",
+  "modelId": "982181571c5e",
+  "byteLength": 442888,
+  "binary": "orbit-weights-982181571c5e.bin"
+}

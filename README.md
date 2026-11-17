@@ -71,6 +71,21 @@ Found a confusing control or a model failure? [Open an issue](https://github.com
 
 [Developer guide](DEVELOPMENT.md) · [Original experiment report (RU)](materials/ORBIT_RELEASE_REPORT_RU.md) · [Launch materials](promotion/README.md)
 
-The original notebook is preserved as study material; its additional training modules are not included. See the developer guide for the current reproducibility limits.
+## Run and reproduce the model
+
+[**Runnable notebook**](materials/ORBIT_Action_Planning.ipynb) · [**Separate weights**](artifacts/action_jepa/) · [**Benchmark**](BENCHMARK.md) · [**Training guide**](REPRODUCIBILITY.md) · [Model card](MODEL_CARD.md)
+
+v0.4 adds an independently checked Python implementation, a fresh 3,072-scene benchmark per condition, and three complete action-predictor training runs. The browser keeps its original model. Original encoder pretraining is still unavailable; the new recipe trains the action predictor over that frozen encoder.
+
+[Explore three real model mistakes →](https://artandrew.github.io/tiny-jepa-lab/#failures)
+
+```sh
+# Python 3.12, from the repository root
+python -m pip install -r requirements-notebook.txt
+python scripts/execute_notebook.py
+python -m planning.benchmark --out reports/my-benchmark.json
+```
+
+See the training guide for an isolated environment, PyTorch installation and commands to retrain. The original notebook remains in `materials/archive/`.
 
 By [Andrey Artishchev](https://artishev.com) · [MIT License](LICENSE)

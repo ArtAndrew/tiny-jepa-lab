@@ -1,0 +1,23 @@
+{
+  "ru": {
+    "benchmarkNote": "3 072 новые синтетические сцены, три тестовых seed. Радиус цели — 1,38 пикселя. Здесь показана модель, которая работает в игре. Условия и доверительные интервалы — в отчёте.",
+    "previousLab": "Как запустить и обучить предиктор ↗",
+    "researchNotebook": "Открыть работающий notebook",
+    "researchBenchmark": "Условия и результаты бенчмарка",
+    "researchModel": "Архитектура и ограничения"
+  },
+  "en": {
+    "benchmarkNote": "3,072 new synthetic scenes across three evaluation seeds. Goal radius: 1.38 pixels. This table measures the model running in the game. See the report for conditions and confidence intervals.",
+    "previousLab": "Run and train the predictor ↗",
+    "researchNotebook": "Open the runnable notebook",
+    "researchBenchmark": "Benchmark protocol and results",
+    "researchModel": "Architecture and limitations"
+  },
+  "zh": {
+    "benchmarkNote": "使用三个评测种子的 3,072 个新合成场景。目标半径为 1.38 像素。此表评测的是游戏中运行的模型。实验条件与置信区间见报告。",
+    "previousLab": "运行并训练动作预测器 ↗",
+    "researchNotebook": "打开可运行的 notebook",
+    "researchBenchmark": "评测条件与结果",
+    "researchModel": "架构与局限"
+  }
+}

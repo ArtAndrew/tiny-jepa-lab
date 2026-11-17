@@ -47,16 +47,29 @@ intro_html = (ROOT / "source/introduction.html").read_text()
 intro_css = (ROOT / "source/introduction.css").read_text()
 explainer = json.loads((ROOT / "source/explainer.json").read_text())
 glass = json.loads((ROOT / 'source/glass-example.json').read_text())
+failures_i18n = json.loads((ROOT / 'source/failures.json').read_text())
+failures = json.loads((ROOT / 'docs/assets/failures.json').read_text())
+assert failures['modelId'] == manifest['modelId']
+research_copy = json.loads((ROOT / 'source/research.json').read_text())
+research_report = json.loads((ROOT / 'reports/benchmark.json').read_text())
+measured = research_report['models']['released_v03']['conditions']['normal']['aggregate']
+benchmark_data = {'n': research_report['per_seed'] * len(research_report['seeds']),
+                  'protocol': research_report['protocol'], 'evaluation_seeds': research_report['seeds']}
+for name, result in measured.items():
+    benchmark_data[name] = {'hit_rate': {'mean': result['hit_rate'], 'ci95': result['hit_ci95_wilson']},
+                            'goal_distance_px': {'mean': result['mean_distance_px'], 'ci95': result['distance_ci95_normal']}}
 intro_html = intro_html.replace('<details class="intro-details">',
     (ROOT / 'source/glass-example.html').read_text() + '\n' +
     (ROOT / "source/explainer.html").read_text() + '\n<details class="intro-details">')
-extra_css = '\n'.join((ROOT / ("source/" + name + ".css")).read_text() for name in ["explainer", "theme", "controls", "glass-example"])
+extra_css = '\n'.join((ROOT / ("source/" + name + ".css")).read_text() for name in ["explainer", "theme", "controls", "glass-example", "failures"])
 theme_js = (ROOT / "source/theme.js").read_text()
 theme_html = (ROOT / "source/theme.html").read_text()
 for language, values in introduction.items():
     i18n[language].update(values)
     i18n[language].update(explainer[language])
     i18n[language].update(glass[language])
+    i18n[language].update(failures_i18n[language])
+    i18n[language].update(research_copy[language])
 
 
 def replace_once(text, old, new):
@@ -78,6 +91,15 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = source
     text = replace_once(text, '</style>', intro_css + '\n' + extra_css + '\n</style>')
     text = replace_once(text, '<style>', '<script>' + theme_js + '</script>\n<style>')
+    text = replace_once(text, '<style>', '<script>' + (ROOT / 'source/navigation.js').read_text() + '</script>\n<style>')
+    failure_json = json.dumps(failures, ensure_ascii=False, separators=(',', ':')).replace('<', '\\u003c')
+    text = replace_once(text, '<section id="learn"',
+                        (ROOT / 'source/failures.html').read_text() + '\n<script id="orbit-failures" type="application/json">' + failure_json + '</script>\n<section id="learn"')
+    text = replace_once(text, '<div id="action-controls">', '<p id="failure-active" class="small" hidden></p><div id="action-controls">')
+    text = replace_once(text, 'function setLanguage(next)', (ROOT / 'source/navigation-ui.js').read_text() + '\nfunction setLanguage(next)')
+    text = replace_once(text, "try{const u=new URL(location.href);u.searchParams.set('lang',lang);history.replaceState(null,'',u);}catch{}", 'syncLanguageUrl();renderFailures();')
+    text = replace_once(text, 'function newScene(){animationKey++;', 'function newScene(){clearFailure();animationKey++;')
+    text = replace_once(text, 'newScene();setLanguage(lang);if(cfg.live', "newScene();if(params.has('example'))openFailure(params.get('example'),false);setLanguage(lang);if(cfg.live")
     localized_intro = intro_html.replace('{{ASSET_PREFIX}}', '../assets/' if route else 'assets/')
     text = replace_once(text, '<div id="notice"', localized_intro + '\n<div id="notice"')
     text = replace_once(text, '<div class="languages"', theme_html + '<div class="languages"')
@@ -101,7 +123,7 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = themed_canvas(text, 'function draw(){', 'function renderInspection(){')
     text = themed_canvas(text, 'function card(){', '\nasync function boot(')
     text = replace_once(text, 'setLanguage(lang);boot();',
-                        "window.addEventListener('orbit-theme-change',draw);\n$('refresh-board').onclick=loadLeaderboard;\nwindow.addEventListener('focus',()=>{if(Date.now()-boardFetchedAt>15000)loadLeaderboard();});\nsetLanguage(lang);boot();")
+                        (ROOT / 'source/failures-ui.js').read_text() + "\nwindow.addEventListener('orbit-theme-change',draw);\n$('refresh-board').onclick=loadLeaderboard;\nwindow.addEventListener('focus',()=>{if(Date.now()-boardFetchedAt>15000)loadLeaderboard();});\nsetLanguage(lang);boot();")
     config = embedded(text, "orbit-config")
     config.update(lang=language, offline=False, live=True, published=True,
                   baseUrl=BASE, repo="ArtAndrew/tiny-jepa-lab",
@@ -109,6 +131,8 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = replace_json(text, "orbit-config", config)
     text = replace_json(text, "orbit-i18n", i18n)
     text = replace_json(text, "orbit-board", board)
+    text = replace_json(text, "orbit-benchmark", benchmark_data)
+    text = replace_once(text, 'MIT · v0.3', 'MIT · v0.4')
     text = re.sub(r'<html lang="[^"]+">', '<html lang="' + ("zh-Hans" if language == "zh" else language) + '">', text, count=1)
     title = html.escape(i18n[language]["pageTitle"], quote=True)
     description = html.escape(i18n[language]["description"], quote=True)
@@ -132,7 +156,12 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
         '<meta name="twitter:description" content="' + description + '">',
     ])
     text = replace_once(text, '</head>', preview_meta + '\n</head>')
-    text = text.replace(BASE + 'predict/', REPO + '/blob/main/materials/ORBIT_RELEASE_REPORT_RU.md')
+    text = text.replace(BASE + 'predict/', REPO + '/blob/main/REPRODUCIBILITY.md')
+    research_links = '<p class="small">' + ' · '.join(
+        '<a href="' + REPO + '/blob/main/' + path + '" data-t="' + key + '"></a>'
+        for path, key in [('materials/ORBIT_Action_Planning.ipynb', 'researchNotebook'),
+                          ('BENCHMARK.md', 'researchBenchmark'), ('MODEL_CARD.md', 'researchModel')]) + '</p>'
+    text = replace_once(text, '</a></div></div></section>', '</a>' + research_links + '</div></div></section>')
     # Sharing a public URL is independent of enabling a public replay backend.
     text = text.replace("if(cfg.live)s+='\\n'+shareLink();", "if(cfg.published)s+='\\n'+shareLink();")
     text = text.replace("cfg.live?new URL(cfg.baseUrl).host", "cfg.published?new URL(cfg.baseUrl).host")
