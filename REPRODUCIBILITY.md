@@ -83,6 +83,6 @@ The export regenerates the original weights, not newly trained weights. New pred
 
 - Identical seeds and pinned dependencies repeat the tested CPU recipe. Bitwise agreement across other operating systems, BLAS libraries or PyTorch versions is not promised; [PyTorch documents this limitation](https://docs.pytorch.org/docs/2.5/notes/randomness.html).
 - `experiments/environment-macos.txt` records the complete environment used for the published measurements; it is a platform-specific record, not a universal requirements file.
-- Wall-clock time includes dataset encoding, optimization, validation and weight export, but excludes process startup/imports. Peak RSS is the whole process high-water mark, not tensor memory alone. Hardware model was unavailable to this sandbox and is recorded as `null`; no CPU model is guessed.
+- Wall-clock time includes dataset encoding, optimization, validation and weight export, but excludes process startup/imports. Peak RSS is the whole process high-water mark, not tensor memory alone; it is recorded as `null` when the platform lacks the standard-library counter (Windows). Hardware model was unavailable to this sandbox and is recorded as `null`; no CPU model is guessed.
 - The historical report's 67.8% describes a different scene namespace. Its original full training code and logs remain unavailable. New reports are explicitly labelled `orbit-v04-eval`.
 - No original encoder pretraining, real-world robotics benchmark, moving target or closed-loop MPC is claimed.

@@ -7,7 +7,10 @@ import argparse
 import hashlib
 import json
 import platform
-import resource
+try:
+    import resource
+except ImportError:  # Windows has no stdlib process high-water RSS counter.
+    resource = None
 import subprocess
 import time
 from pathlib import Path
@@ -109,8 +112,10 @@ def train(config, out):
             print(f'seed={config["seed"]} step={step} validation={validation:.6f}',flush=True)
     np.savez(out/'predictor.npz',**checkpoint)
     seconds = time.perf_counter()-started
-    rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-    mib = rss/(1024**2) if platform.system()=='Darwin' else rss/1024
+    mib = None
+    if resource is not None:
+        rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+        mib = rss/(1024**2) if platform.system()=='Darwin' else rss/1024
     report = {'recipe':'v0.4 reconstructed action-predictor training; not original v0.3 provenance',
               'config':config,'environment':environment(),'selected_step':best_step,
               'validation_normalized_feature_mse':best,'elapsed_seconds_including_data':seconds,
