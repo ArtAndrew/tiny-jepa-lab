@@ -1,0 +1,37 @@
+{
+  "recipe": "VICReg same-state experimental recipe",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.1.3",
+    "torch": "2.5.1",
+    "platform": "macOS-27.2.1-arm64-arm-64bit",
+    "cpu": null,
+    "architecture": "arm64",
+    "device": "cpu",
+    "threads": 2
+  },
+  "same_seed": 51001,
+  "clean_room": "Only planning/ and configs/ copied; historical artifacts absent",
+  "files": {
+    "encoder.npz": {
+      "first_sha256": "3eefef40e4dfe6fe155669da344fef0be6eb415ba95d04c6b12e2a9fd9fc965f",
+      "repeat_sha256": "3eefef40e4dfe6fe155669da344fef0be6eb415ba95d04c6b12e2a9fd9fc965f",
+      "identical": true
+    },
+    "predictor.npz": {
+      "first_sha256": "666ff8fea14821c402fd3a40a455222ff5967ccc030a698997c5498298f258d8",
+      "repeat_sha256": "666ff8fea14821c402fd3a40a455222ff5967ccc030a698997c5498298f258d8",
+      "identical": true
+    },
+    "probe.npz": {
+      "first_sha256": "c8cf464ee6786c654a6634474607d6b0c2bd8009fc158bfb1393c2ab5928777c",
+      "repeat_sha256": "c8cf464ee6786c654a6634474607d6b0c2bd8009fc158bfb1393c2ab5928777c",
+      "identical": true
+    },
+    "model.bin": {
+      "first_sha256": "4e0f9a7fa824e96a7f69bebd98c769d67dbad65bd976016be685239486d1e7d6",
+      "repeat_sha256": "4e0f9a7fa824e96a7f69bebd98c769d67dbad65bd976016be685239486d1e7d6",
+      "identical": true
+    }
+  }
+}

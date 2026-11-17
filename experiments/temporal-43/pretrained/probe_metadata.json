@@ -1,0 +1,9 @@
+{
+  "examples": 8192,
+  "data_seed": 10001,
+  "initialization_seed": 9001,
+  "batch_sampler_seed": 10002,
+  "steps": 800,
+  "batch_size": 256,
+  "supervision": "Coordinates of observed frames; encoder frozen; no predicted embeddings."
+}

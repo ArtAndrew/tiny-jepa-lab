@@ -1,0 +1,70 @@
+{
+  "train.py": {
+    "sha256": "af214ca1e62373d3e7c33d26ff32de900c659a07a188ddfdc79126c608d0a327",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "evaluate.py": {
+    "sha256": "063bd0ed30173e38dd688035813dbe8df0cd8215942312fca9efa3386354a8c6",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "tinyjepa/core.py": {
+    "sha256": "ae7912a2d344116064b64e55d277f9f6c72d1e3c5c44a2d3dd66ee5821717ccc",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "tinyjepa/evaluation.py": {
+    "sha256": "1c3c1f87dad1b0ccdc752fcaaabaa1b626ddb895def830254580885abddcf475",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "tinyjepa/__init__.py": {
+    "sha256": "816d661cc9cae6a84ec244bc09c874306cedfe7dafe12205d0befefe063da45c",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "export_demo.py": {
+    "sha256": "72e260e73f188a3902512152ec5c8a5963bec71b1a26d2ac95a678623bafc9fa",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "web/engine.js": {
+    "sha256": "441e524abef87fc010e304bf21f4120233507eae4f72d63381029e12bd18b684",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "web/template.html": {
+    "sha256": "74fbd58dd260fbf29dcef1230d7c52ab631c60ec40aeccc64988d059b9f0bdff",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "tests/test_core.py": {
+    "sha256": "43043726ef2d1e291ec13c47c8e35b6ad284a0ad79c7127ec7b6ebceeb7dc336",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "tests/test_js.py": {
+    "sha256": "138fb8f492333ad9b1b3568285253f98de93ee4f868d2674f6b89e1bab3a7917",
+    "source_archive": "Tiny_JEPA_Lab.zip (v0.1)"
+  },
+  "train_actions.py": {
+    "sha256": "a45bb68da77bf117e549fde66da08fd6b0e7321d72ef113f3a23daa1fa96f6b9",
+    "source_archive": "ORBIT_JEPA_v0.3_RU_EN_ZH.zip"
+  },
+  "evaluate_actions.py": {
+    "sha256": "e53c325b332685e03af5365f7637d3e317efcb2475dc669e20c21938b5c44b16",
+    "source_archive": "ORBIT_JEPA_v0.3_RU_EN_ZH.zip"
+  },
+  "planning/model.py": {
+    "sha256": "a116a3da0a1805ab8aa48f41b08234ca4c782596ea454170ca1ab84621c7420f",
+    "source_archive": "ORBIT_JEPA_v0.3_RU_EN_ZH.zip"
+  },
+  "planning/__init__.py": {
+    "sha256": "7697211aed95bfdddc247c716fce3ac590c96078cdf7ddcfbb0a1407188e3f77",
+    "source_archive": "ORBIT_JEPA_v0.3_RU_EN_ZH.zip"
+  },
+  "web/orbit-core.js": {
+    "sha256": "0a6ee7b38d6228738f7e295e12b16317a3d669aa84d51036689780aa9c61165b",
+    "source_archive": "ORBIT_JEPA_v0.3_RU_EN_ZH.zip"
+  },
+  "tests/test_actions.py": {
+    "sha256": "3400d18699a270fee7f763a690d5c2c09d4911bb2f317ceb47164d3c9dbfa335",
+    "source_archive": "ORBIT_JEPA_v0.3_RU_EN_ZH.zip"
+  },
+  "tools/build_orbit.py": {
+    "sha256": "ce4e819a09cc027426fe10466f68b5fb68db7888c7bbf4b1092b6e28e603e18c",
+    "source_archive": "ORBIT_JEPA_v0.3_RU_EN_ZH.zip"
+  }
+}

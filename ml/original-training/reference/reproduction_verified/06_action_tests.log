@@ -1,0 +1,15 @@
+test_action_changes_prediction (test_actions.ActionTests.test_action_changes_prediction) ... ok
+test_browser_and_python_physics_match (test_actions.ActionTests.test_browser_and_python_physics_match) ... ok
+test_encoder_frozen (test_actions.ActionTests.test_encoder_frozen) ... ok
+test_evaluation_is_held_out_and_finite (test_actions.ActionTests.test_evaluation_is_held_out_and_finite) ... ok
+test_export_and_javascript_parity (test_actions.ActionTests.test_export_and_javascript_parity) ... ok
+test_finite_gradients (test_actions.ActionTests.test_finite_gradients) ... ok
+test_predictor_shapes_and_no_future_input (test_actions.ActionTests.test_predictor_shapes_and_no_future_input) ... ok
+test_read_only_replay_workflow (test_actions.ActionTests.test_read_only_replay_workflow) ... ok
+test_translations_and_template (test_actions.ActionTests.test_translations_and_template) ... ok
+test_world_deterministic (test_actions.ActionTests.test_world_deterministic) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.167s
+
+OK

@@ -1,0 +1,14 @@
+Device=cpu; inference parameters=103,888
+step=  200 latent_mse=0.00000 var=0.9899 cov=0.0000 elapsed_this_run=1.5s
+step=  400 latent_mse=0.00000 var=0.9899 cov=0.0000 elapsed_this_run=2.9s
+step=  600 latent_mse=0.00000 var=0.9899 cov=0.0000 elapsed_this_run=4.4s
+step=  800 latent_mse=0.00000 var=0.9900 cov=0.0000 elapsed_this_run=5.9s
+step= 1000 latent_mse=0.00000 var=0.9900 cov=0.0000 elapsed_this_run=7.4s
+step= 1200 latent_mse=0.00000 var=0.9900 cov=0.0000 elapsed_this_run=8.9s
+step= 1400 latent_mse=0.00000 var=0.9900 cov=0.0000 elapsed_this_run=10.4s
+step= 1600 latent_mse=0.00000 var=0.9900 cov=0.0000 elapsed_this_run=11.9s
+step= 1800 latent_mse=0.00000 var=0.9900 cov=0.0000 elapsed_this_run=13.3s
+step= 2000 latent_mse=0.00000 var=0.9900 cov=0.0000 elapsed_this_run=14.6s
+step= 2200 latent_mse=0.00000 var=0.9900 cov=0.0000 elapsed_this_run=15.9s
+step= 2400 latent_mse=0.00000 var=0.9900 cov=0.0000 elapsed_this_run=17.1s
+Saved to artifacts/no_regularization. Next: python evaluate.py --model artifacts/no_regularization

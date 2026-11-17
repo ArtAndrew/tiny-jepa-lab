@@ -75,7 +75,7 @@ Found a confusing control or a model failure? [Open an issue](https://github.com
 
 [**Runnable notebook**](materials/ORBIT_Action_Planning.ipynb) · [**Separate weights**](artifacts/action_jepa/) · [**Benchmark**](BENCHMARK.md) · [**Training guide**](REPRODUCIBILITY.md) · [Model card](MODEL_CARD.md)
 
-v0.4 adds an independently checked Python implementation, a fresh 3,072-scene benchmark per condition, and three complete action-predictor training runs. The browser keeps its original model. Original encoder pretraining is still unavailable; the new recipe trains the action predictor over that frozen encoder.
+**v0.5: train the entire model from scratch.** The recovered temporal JEPA code trains the visual encoder and EMA teacher, then the display probe and action predictor. [Run the full training notebook](materials/ORBIT_From_Scratch.ipynb) or follow [the recipe and independently measured results](FROM_SCRATCH.md). Three complete training seeds, logs, separate weights and repeat checks are included. The browser continues to use the original model.
 
 [Explore three real model mistakes →](https://artandrew.github.io/tiny-jepa-lab/#failures)
 

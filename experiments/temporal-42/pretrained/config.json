@@ -1,0 +1,11 @@
+{
+  "size": 24,
+  "dim": 8,
+  "max_horizon": 4,
+  "margin": 0.08,
+  "sigma": 0.042,
+  "noise": 0.03,
+  "min_speed": 0.025,
+  "max_speed": 0.065,
+  "ema": 0.99
+}

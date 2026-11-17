@@ -1,0 +1,20 @@
+{
+  "seed": 31003,
+  "examples": 65536,
+  "steps": 5000,
+  "selected_step": 5000,
+  "validation_examples": 2048,
+  "validation_seed": 31004,
+  "selection": "minimum validation latent MSE",
+  "elapsed_seconds": 5.148770166997565,
+  "torch": "2.5.1",
+  "python": "3.12.14",
+  "device": "cpu",
+  "threads": 2,
+  "encoder_sha256": "320ecff12102782ff89d848c5f2591d5d95201c9774bda75a19ca348967af9d4",
+  "predictor_parameters": 23192,
+  "encoder_frozen": true,
+  "coordinate_labels_used": false,
+  "loss": "MSE of 3 predicted future embeddings, normalized by frozen feature std",
+  "note": "Single training seed. Reuses v0.1 visual representation; this is not Meta V-JEPA."
+}

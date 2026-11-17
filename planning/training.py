@@ -21,13 +21,14 @@ from .model import ARTIFACTS, PLANS, load_arrays, render, rollout, tick
 
 
 class Encoder(nn.Module):
-    def __init__(self):
+    def __init__(self, weights=ARTIFACTS/'encoder.npz', trainable=False):
         super().__init__()
         self.net = nn.Sequential(nn.Flatten(start_dim=-1), nn.Linear(576,128), nn.ReLU(),
                                  nn.Linear(128,64), nn.ReLU(), nn.Linear(64,8))
-        self.load_state_dict({k:torch.tensor(v,dtype=torch.float32) for k,v in load_arrays(ARTIFACTS/'encoder.npz').items()})
-        self.requires_grad_(False)
-        self.eval()
+        if weights is not None:
+            self.load_state_dict({k:torch.tensor(v,dtype=torch.float32) for k,v in load_arrays(weights).items()})
+        self.requires_grad_(trainable)
+        self.train(trainable)
 
     def forward(self, x): return self.net(x)
 
@@ -79,14 +80,16 @@ def environment():
             'device':'cpu','threads':torch.get_num_threads()}
 
 
-def train(config, out):
+def train(config, out, encoder_path=None):
     out = Path(out)
     out.mkdir(parents=True,exist_ok=False)  # Never silently overwrite a completed experiment.
     torch.set_num_threads(config['threads'])
     torch.manual_seed(config['seed'])
     torch.use_deterministic_algorithms(True)
     started = time.perf_counter()
-    encoder = Encoder()
+    custom_encoder = encoder_path is not None
+    encoder_path = Path(encoder_path) if custom_encoder else ARTIFACTS/'encoder.npz'
+    encoder = Encoder(encoder_path)
     z, actions = make_dataset(encoder,config['train_trajectories'],config['seed'])
     valid_z, valid_a = make_dataset(encoder,config['validation_trajectories'],config['validation_seed'])
     mean = z[:,:2].reshape(-1,8).mean(0)
@@ -116,11 +119,12 @@ def train(config, out):
     if resource is not None:
         rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         mib = rss/(1024**2) if platform.system()=='Darwin' else rss/1024
-    report = {'recipe':'v0.4 reconstructed action-predictor training; not original v0.3 provenance',
+    report = {'recipe':('Action-predictor training on explicitly supplied frozen encoder' if custom_encoder
+                        else 'v0.4 reconstructed action-predictor training; not original v0.3 provenance'),
               'config':config,'environment':environment(),'selected_step':best_step,
               'validation_normalized_feature_mse':best,'elapsed_seconds_including_data':seconds,
               'process_peak_rss_mib':mib,'history':history,
-              'encoder_sha256':hashlib.sha256((ARTIFACTS/'encoder.npz').read_bytes()).hexdigest(),
+              'encoder_sha256':hashlib.sha256(encoder_path.read_bytes()).hexdigest(),
               'predictor_sha256':hashlib.sha256((out/'predictor.npz').read_bytes()).hexdigest(),
               'trainable_parameters':sum(p.numel() for p in predictor.parameters()),
               'frozen_encoder_parameters':sum(p.numel() for p in encoder.parameters())}
@@ -133,10 +137,11 @@ def main():
     parser.add_argument('--config',type=Path,default=Path('configs/train-actions.json'))
     parser.add_argument('--out',type=Path,required=True)
     parser.add_argument('--seed',type=int)
+    parser.add_argument('--encoder',type=Path,help='Use an explicitly supplied encoder instead of the historical one')
     args=parser.parse_args()
     config=json.loads(args.config.read_text())
     if args.seed is not None: config['seed']=args.seed
-    train(config,args.out)
+    train(config,args.out,args.encoder)
 
 
 if __name__=='__main__': main()

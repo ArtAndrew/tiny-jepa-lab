@@ -1,0 +1,76 @@
+{
+  "source": "Original archives Tiny_JEPA_Lab.zip (v0.1) and ORBIT_JEPA_v0.3_RU_EN_ZH.zip; source copied without algorithm changes",
+  "visual": {
+    "steps": 2400,
+    "batch_size": 128,
+    "seed": 42,
+    "device": "cpu",
+    "threads": 2,
+    "lr": 0.001,
+    "lr_schedule": "constant",
+    "weight_decay": 0.0001,
+    "prediction_weight": 10,
+    "variance_weight": 10,
+    "covariance_weight": 1,
+    "gradient_clip_norm": 5,
+    "checkpoint": "final 2400, saved every 200; no best validation selection"
+  },
+  "world": {
+    "size": 24,
+    "dim": 8,
+    "max_horizon": 4,
+    "margin": 0.08,
+    "sigma": 0.042,
+    "noise": 0.03,
+    "min_speed": 0.025,
+    "max_speed": 0.065,
+    "ema": 0.99
+  },
+  "probe": {
+    "examples": 8192,
+    "data_seed": 10001,
+    "initialization_seed": 9001,
+    "batch_sampler_seed": 10002,
+    "steps": 800,
+    "batch_size": 256,
+    "supervision": "Coordinates of observed frames; encoder frozen; no predicted embeddings.",
+    "optimizer": "Adam",
+    "lr": 0.003,
+    "lr_schedule": "constant",
+    "target": "observed future image coordinate labels only; frozen EMA teacher"
+  },
+  "action": {
+    "steps": 5000,
+    "examples": 65536,
+    "seed": 31001,
+    "batch_size": 256,
+    "lr": 0.001,
+    "lr_schedule": "CosineAnnealingLR(5000,eta_min=0.0001)",
+    "weight_decay": 0.0001,
+    "grad_clip_norm": 5,
+    "validation_seed": 31002,
+    "validation_examples": 2048,
+    "checkpoint": "minimum validation latent MSE at steps 1,250,500,...5000"
+  },
+  "evaluation": {
+    "visual_test_seeds": [
+      20001,
+      20002,
+      20003
+    ],
+    "visual_examples_each": 2048,
+    "action_cases": 1024,
+    "action_test_namespace": "held-out-orbit-20261116"
+  },
+  "reference_runtime": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "numpy": "2.3.5",
+    "node": "22.16.0",
+    "cpu_threads": 2,
+    "cpu_hardware_model": "not recorded",
+    "peak_ram_bytes": "not recorded in original run",
+    "training_wallclock_visual": "not recorded in original training.json",
+    "action_time_seconds": 12.231636983000016
+  }
+}

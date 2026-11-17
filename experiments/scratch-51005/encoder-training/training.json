@@ -1,0 +1,197 @@
+{
+  "method": "VICReg-style self-supervised encoder; direct 8D features, no projector",
+  "seed": 51005,
+  "config": {
+    "train_images": 65536,
+    "validation_images": 2048,
+    "validation_seed": 62001,
+    "steps": 4000,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "validate_every": 250,
+    "invariance_weight": 25.0,
+    "variance_weight": 25.0,
+    "covariance_weight": 1.0
+  },
+  "initial_state_sha256": "1b8fa1c2e0917a3cfbb10cc93022f3cc2c137da0abc37dde4e48b8d15a5f3847",
+  "final_state_sha256": "6631a64312d2d9962dd49db7f1bc011a90c50cbe99befdd2c9d14be95783bb35",
+  "weights_sha256": "72680f9df88498bf40b7bb1f0f4cb5cca6477f944f86d50c428cbb6ed11e8f00",
+  "selected_step": 3500,
+  "history": [
+    {
+      "step": 0,
+      "invariance": 1.6862551319718477e-06,
+      "variance_penalty": 0.9889771938323975,
+      "covariance_penalty": 3.112630153623286e-10,
+      "min_feature_std": 0.010701561346650124,
+      "objective": 24.724472045898438,
+      "effective_rank": 6.777487754821777
+    },
+    {
+      "step": 250,
+      "invariance": 0.010185852646827698,
+      "variance_penalty": 0.015362519770860672,
+      "covariance_penalty": 3.2947795391082764,
+      "min_feature_std": 0.9622691869735718,
+      "objective": 3.9334888458251953,
+      "effective_rank": 3.0479178428649902
+    },
+    {
+      "step": 500,
+      "invariance": 0.00966152548789978,
+      "variance_penalty": 0.008982852101325989,
+      "covariance_penalty": 2.1137373447418213,
+      "min_feature_std": 0.9460833072662354,
+      "objective": 2.5798468589782715,
+      "effective_rank": 4.16869592666626
+    },
+    {
+      "step": 750,
+      "invariance": 0.00941211823374033,
+      "variance_penalty": 0.003973439335823059,
+      "covariance_penalty": 1.1531383991241455,
+      "min_feature_std": 0.9677819013595581,
+      "objective": 1.4877773523330688,
+      "effective_rank": 5.43339729309082
+    },
+    {
+      "step": 1000,
+      "invariance": 0.008658337406814098,
+      "variance_penalty": 2.3424625396728516e-05,
+      "covariance_penalty": 0.7450640201568604,
+      "min_feature_std": 0.9996252059936523,
+      "objective": 0.9621080756187439,
+      "effective_rank": 6.09057092666626
+    },
+    {
+      "step": 1250,
+      "invariance": 0.008256256580352783,
+      "variance_penalty": 0.00010191649198532104,
+      "covariance_penalty": 0.5896838903427124,
+      "min_feature_std": 0.9996659159660339,
+      "objective": 0.7986382246017456,
+      "effective_rank": 6.554948806762695
+    },
+    {
+      "step": 1500,
+      "invariance": 0.00849226675927639,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.39536648988723755,
+      "min_feature_std": 1.0500060319900513,
+      "objective": 0.607673168182373,
+      "effective_rank": 7.01935338973999
+    },
+    {
+      "step": 1750,
+      "invariance": 0.00751690985634923,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.36680638790130615,
+      "min_feature_std": 1.0418938398361206,
+      "objective": 0.5547291040420532,
+      "effective_rank": 7.097384452819824
+    },
+    {
+      "step": 2000,
+      "invariance": 0.007201964035630226,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.12682253122329712,
+      "min_feature_std": 1.0439430475234985,
+      "objective": 0.3068716526031494,
+      "effective_rank": 7.7662672996521
+    },
+    {
+      "step": 2250,
+      "invariance": 0.006288737058639526,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.015737444162368774,
+      "min_feature_std": 1.0218310356140137,
+      "objective": 0.17295587062835693,
+      "effective_rank": 7.965891361236572
+    },
+    {
+      "step": 2500,
+      "invariance": 0.005700332578271627,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.014299804344773293,
+      "min_feature_std": 1.0586352348327637,
+      "objective": 0.15680812299251556,
+      "effective_rank": 7.972782611846924
+    },
+    {
+      "step": 2750,
+      "invariance": 0.0046239024959504604,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.014616884291172028,
+      "min_feature_std": 1.041266679763794,
+      "objective": 0.13021445274353027,
+      "effective_rank": 7.970887660980225
+    },
+    {
+      "step": 3000,
+      "invariance": 0.0037493130657821894,
+      "variance_penalty": 0.0030797086656093597,
+      "covariance_penalty": 0.017836084589362144,
+      "min_feature_std": 0.9816848635673523,
+      "objective": 0.18856163322925568,
+      "effective_rank": 7.948070049285889
+    },
+    {
+      "step": 3250,
+      "invariance": 0.003721098881214857,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.009492656216025352,
+      "min_feature_std": 1.0668632984161377,
+      "objective": 0.10252013057470322,
+      "effective_rank": 7.959478378295898
+    },
+    {
+      "step": 3500,
+      "invariance": 0.0028110218700021505,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.010210106149315834,
+      "min_feature_std": 1.0318419933319092,
+      "objective": 0.08048564940690994,
+      "effective_rank": 7.97854471206665
+    },
+    {
+      "step": 3750,
+      "invariance": 0.0027559716254472733,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.013667131774127483,
+      "min_feature_std": 1.0615777969360352,
+      "objective": 0.08256641775369644,
+      "effective_rank": 7.951783180236816
+    },
+    {
+      "step": 4000,
+      "invariance": 0.0027674331795424223,
+      "variance_penalty": 0.0,
+      "covariance_penalty": 0.01625431515276432,
+      "min_feature_std": 1.0983940362930298,
+      "objective": 0.08544014394283295,
+      "effective_rank": 7.951542377471924
+    }
+  ],
+  "selected_validation": {
+    "invariance": 0.0028110218700021505,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.010210106149315834,
+    "min_feature_std": 1.0318419933319092,
+    "objective": 0.08048564940690994,
+    "effective_rank": 7.97854471206665
+  },
+  "coordinate_labels_used": false,
+  "pretrained_weights_read": false,
+  "elapsed_seconds": 10.39692504100094,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.1.3",
+    "torch": "2.5.1",
+    "platform": "macOS-27.2.1-arm64-arm-64bit",
+    "cpu": null,
+    "architecture": "arm64",
+    "device": "cpu",
+    "threads": 2
+  }
+}

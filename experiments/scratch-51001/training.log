@@ -1,0 +1,52 @@
+encoder seed=51001 step=0 val=24.72084 std_min=0.011 rank=6.79
+encoder seed=51001 step=250 val=2.58798 std_min=0.967 rank=4.06
+encoder seed=51001 step=500 val=1.63334 std_min=0.978 rank=5.07
+encoder seed=51001 step=750 val=1.48530 std_min=1.000 rank=5.17
+encoder seed=51001 step=1000 val=1.05913 std_min=1.005 rank=6.16
+encoder seed=51001 step=1250 val=0.58056 std_min=1.036 rank=7.17
+encoder seed=51001 step=1500 val=0.23320 std_min=1.027 rank=7.98
+encoder seed=51001 step=1750 val=0.21658 std_min=1.055 rank=7.96
+encoder seed=51001 step=2000 val=0.17872 std_min=1.031 rank=7.97
+encoder seed=51001 step=2250 val=0.16659 std_min=1.059 rank=7.96
+encoder seed=51001 step=2500 val=0.13272 std_min=1.074 rank=7.98
+encoder seed=51001 step=2750 val=0.12388 std_min=1.070 rank=7.96
+encoder seed=51001 step=3000 val=0.10118 std_min=1.054 rank=7.98
+encoder seed=51001 step=3250 val=0.08956 std_min=1.059 rank=7.96
+encoder seed=51001 step=3500 val=0.08316 std_min=1.048 rank=7.96
+encoder seed=51001 step=3750 val=0.07603 std_min=1.068 rank=7.94
+encoder seed=51001 step=4000 val=0.06158 std_min=1.035 rank=7.97
+seed=151001 step=0 validation=1.468207
+seed=151001 step=250 validation=0.651533
+seed=151001 step=500 validation=0.575642
+seed=151001 step=750 validation=0.535521
+seed=151001 step=1000 validation=0.502057
+seed=151001 step=1250 validation=0.480015
+seed=151001 step=1500 validation=0.465389
+seed=151001 step=1750 validation=0.447512
+seed=151001 step=2000 validation=0.436178
+seed=151001 step=2250 validation=0.428260
+seed=151001 step=2500 validation=0.418065
+seed=151001 step=2750 validation=0.411978
+seed=151001 step=3000 validation=0.405280
+seed=151001 step=3250 validation=0.400840
+seed=151001 step=3500 validation=0.394793
+seed=151001 step=3750 validation=0.391060
+seed=151001 step=4000 validation=0.386739
+seed=151001 step=4250 validation=0.384161
+seed=151001 step=4500 validation=0.381355
+seed=151001 step=4750 validation=0.378059
+seed=151001 step=5000 validation=0.373258
+probe seed=251001 step=0 validation=0.0582121
+probe seed=251001 step=250 validation=0.0037365
+probe seed=251001 step=500 validation=0.0018654
+probe seed=251001 step=750 validation=0.0012771
+probe seed=251001 step=1000 validation=0.0010205
+probe seed=251001 step=1250 validation=0.0008493
+probe seed=251001 step=1500 validation=0.0007633
+probe seed=251001 step=1750 validation=0.0007047
+probe seed=251001 step=2000 validation=0.0006407
+probe seed=251001 step=2250 validation=0.0005773
+probe seed=251001 step=2500 validation=0.0005495
+probe seed=251001 step=2750 validation=0.0005028
+probe seed=251001 step=3000 validation=0.0005085
+Complete from-scratch bundle: 4e0f9a7fa824

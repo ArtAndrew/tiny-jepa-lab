@@ -1,0 +1,36 @@
+test_action_changes_prediction (test_actions.ActionTests.test_action_changes_prediction) ... ok
+test_browser_and_python_physics_match (test_actions.ActionTests.test_browser_and_python_physics_match) ... ok
+test_encoder_frozen (test_actions.ActionTests.test_encoder_frozen) ... ok
+test_evaluation_is_held_out_and_finite (test_actions.ActionTests.test_evaluation_is_held_out_and_finite) ... ok
+test_export_and_javascript_parity (test_actions.ActionTests.test_export_and_javascript_parity) ... ok
+test_finite_gradients (test_actions.ActionTests.test_finite_gradients) ... ok
+test_predictor_shapes_and_no_future_input (test_actions.ActionTests.test_predictor_shapes_and_no_future_input) ... ok
+test_read_only_replay_workflow (test_actions.ActionTests.test_read_only_replay_workflow) ... ok
+test_translations_and_template (test_actions.ActionTests.test_translations_and_template) ... ok
+test_world_deterministic (test_actions.ActionTests.test_world_deterministic) ... ok
+test_constant_features_penalized (test_core.CoreTests.test_constant_features_penalized) ... ok
+test_ema_update (test_core.CoreTests.test_ema_update) ... ok
+test_finite_optimizer_step (test_core.CoreTests.test_finite_optimizer_step) ... ok
+test_frame_shapes_and_ranges (test_core.CoreTests.test_frame_shapes_and_ranges) ... ok
+test_generator_reproducible (test_core.CoreTests.test_generator_reproducible) ... ok
+test_independent_seeds (test_core.CoreTests.test_independent_seeds) ... ok
+test_invalid_config (test_core.CoreTests.test_invalid_config) ... ok
+test_invalid_context (test_core.CoreTests.test_invalid_context) ... ok
+test_invalid_horizon (test_core.CoreTests.test_invalid_horizon) ... ok
+test_neural_output_shape (test_core.CoreTests.test_neural_output_shape) ... ok
+test_no_future_leakage_into_prediction (test_core.CoreTests.test_no_future_leakage_into_prediction) ... ok
+test_npz_roundtrip (test_core.CoreTests.test_npz_roundtrip) ... ok
+test_parameter_count (test_core.CoreTests.test_parameter_count) ... ok
+test_reflection (test_core.CoreTests.test_reflection) ... ok
+test_teacher_stop_gradient (test_core.CoreTests.test_teacher_stop_gradient) ... ok
+test_exported_network_matches_pytorch (test_js.JavascriptParity.test_exported_network_matches_pytorch) ... ok
+test_binary_export_is_lossless_float32 (test_site.SiteTests.test_binary_export_is_lossless_float32) ... ok
+test_generated_weight_manifest_matches_file (test_site.SiteTests.test_generated_weight_manifest_matches_file) ... ok
+test_site_has_no_training_checkpoints_or_secrets (test_site.SiteTests.test_site_has_no_training_checkpoints_or_secrets) ... ok
+test_three_pages_have_real_assets (test_site.SiteTests.test_three_pages_have_real_assets) ... ok
+test_translation_keys_and_placeholders_match (test_site.SiteTests.test_translation_keys_and_placeholders_match) ... ok
+
+----------------------------------------------------------------------
+Ran 31 tests in 1.774s
+
+OK

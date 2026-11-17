@@ -1,0 +1,4 @@
+# Versions recorded in the original successful run on Linux, Python 3.13.5
+# If using another Python / CPU, results can be close but not bitwise identical.
+torch==2.10.0
+numpy==2.3.5

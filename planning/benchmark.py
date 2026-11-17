@@ -62,6 +62,8 @@ def main():
     parser.add_argument('--seeds', type=int, nargs='+', default=[99017, 99018, 99019])
     parser.add_argument('--conditions', nargs='+', choices=CONDITIONS, default=list(CONDITIONS))
     parser.add_argument('--predictors', nargs='*', type=Path, default=[])
+    parser.add_argument('--model-dirs', nargs='*', type=Path, default=[],help='Complete independently trained encoder/predictor/probe bundles')
+    parser.add_argument('--no-released', action='store_true',help='Evaluate custom models without reading any historical weights')
     args = parser.parse_args()
     if args.per_seed < 2 or len(set(args.seeds)) != len(args.seeds): parser.error('Use >=2 scenes and distinct seeds')
     report = {'protocol': 'orbit-v04-eval', 'scene_namespace': 'orbit-v04-eval|{evaluation_seed}|{scene_index}',
@@ -73,11 +75,16 @@ def main():
                         'Noise changes input observations only. No gravity or moving targets are tested.'],
               'environment': {'python': platform.python_version(), 'numpy': np.__version__, 'platform': platform.platform()},
               'models': {}}
-    for path in [ARTIFACTS/'predictor.npz'] + args.predictors:
+    entries = [(p, ARTIFACTS) for p in ([] if args.no_released else [ARTIFACTS/'predictor.npz']) + args.predictors]
+    entries += [(p/'predictor.npz',p) for p in args.model_dirs]
+    if not entries: parser.error('Choose at least one model')
+    for path, model_dir in entries:
         name = 'released_v03' if path == ARTIFACTS/'predictor.npz' else path.parent.name
         if name in report['models']: raise ValueError('Predictor names must be distinct')
-        entry = {'predictor_sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'conditions': {}}
-        model = load_model(path)
+        entry = {'predictor_sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                 'encoder_sha256': hashlib.sha256((model_dir/'encoder.npz').read_bytes()).hexdigest(),
+                 'probe_sha256': hashlib.sha256((model_dir/'probe.npz').read_bytes()).hexdigest(), 'conditions': {}}
+        model = load_model(path,model_dir)
         for condition in args.conditions:
             start = time.perf_counter()
             noise, impulse = CONDITIONS[condition]

@@ -20,7 +20,17 @@ Only the predictor's features and the goal image determine the plan. The exact p
 
 The browser runs the supplied v0.3 model, with exact tensors extracted into `artifacts/action_jepa/`. The source binary hash and each file's hash are in [provenance.json](artifacts/action_jepa/provenance.json). Loading uses `allow_pickle=False`.
 
-The original report states that the encoder/probe came from an earlier project and the action predictor was trained on 65,536 trajectories for 5,000 steps. We have the tensors and that report, **not the original full training implementation or logs**. The encoder's pretraining procedure and data provenance cannot be independently reconstructed from the supplied files.
+The original training source, histories and separate checkpoints were recovered on 2026-11-17. All 17 supplied source hashes were verified; the EMA teacher, probe and action-predictor tensors exactly match the browser model. See [recovered source](ml/original-training/), [original numeric checkpoints](artifacts/original-training/) and [new independent runs](FROM_SCRATCH.md).
+
+## Recovered visual pretraining
+
+Two 24 × 24 images and a horizon of 1–4 steps feed a trainable encoder and temporal predictor (28 → 128 → 128 → 8; 21,256 parameters). The target is the future image's EMA-teacher embedding, with stop-gradient. The teacher is initialized from the random student and updated with EMA 0.99 after each optimizer step. Coordinates and velocities never enter the neural loss.
+
+The objective is `10 × prediction MSE + 10 × variance penalty + covariance penalty`. Regularization uses the concatenated student features of both context frames and the future frame. The student and temporal predictor train for 2,400 steps with batch 128, AdamW 0.001, weight decay 0.0001 and gradient clipping at 5. The final checkpoint is retained. Synthetic trajectories are generated online, seed 42 in the reference run.
+
+Downstream training uses the **frozen EMA teacher**. The display probe trains on 8,192 observed embeddings with coordinate supervision, 800 steps, Adam 0.003. The action predictor trains on 65,536 trajectories for 5,000 steps, with AdamW and cosine decay to 0.0001. Its checkpoint minimizes validation latent MSE on 2,048 separate trajectories. These recovered settings differ from the v0.4 reconstruction below.
+
+All new temporal runs independently initialize the encoder, teacher, temporal predictor, probe and action predictor. A second experimental recipe, `planning/from_scratch.py`, uses same-state VICReg-style image pretraining. It is not the original temporal objective. Its weaker planning results are published as a comparison between complete recipes, not a controlled claim about one loss term.
 
 ## New v0.4 training recipe
 

@@ -1,0 +1,9 @@
+Visual position error, px: 0.823286
+Original visual error, px: 0.823286
+Action hit rate: 67.773% reference: 67.773%
+model reproduced 67.773%, original 67.773%
+random reproduced 19.531%, original 19.531%
+no_push reproduced 23.730%, original 23.730%
+oracle reproduced 100.000%, original 100.000%
+Encoder model.npz sha256: 10e621e874dae6b876a2683b5a59a354afd810cb499249a39f5cd395e51fae06 matches original bytes: True
+NOTE: same seeds need not imply bitwise identical results across hardware/library versions.

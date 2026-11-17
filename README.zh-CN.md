@@ -75,7 +75,7 @@ ORBIT 用小球演示这个思路：模型观察两帧图像，预测 27 种计�
 
 [**可运行的 notebook**](materials/ORBIT_Action_Planning.ipynb) · [**独立权重**](artifacts/action_jepa/) · [**评测报告**](BENCHMARK.md) · [**训练指南**](REPRODUCIBILITY.md) · [模型说明](MODEL_CARD.md)
 
-v0.4 提供经过核对的 Python 实现、每种条件 3,072 个场景的新评测，以及三次完整的动作预测器训练。浏览器仍使用原始模型。编码器原始预训练过程尚不可复现；新方案在固定编码器之上训练动作预测器。
+**v0.5：可以从零训练整个模型。** 恢复的 temporal JEPA 代码训练视觉编码器及 EMA 目标网络，再训练坐标探针和动作预测器。[完整训练 notebook](materials/ORBIT_From_Scratch.ipynb) · [训练方法与独立实测结果](FROM_SCRATCH.md)。仓库提供三个训练种子的完整权重、日志和重复性检查。浏览器继续使用原始模型。
 
 [查看三个真实的模型错误 →](https://artandrew.github.io/tiny-jepa-lab/zh/#failures)
 

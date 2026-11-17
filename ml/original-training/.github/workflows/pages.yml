@@ -1,0 +1,76 @@
+name: Publish ORBIT and replay leaderboard
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - 'artifacts/**'
+      - 'tools/**'
+      - 'leaderboard/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+  issues:
+    types: [opened]
+permissions:
+  contents: read
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    if: github.event_name != 'issues' || (vars.ORBIT_LEADERBOARD_ENABLED == 'true' && startsWith(github.event.issue.title, '[ORBIT replay] '))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: read
+      pages: read
+    steps:
+      # Always trusted default-branch source. Never checkout a user-supplied ref.
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Install static-export dependency
+        run: python -m pip install 'numpy>=1.26,<3'
+      - name: Test deterministic rules and replay validation
+        run: node --test tests/test_orbit.cjs tests/test_replay.cjs
+      - name: Build static site, without training or PyTorch
+        env:
+          PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: python tools/build_orbit.py --repo "$GITHUB_REPOSITORY" --base-url "$PAGES_BASE_URL/" --live
+      - name: Recompute scores from public GitHub replays
+        if: vars.ORBIT_LEADERBOARD_ENABLED == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node tools/update_leaderboard.cjs
+      - name: Include the verified snapshot
+        env:
+          PAGES_BASE_URL: ${{ steps.pages.outputs.base_url }}
+        run: python tools/build_orbit.py --repo "$GITHUB_REPOSITORY" --base-url "$PAGES_BASE_URL/" --live --skip-legacy
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+          retention-days: 1
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

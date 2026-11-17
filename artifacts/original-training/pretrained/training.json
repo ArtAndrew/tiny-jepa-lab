@@ -1,0 +1,28 @@
+{
+  "step": 2400,
+  "settings": {
+    "batch_size": 128,
+    "seed": 42,
+    "lr": 0.001,
+    "variance_weight": 10.0,
+    "covariance_weight": 1.0
+  },
+  "config": {
+    "size": 24,
+    "dim": 8,
+    "max_horizon": 4,
+    "margin": 0.08,
+    "sigma": 0.042,
+    "noise": 0.03,
+    "min_speed": 0.025,
+    "max_speed": 0.065,
+    "ema": 0.99
+  },
+  "inference_parameters": 103888,
+  "python": "3.13.5",
+  "torch": "2.10.0+cpu",
+  "numpy": "2.3.5",
+  "device": "cpu",
+  "threads": 2,
+  "note": "Online synthetic training; labels are not used by jepa_loss."
+}

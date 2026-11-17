@@ -1,8 +1,8 @@
 # Reproduce ORBIT / Как повторить эксперимент
 
-The v0.4 package makes **inference, evaluation and new action-predictor training** runnable from this repository. The browser still uses the original v0.3 weights. The original encoder's pretraining code/data were not supplied; training the entire system from scratch is **not** reproduced.
+**v0.5 now includes the recovered full training recipe:** visual encoder + EMA teacher + temporal predictor, display probe and action predictor, all from random initialization. Start with [FROM_SCRATCH.md](FROM_SCRATCH.md) or the [training notebook](materials/ORBIT_From_Scratch.ipynb). The sections below also preserve the v0.4 inference, benchmark and predictor-only recipe.
 
-**По-русски:** теперь можно запустить опубликованную модель, повторить бенчмарк и заново обучить предиктор действий. Это новый проверенный рецепт, а не восстановленный журнал старого обучения. Энкодер остаётся готовой замороженной зависимостью. Его исходное предобучение пока невоспроизводимо.
+**По-русски:** исходный код предобучения восстановлен и проверен. Теперь можно обучить всю цепочку без готовых весов. [Полная инструкция и измерения](FROM_SCRATCH.md). В игре используется исходная модель; новые модели доступны как отдельные эксперименты.
 
 ## 1. Install
 
@@ -65,7 +65,7 @@ Each training output directory must be **new**. It receives `predictor.npz` and 
 
 The frozen encoder maps images to features. A randomly initialized action predictor learns future features from synthetic trajectories. Its loss contains **no coordinate targets, reward or oracle cost**. The coordinate probe is not trained or used to select actions. Validation seed `41002` selects the checkpoint; benchmark scenes are never used for training or checkpoint selection. See [the model card](MODEL_CARD.md) for exact architecture and data generation.
 
-The original encoder's initialization/pretraining cannot be recreated from this package. Multiple runs here vary the predictor initialization, training trajectories and minibatches while sharing that same frozen encoder and validation set. They are **not** independent end-to-end JEPA pretrainings.
+This v0.4 section trains only the predictor. Multiple runs here vary the predictor initialization, training trajectories and minibatches while sharing that same frozen encoder and validation set. They are **not** independent end-to-end JEPA pretrainings.
 
 ## 5. Exact weights and data provenance
 
@@ -84,5 +84,5 @@ The export regenerates the original weights, not newly trained weights. New pred
 - Identical seeds and pinned dependencies repeat the tested CPU recipe. Bitwise agreement across other operating systems, BLAS libraries or PyTorch versions is not promised; [PyTorch documents this limitation](https://docs.pytorch.org/docs/2.5/notes/randomness.html).
 - `experiments/environment-macos.txt` records the complete environment used for the published measurements; it is a platform-specific record, not a universal requirements file.
 - Wall-clock time includes dataset encoding, optimization, validation and weight export, but excludes process startup/imports. Peak RSS is the whole process high-water mark, not tensor memory alone; it is recorded as `null` when the platform lacks the standard-library counter (Windows). Hardware model was unavailable to this sandbox and is recorded as `null`; no CPU model is guessed.
-- The historical report's 67.8% describes a different scene namespace. Its original full training code and logs remain unavailable. New reports are explicitly labelled `orbit-v04-eval`.
-- No original encoder pretraining, real-world robotics benchmark, moving target or closed-loop MPC is claimed.
+- The historical report's 67.8% describes a different scene namespace. Its recovered source and logs now live in `ml/original-training/`. The new multi-seed reports remain explicitly labelled `orbit-v04-eval`.
+- Full encoder training is now available in the separate guide. No real-world robotics benchmark, moving target or closed-loop MPC is claimed.

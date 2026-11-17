@@ -6,3 +6,9 @@ __pycache__/
 .venv/
 .ipynb_checkpoints/
 runs/
+
+# Generated outputs from preserved historical training source
+ml/original-training/artifacts/
+ml/original-training/logs/
+ml/original-training/site/
+ml/original-training/offline/

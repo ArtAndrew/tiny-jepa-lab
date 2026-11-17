@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 """Execute every notebook cell using the current environment, fail on any error."""
 from pathlib import Path
+import argparse
 import sys
 import nbformat
 from nbclient import NotebookClient
 from jupyter_client import KernelManager
 
 root=Path(__file__).resolve().parents[1]
-path=root/'materials/ORBIT_Action_Planning.ipynb'
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--notebook',type=Path,default=Path('materials/ORBIT_Action_Planning.ipynb'))
+args=parser.parse_args()
+path=root/args.notebook
 notebook=nbformat.read(path,as_version=4)
 manager=KernelManager(kernel_name='python3')
 # Bind to this interpreter rather than an unrelated globally registered kernel.
 manager.kernel_spec.argv=[sys.executable,'-m','ipykernel_launcher','-f','{connection_file}']
-client=NotebookClient(notebook,km=manager,timeout=180,resources={'metadata':{'path':str(root)}})
+client=NotebookClient(notebook,km=manager,timeout=600,resources={'metadata':{'path':str(root)}})
 try:
     client.execute()
 finally:

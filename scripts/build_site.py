@@ -132,7 +132,7 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     text = replace_json(text, "orbit-i18n", i18n)
     text = replace_json(text, "orbit-board", board)
     text = replace_json(text, "orbit-benchmark", benchmark_data)
-    text = replace_once(text, 'MIT · v0.3', 'MIT · v0.4')
+    text = replace_once(text, 'MIT · v0.3', 'MIT · v0.5')
     text = re.sub(r'<html lang="[^"]+">', '<html lang="' + ("zh-Hans" if language == "zh" else language) + '">', text, count=1)
     title = html.escape(i18n[language]["pageTitle"], quote=True)
     description = html.escape(i18n[language]["description"], quote=True)
@@ -160,6 +160,7 @@ for language, route in [("en", ""), ("ru", "ru/"), ("zh", "zh/")]:
     research_links = '<p class="small">' + ' · '.join(
         '<a href="' + REPO + '/blob/main/' + path + '" data-t="' + key + '"></a>'
         for path, key in [('materials/ORBIT_Action_Planning.ipynb', 'researchNotebook'),
+                          ('materials/ORBIT_From_Scratch.ipynb', 'researchTraining'),
                           ('BENCHMARK.md', 'researchBenchmark'), ('MODEL_CARD.md', 'researchModel')]) + '</p>'
     text = replace_once(text, '</a></div></div></section>', '</a>' + research_links + '</div></div></section>')
     # Sharing a public URL is independent of enabling a public replay backend.

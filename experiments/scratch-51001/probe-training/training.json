@@ -1,0 +1,77 @@
+{
+  "method": "Supervised coordinate probe, display only; no gradients into encoder or planner",
+  "seed": 251001,
+  "config": {
+    "train_images": 65536,
+    "validation_images": 2048,
+    "validation_seed": 341002,
+    "test_images": 2048,
+    "test_seed": 441002,
+    "steps": 3000,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "validate_every": 250
+  },
+  "initial_state_sha256": "5e13942597d61e33f48e24a1d62b1a1de01b9018d028c32a8578fee2cb56543d",
+  "weights_sha256": "c8cf464ee6786c654a6634474607d6b0c2bd8009fc158bfb1393c2ab5928777c",
+  "selected_step": 2750,
+  "history": [
+    {
+      "step": 0,
+      "coordinate_mse": 0.05821210518479347
+    },
+    {
+      "step": 250,
+      "coordinate_mse": 0.003736512502655387
+    },
+    {
+      "step": 500,
+      "coordinate_mse": 0.001865385565906763
+    },
+    {
+      "step": 750,
+      "coordinate_mse": 0.0012770654866471887
+    },
+    {
+      "step": 1000,
+      "coordinate_mse": 0.0010204684222117066
+    },
+    {
+      "step": 1250,
+      "coordinate_mse": 0.0008492750930599868
+    },
+    {
+      "step": 1500,
+      "coordinate_mse": 0.0007632727501913905
+    },
+    {
+      "step": 1750,
+      "coordinate_mse": 0.0007047002436593175
+    },
+    {
+      "step": 2000,
+      "coordinate_mse": 0.0006406691973097622
+    },
+    {
+      "step": 2250,
+      "coordinate_mse": 0.0005772628937847912
+    },
+    {
+      "step": 2500,
+      "coordinate_mse": 0.000549453601706773
+    },
+    {
+      "step": 2750,
+      "coordinate_mse": 0.0005028195446357131
+    },
+    {
+      "step": 3000,
+      "coordinate_mse": 0.000508537981659174
+    }
+  ],
+  "test_mean_distance_px": 0.5710766315460205,
+  "elapsed_seconds": 2.256962667001062,
+  "coordinate_labels_used": true,
+  "pretrained_weights_read": false
+}

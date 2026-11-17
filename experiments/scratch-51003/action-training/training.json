@@ -1,0 +1,119 @@
+{
+  "recipe": "Action-predictor training on explicitly supplied frozen encoder",
+  "config": {
+    "validation_seed": 241002,
+    "train_trajectories": 65536,
+    "validation_trajectories": 2048,
+    "steps": 5000,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "validate_every": 250,
+    "seed": 151003,
+    "threads": 2
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.1.3",
+    "torch": "2.5.1",
+    "platform": "macOS-27.2.1-arm64-arm-64bit",
+    "cpu": null,
+    "architecture": "arm64",
+    "device": "cpu",
+    "threads": 2
+  },
+  "selected_step": 5000,
+  "validation_normalized_feature_mse": 0.3391088545322418,
+  "elapsed_seconds_including_data": 8.070670291999704,
+  "process_peak_rss_mib": 589.296875,
+  "history": [
+    {
+      "step": 0,
+      "validation_normalized_feature_mse": 1.4433971643447876
+    },
+    {
+      "step": 250,
+      "validation_normalized_feature_mse": 0.615297794342041
+    },
+    {
+      "step": 500,
+      "validation_normalized_feature_mse": 0.5477432012557983
+    },
+    {
+      "step": 750,
+      "validation_normalized_feature_mse": 0.5067139267921448
+    },
+    {
+      "step": 1000,
+      "validation_normalized_feature_mse": 0.47340965270996094
+    },
+    {
+      "step": 1250,
+      "validation_normalized_feature_mse": 0.4505086839199066
+    },
+    {
+      "step": 1500,
+      "validation_normalized_feature_mse": 0.43422457575798035
+    },
+    {
+      "step": 1750,
+      "validation_normalized_feature_mse": 0.4168883264064789
+    },
+    {
+      "step": 2000,
+      "validation_normalized_feature_mse": 0.40475788712501526
+    },
+    {
+      "step": 2250,
+      "validation_normalized_feature_mse": 0.39264360070228577
+    },
+    {
+      "step": 2500,
+      "validation_normalized_feature_mse": 0.3866434097290039
+    },
+    {
+      "step": 2750,
+      "validation_normalized_feature_mse": 0.3781139850616455
+    },
+    {
+      "step": 3000,
+      "validation_normalized_feature_mse": 0.3696383535861969
+    },
+    {
+      "step": 3250,
+      "validation_normalized_feature_mse": 0.36627450585365295
+    },
+    {
+      "step": 3500,
+      "validation_normalized_feature_mse": 0.36094650626182556
+    },
+    {
+      "step": 3750,
+      "validation_normalized_feature_mse": 0.35577264428138733
+    },
+    {
+      "step": 4000,
+      "validation_normalized_feature_mse": 0.3493265211582184
+    },
+    {
+      "step": 4250,
+      "validation_normalized_feature_mse": 0.34665989875793457
+    },
+    {
+      "step": 4500,
+      "validation_normalized_feature_mse": 0.34425660967826843
+    },
+    {
+      "step": 4750,
+      "validation_normalized_feature_mse": 0.34248390793800354
+    },
+    {
+      "step": 5000,
+      "validation_normalized_feature_mse": 0.3391088545322418
+    }
+  ],
+  "encoder_sha256": "1638b2fa3e629b54230aeff16ef97650c8b94eec45322e7f8fc0714fcafec477",
+  "predictor_sha256": "4953694ce7ef65c0f76974dc2f91dfc15fed0d01895be62751830fdbd80df8fa",
+  "trainable_parameters": 23192,
+  "frozen_encoder_parameters": 82632
+}

@@ -1,0 +1,6 @@
+test_exported_network_matches_pytorch (test_js.JavascriptParity.test_exported_network_matches_pytorch) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.184s
+
+OK

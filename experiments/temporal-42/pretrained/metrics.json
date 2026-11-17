@@ -1,0 +1,258 @@
+{
+  "in_distribution": {
+    "jepa_error": {
+      "mean": 0.7766087651252747,
+      "ci95_low": 0.7524073131382465,
+      "ci95_high": 0.8008102171123028
+    },
+    "probe_error": {
+      "mean": 0.2306954711675644,
+      "ci95_low": 0.2231792853400111,
+      "ci95_high": 0.23821165699511768
+    },
+    "stationary_error": {
+      "mean": 3.411736011505127,
+      "ci95_low": 3.3392315337061884,
+      "ci95_high": 3.4842404893040655
+    },
+    "physics_error": {
+      "mean": 0.25958940386772156,
+      "ci95_low": 0.23152032356709243,
+      "ci95_high": 0.2876584841683507
+    },
+    "latent_mse": {
+      "mean": 0.056339528411626816,
+      "ci95_low": 0.05292367965914309,
+      "ci95_high": 0.05975537716411054
+    },
+    "persistence_mse": {
+      "mean": 0.8025798797607422,
+      "ci95_low": 0.7689861859381198,
+      "ci95_high": 0.8361735735833645
+    },
+    "shuffled_mse": {
+      "mean": 2.187368392944336,
+      "ci95_low": 2.143588364198804,
+      "ci95_high": 2.231148421689868
+    },
+    "retrieval": {
+      "mean": 0.78125,
+      "ci95_low": 0.7633412117511034,
+      "ci95_high": 0.7991587882488966
+    },
+    "persistence_retrieval": {
+      "mean": 0.1103515625,
+      "ci95_low": 0.09677794393151999,
+      "ci95_high": 0.12392518106848001
+    },
+    "representation": {
+      "mean_std": 1.0578079223632812,
+      "min_std": 1.029475212097168,
+      "effective_rank": 6.937999725341797,
+      "dimension": 8
+    },
+    "by_horizon": {
+      "1": {
+        "n": 516,
+        "jepa_error_px": 0.4834614098072052,
+        "stationary_error_px": 1.4600940942764282
+      },
+      "2": {
+        "n": 532,
+        "jepa_error_px": 0.656583309173584,
+        "stationary_error_px": 2.823340892791748
+      },
+      "3": {
+        "n": 529,
+        "jepa_error_px": 0.8533056378364563,
+        "stationary_error_px": 4.143491744995117
+      },
+      "4": {
+        "n": 471,
+        "jepa_error_px": 1.147192358970642,
+        "stationary_error_px": 5.392573833465576
+      }
+    },
+    "n": 2048,
+    "seed": 20001,
+    "noise": 0.03,
+    "speed_multiplier": 1.0,
+    "retrieval_candidates": 64,
+    "retrieval_chance": 0.015625,
+    "linear_observed_probe_error_px": 2.7563650608062744
+  },
+  "high_noise": {
+    "jepa_error": {
+      "mean": 5.373849391937256,
+      "ci95_low": 5.199607407450676,
+      "ci95_high": 5.5480913764238355
+    },
+    "probe_error": {
+      "mean": 5.412814617156982,
+      "ci95_low": 5.233523334860802,
+      "ci95_high": 5.592105899453163
+    },
+    "stationary_error": {
+      "mean": 3.389000654220581,
+      "ci95_low": 3.31495756059885,
+      "ci95_high": 3.463043747842312
+    },
+    "physics_error": {
+      "mean": 0.43828505277633667,
+      "ci95_low": 0.4115855734050274,
+      "ci95_high": 0.46498453214764596
+    },
+    "latent_mse": {
+      "mean": 0.9915393590927124,
+      "ci95_low": 0.9538506788760424,
+      "ci95_high": 1.0292280393093824
+    },
+    "persistence_mse": {
+      "mean": 1.3707518577575684,
+      "ci95_low": 1.3182469578832388,
+      "ci95_high": 1.423256757631898
+    },
+    "shuffled_mse": {
+      "mean": 3.7383668422698975,
+      "ci95_low": 3.6588606709241867,
+      "ci95_high": 3.8178730136156083
+    },
+    "retrieval": {
+      "mean": 0.24072265625,
+      "ci95_low": 0.22220202207565307,
+      "ci95_high": 0.2592432904243469
+    },
+    "persistence_retrieval": {
+      "mean": 0.13525390625,
+      "ci95_low": 0.12043840488418937,
+      "ci95_high": 0.15006940761581064
+    },
+    "representation": {
+      "mean_std": 1.3463060855865479,
+      "min_std": 1.3146049976348877,
+      "effective_rank": 6.810622215270996,
+      "dimension": 8
+    },
+    "by_horizon": {
+      "1": {
+        "n": 551,
+        "jepa_error_px": 5.240967750549316,
+        "stationary_error_px": 1.4472301006317139
+      },
+      "2": {
+        "n": 477,
+        "jepa_error_px": 5.132811069488525,
+        "stationary_error_px": 2.806061267852783
+      },
+      "3": {
+        "n": 548,
+        "jepa_error_px": 5.490571022033691,
+        "stationary_error_px": 4.07423210144043
+      },
+      "4": {
+        "n": 472,
+        "jepa_error_px": 5.63704776763916,
+        "stationary_error_px": 5.449322700500488
+      }
+    },
+    "n": 2048,
+    "seed": 20002,
+    "noise": 0.18,
+    "speed_multiplier": 1.0,
+    "retrieval_candidates": 64,
+    "retrieval_chance": 0.015625
+  },
+  "double_speed": {
+    "jepa_error": {
+      "mean": 2.8994431495666504,
+      "ci95_low": 2.797843868881464,
+      "ci95_high": 3.001042430251837
+    },
+    "probe_error": {
+      "mean": 0.23460587859153748,
+      "ci95_low": 0.22711832997389136,
+      "ci95_high": 0.2420934272091836
+    },
+    "stationary_error": {
+      "mean": 6.365400314331055,
+      "ci95_low": 6.228227475583553,
+      "ci95_high": 6.502573153078556
+    },
+    "physics_error": {
+      "mean": 0.7864769697189331,
+      "ci95_low": 0.7082223165035247,
+      "ci95_high": 0.8647316229343415
+    },
+    "latent_mse": {
+      "mean": 0.8376939296722412,
+      "ci95_low": 0.7913355854898692,
+      "ci95_high": 0.8840522738546133
+    },
+    "persistence_mse": {
+      "mean": 1.7439314126968384,
+      "ci95_low": 1.6944458247721195,
+      "ci95_high": 1.7934170006215573
+    },
+    "shuffled_mse": {
+      "mean": 2.6184401512145996,
+      "ci95_low": 2.560855462178588,
+      "ci95_high": 2.6760248402506113
+    },
+    "retrieval": {
+      "mean": 0.32421875,
+      "ci95_low": 0.30394102063030004,
+      "ci95_high": 0.34449647936969996
+    },
+    "persistence_retrieval": {
+      "mean": 0.02392578125,
+      "ci95_low": 0.017305573234334588,
+      "ci95_high": 0.030545989265665412
+    },
+    "representation": {
+      "mean_std": 1.0628644227981567,
+      "min_std": 1.0393297672271729,
+      "effective_rank": 6.9489946365356445,
+      "dimension": 8
+    },
+    "by_horizon": {
+      "1": {
+        "n": 510,
+        "jepa_error_px": 1.098305583000183,
+        "stationary_error_px": 2.80228590965271
+      },
+      "2": {
+        "n": 504,
+        "jepa_error_px": 2.030998468399048,
+        "stationary_error_px": 5.456667900085449
+      },
+      "3": {
+        "n": 512,
+        "jepa_error_px": 3.463836908340454,
+        "stationary_error_px": 7.719977378845215
+      },
+      "4": {
+        "n": 522,
+        "jepa_error_px": 4.944092750549316,
+        "stationary_error_px": 9.395371437072754
+      }
+    },
+    "n": 2048,
+    "seed": 20003,
+    "noise": 0.03,
+    "speed_multiplier": 2.0,
+    "retrieval_candidates": 64,
+    "retrieval_chance": 0.015625
+  },
+  "protocol": {
+    "training_seed": 42,
+    "probe_examples": 8192,
+    "probe_seed": 10001,
+    "probe_steps": 800,
+    "error": "Mean Euclidean position error in a 24x24 frame, NOT pixel reconstruction loss",
+    "confidence_intervals": "Approximate normal 95% CI across test examples, not across training seeds",
+    "scope": "One trained checkpoint, synthetic data; no claim of real-world generalization",
+    "probe_supervision": "Coordinates used only after JEPA is frozen; probe fits observed, not predicted embeddings",
+    "physics_baseline": "Pixel centroid + two-frame velocity + hardcoded reflection at known walls",
+    "ood": "High noise and double speed deliberately differ from training; no retraining"
+  }
+}

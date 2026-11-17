@@ -1,0 +1,39 @@
+{
+  "seed": 51001,
+  "threads": 2,
+  "encoder": {
+    "train_images": 65536,
+    "validation_images": 2048,
+    "validation_seed": 62001,
+    "steps": 4000,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "validate_every": 250,
+    "invariance_weight": 25.0,
+    "variance_weight": 25.0,
+    "covariance_weight": 1.0
+  },
+  "action": {
+    "validation_seed": 241002,
+    "train_trajectories": 65536,
+    "validation_trajectories": 2048,
+    "steps": 5000,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "validate_every": 250
+  },
+  "probe": {
+    "train_images": 65536,
+    "validation_images": 2048,
+    "validation_seed": 341002,
+    "test_images": 2048,
+    "test_seed": 441002,
+    "steps": 3000,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "validate_every": 250
+  }
+}

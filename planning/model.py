@@ -125,7 +125,13 @@ class Model:
         return np.argmin(costs, axis=-1), costs, predicted
 
 
-def load_model(predictor=None):
-    return Model(load_arrays(ARTIFACTS / 'encoder.npz'),
-                 load_arrays(predictor or ARTIFACTS / 'predictor.npz'),
-                 load_arrays(ARTIFACTS / 'probe.npz'))
+def load_model(predictor=None, model_dir=ARTIFACTS):
+    """A complete custom model directory never reads historical artifacts."""
+    model_dir = Path(model_dir)
+    if predictor is not None and model_dir.resolve()==ARTIFACTS.resolve():
+        parent=Path(predictor).resolve().parent
+        if parent!=ARTIFACTS.resolve() and (parent/'encoder.npz').exists():
+            raise ValueError('Complete model bundle: pass model_dir=... to avoid mixing different encoders and predictors')
+    return Model(load_arrays(model_dir / 'encoder.npz'),
+                 load_arrays(predictor or model_dir / 'predictor.npz'),
+                 load_arrays(model_dir / 'probe.npz'))

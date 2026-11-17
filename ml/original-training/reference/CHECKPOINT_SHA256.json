@@ -1,0 +1,9 @@
+{
+  "artifacts/pretrained/model.npz": "10e621e874dae6b876a2683b5a59a354afd810cb499249a39f5cd395e51fae06",
+  "artifacts/pretrained/probe.npz": "96f1147e8211ab2f2d992a89a8a7e1661ceb700ff7917ea755eaa9ad98874959",
+  "artifacts/pretrained/resume.pt": "7f31c9a6830f8121e0322736db8a50970e8ff9ec0da5efe23d42b7e6e93d008d",
+  "artifacts/pretrained/linear_probe.npy": "8e90856c8d0a30b7380478f2956286593f5914283f06bef84052721cc0268c5a",
+  "artifacts/no_regularization/model.npz": "c62edcc77084540b9892f4c82656a5d52d5e88a7d48e9e96bb40c83ef0bc142e",
+  "artifacts/no_regularization/probe.npz": "58d9ac7d07f904dd3096cac0449635ab39416c874fb5070b8ee6342d9e680a36",
+  "artifacts/action_jepa/predictor.npz": "22b92927abd4acfb28da842f65599c0dfd8b17e2d598b1eb8969fd6f35f2dba7"
+}

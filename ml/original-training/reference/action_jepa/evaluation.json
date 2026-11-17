@@ -1,0 +1,136 @@
+{
+  "n": 1024,
+  "seed_namespace": "held-out-orbit-20261116",
+  "protocol": "3 impulses, 2 ticks each, 27 candidate sequences; clean goal image; pixel input only",
+  "goal_hit_radius_normalized": 0.06,
+  "pixel_scale": 23,
+  "single_training_seed": true,
+  "warning": "Synthetic task, frozen pretrained encoder, direct multi-horizon predictor. Not a universal world model or real robotic controller.",
+  "model": {
+    "goal_distance_px": {
+      "mean": 0.9421715638488912,
+      "ci95": [
+        0.8866680029156905,
+        0.997675124782092
+      ]
+    },
+    "hit_rate": {
+      "mean": 0.677734375,
+      "ci95": [
+        0.6484910823200462,
+        0.7056490886946315
+      ],
+      "method": "Wilson interval"
+    },
+    "mean_round_score": {
+      "mean": 918.068359375,
+      "ci95": [
+        913.242271172832,
+        922.894447577168
+      ]
+    }
+  },
+  "random": {
+    "goal_distance_px": {
+      "mean": 4.322093246437561,
+      "ci95": [
+        4.112781147626499,
+        4.531405345248623
+      ]
+    },
+    "hit_rate": {
+      "mean": 0.1953125,
+      "ci95": [
+        0.172187947342949,
+        0.22071461663188913
+      ],
+      "method": "Wilson interval"
+    },
+    "mean_round_score": {
+      "mean": 630.412109375,
+      "ci95": [
+        613.2233746990183,
+        647.6008440509817
+      ]
+    }
+  },
+  "no_push": {
+    "goal_distance_px": {
+      "mean": 3.4107304730353354,
+      "ci95": [
+        3.2553520816010977,
+        3.566108864469573
+      ]
+    },
+    "hit_rate": {
+      "mean": 0.2373046875,
+      "ci95": [
+        0.2122591151364849,
+        0.2643139288033595
+      ],
+      "method": "Wilson interval"
+    },
+    "mean_round_score": {
+      "mean": 703.4072265625,
+      "ci95": [
+        689.8953002959028,
+        716.9191528290972
+      ]
+    }
+  },
+  "oracle": {
+    "goal_distance_px": {
+      "mean": 0.18570471901094993,
+      "ci95": [
+        0.17835562462278073,
+        0.19305381339911912
+      ]
+    },
+    "hit_rate": {
+      "mean": 1.0,
+      "ci95": [
+        0.9962624591182144,
+        1.0
+      ],
+      "method": "Wilson interval"
+    },
+    "mean_round_score": {
+      "mean": 983.8447265625,
+      "ci95": [
+        983.2042340557355,
+        984.4852190692645
+      ]
+    }
+  },
+  "shuffled_actions": {
+    "goal_distance_px": {
+      "mean": 4.2898481207714925,
+      "ci95": [
+        4.0784221794128515,
+        4.5012740621301335
+      ]
+    },
+    "hit_rate": {
+      "mean": 0.216796875,
+      "ci95": [
+        0.19264147634779807,
+        0.24306924016727585
+      ],
+      "method": "Wilson interval"
+    },
+    "mean_round_score": {
+      "mean": 633.0029296875,
+      "ci95": [
+        615.5651523812451,
+        650.4407069937549
+      ]
+    }
+  },
+  "prediction_error_px": {
+    "mean": 1.4633115068269347,
+    "ci95": [
+      1.4323135067571815,
+      1.4943095068966878
+    ]
+  }
+}

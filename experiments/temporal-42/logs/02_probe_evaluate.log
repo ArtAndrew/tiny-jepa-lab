@@ -1,0 +1,5 @@
+Frozen encoder. Fitting a diagnostic coordinate probe; not training JEPA.
+in_distribution: JEPA=0.777px; stationary=3.412px; explicit physics=0.260px; probe=0.231px; retrieval=78.1%
+high_noise: JEPA=5.374px; stationary=3.389px; explicit physics=0.438px; probe=5.413px; retrieval=24.1%
+double_speed: JEPA=2.899px; stationary=6.365px; explicit physics=0.786px; probe=0.235px; retrieval=32.4%
+Saved artifacts/pretrained/metrics.json

@@ -1,0 +1,238 @@
+TAP version 13
+# Subtest: challenge URL round-trip includes model fingerprint
+ok 1 - challenge URL round-trip includes model fingerprint
+  ---
+  duration_ms: 5.345152
+  type: 'test'
+  ...
+# Subtest: malformed parameters fall back without NaN or prototype pollution
+ok 2 - malformed parameters fall back without NaN or prototype pollution
+  ---
+  duration_ms: 2.325227
+  type: 'test'
+  ...
+# Subtest: daily challenge uses UTC, not a visitor timezone
+ok 3 - daily challenge uses UTC, not a visitor timezone
+  ---
+  duration_ms: 0.431128
+  type: 'test'
+  ...
+# Subtest: same seed yields the same two frames, horizon and future
+ok 4 - same seed yields the same two frames, horizon and future
+  ---
+  duration_ms: 12.851389
+  type: 'test'
+  ...
+# Subtest: five independent deterministic scene seeds
+ok 5 - five independent deterministic scene seeds
+  ---
+  duration_ms: 0.995261
+  type: 'test'
+  ...
+# Subtest: collapse ablation sees identical inputs, not a cherry-picked easier world
+ok 6 - collapse ablation sees identical inputs, not a cherry-picked easier world
+  ---
+  duration_ms: 1.93475
+  type: 'test'
+  ...
+# Subtest: noise mode changes pixels without changing the trajectory
+ok 7 - noise mode changes pixels without changing the trajectory
+  ---
+  duration_ms: 0.649581
+  type: 'test'
+  ...
+# Subtest: double speed multiplies velocity, not the input horizon
+ok 8 - double speed multiplies velocity, not the input horizon
+  ---
+  duration_ms: 0.48697
+  type: 'test'
+  ...
+# Subtest: summary counts wins, ties and errors independently
+ok 9 - summary counts wins, ties and errors independently
+  ---
+  duration_ms: 1.032997
+  type: 'test'
+  ...
+# Subtest: invalid rounds and guesses fail explicitly
+ok 10 - invalid rounds and guesses fail explicitly
+  ---
+  duration_ms: 1.279752
+  type: 'test'
+  ...
+# Subtest: exactly 27 distinct valid action plans
+ok 11 - exactly 27 distinct valid action plans
+  ---
+  duration_ms: 3.021797
+  type: 'test'
+  ...
+# Subtest: deterministic scene and round for fixed date
+ok 12 - deterministic scene and round for fixed date
+  ---
+  duration_ms: 42.86338
+  type: 'test'
+  ...
+# Subtest: reject impossible days, rounds and action shapes
+ok 13 - reject impossible days, rounds and action shapes
+  ---
+  duration_ms: 0.757039
+  type: 'test'
+  ...
+# Subtest: wall reflection reverses velocity
+ok 14 - wall reflection reverses velocity
+  ---
+  duration_ms: 0.273945
+  type: 'test'
+  ...
+# Subtest: horizontal actions never alter vertical motion
+ok 15 - horizontal actions never alter vertical motion
+  ---
+  duration_ms: 1.561028
+  type: 'test'
+  ...
+# Subtest: bounded trajectories for all plans across many worlds
+ok 16 - bounded trajectories for all plans across many worlds
+  ---
+  duration_ms: 40.795072
+  type: 'test'
+  ...
+# Subtest: increasing observation noise preserves goals and physical state
+ok 17 - increasing observation noise preserves goals and physical state
+  ---
+  duration_ms: 0.613036
+  type: 'test'
+  ...
+# Subtest: goal always reachable within target tolerance by the oracle
+ok 18 - goal always reachable within target tolerance by the oracle
+  ---
+  duration_ms: 31.984879
+  type: 'test'
+  ...
+# Subtest: nontrivial actions change futures
+ok 19 - nontrivial actions change futures
+  ---
+  duration_ms: 2.652492
+  type: 'test'
+  ...
+# Subtest: score boundaries and monotonicity
+ok 20 - score boundaries and monotonicity
+  ---
+  duration_ms: 0.944076
+  type: 'test'
+  ...
+# Subtest: pixels have correct size and bounded finite intensity
+ok 21 - pixels have correct size and bounded finite intensity
+  ---
+  duration_ms: 0.331841
+  type: 'test'
+  ...
+# Subtest: simulator does not mutate initial observations or action plan
+ok 22 - simulator does not mutate initial observations or action plan
+  ---
+  duration_ms: 1.723488
+  type: 'test'
+  ...
+# Subtest: score recomputed exactly from five action replays
+ok 23 - score recomputed exactly from five action replays
+  ---
+  duration_ms: 53.018708
+  type: 'test'
+  ...
+# Subtest: client supplied score rejected, never trusted
+ok 24 - client supplied score rejected, never trusted
+  ---
+  duration_ms: 0.402725
+  type: 'test'
+  ...
+# Subtest: missing fields and extra prototype-named fields rejected
+ok 25 - missing fields and extra prototype-named fields rejected
+  ---
+  duration_ms: 0.205473
+  type: 'test'
+  ...
+# Subtest: wrong rules and model rejected
+ok 26 - wrong rules and model rejected
+  ---
+  duration_ms: 6.249929
+  type: 'test'
+  ...
+# Subtest: future and stale dates rejected
+ok 27 - future and stale dates rejected
+  ---
+  duration_ms: 0.251441
+  type: 'test'
+  ...
+# Subtest: last 30 days and today accepted
+ok 28 - last 30 days and today accepted
+  ---
+  duration_ms: 1.191211
+  type: 'test'
+  ...
+# Subtest: fractional string and oversized actions rejected
+ok 29 - fractional string and oversized actions rejected
+  ---
+  duration_ms: 0.338961
+  type: 'test'
+  ...
+# Subtest: JSON replay requires explicit bounded fenced block
+ok 30 - JSON replay requires explicit bounded fenced block
+  ---
+  duration_ms: 0.296068
+  type: 'test'
+  ...
+# Subtest: shell injection remains data and fails schema validation
+ok 31 - shell injection remains data and fails schema validation
+  ---
+  duration_ms: 0.492398
+  type: 'test'
+  ...
+# Subtest: GitHub identity comes from issue metadata, never replay
+ok 32 - GitHub identity comes from issue metadata, never replay
+  ---
+  duration_ms: 1.091353
+  type: 'test'
+  ...
+# Subtest: HTML and path-like usernames rejected
+ok 33 - HTML and path-like usernames rejected
+  ---
+  duration_ms: 0.310689
+  type: 'test'
+  ...
+# Subtest: pull requests and bot authors rejected
+ok 34 - pull requests and bot authors rejected
+  ---
+  duration_ms: 1.492136
+  type: 'test'
+  ...
+# Subtest: one best score per case-insensitive GitHub identity per day
+ok 35 - one best score per case-insensitive GitHub identity per day
+  ---
+  duration_ms: 1.368583
+  type: 'test'
+  ...
+# Subtest: valid replay survives unrelated or malformed issues
+ok 36 - valid replay survives unrelated or malformed issues
+  ---
+  duration_ms: 0.833262
+  type: 'test'
+  ...
+# Subtest: snapshot scanning strictly capped at 500 issues
+ok 37 - snapshot scanning strictly capped at 500 issues
+  ---
+  duration_ms: 219.533226
+  type: 'test'
+  ...
+# Subtest: valid zero-action replay is independent of JSON key order
+ok 38 - valid zero-action replay is independent of JSON key order
+  ---
+  duration_ms: 2.128256
+  type: 'test'
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 402.955589

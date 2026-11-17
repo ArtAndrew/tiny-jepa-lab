@@ -1,0 +1,6 @@
+{
+  "source": "User-supplied recovered ORBIT archives, received 2026-11-17",
+  "source_files_verified": 17,
+  "numeric_weight_tensors": "EMA teacher, probe and action predictor exactly equal the published game tensors",
+  "note": "Supplied Linux reproduction report is retained in reference/reproduction_verified/validation.json; local measurements are in experiments/temporal-*. Imported resume pickle excluded."
+}

@@ -1,0 +1,14 @@
+Device=cpu; inference parameters=103,888
+step=  200 latent_mse=0.12345 var=0.0648 cov=1.3862 elapsed_this_run=0.8s
+step=  400 latent_mse=0.14416 var=0.0255 cov=1.5820 elapsed_this_run=1.5s
+step=  600 latent_mse=0.10018 var=0.0046 cov=1.1621 elapsed_this_run=2.2s
+step=  800 latent_mse=0.07602 var=0.0068 cov=1.1271 elapsed_this_run=2.8s
+step= 1000 latent_mse=0.07866 var=0.0000 cov=0.7294 elapsed_this_run=3.5s
+step= 1200 latent_mse=0.06143 var=0.0003 cov=0.6139 elapsed_this_run=4.2s
+step= 1400 latent_mse=0.05243 var=0.0000 cov=0.5021 elapsed_this_run=5.0s
+step= 1600 latent_mse=0.05903 var=0.0023 cov=0.4438 elapsed_this_run=5.6s
+step= 1800 latent_mse=0.04415 var=0.0163 cov=0.4161 elapsed_this_run=6.3s
+step= 2000 latent_mse=0.04524 var=0.0064 cov=0.5163 elapsed_this_run=6.9s
+step= 2200 latent_mse=0.05321 var=0.0024 cov=0.3959 elapsed_this_run=7.6s
+step= 2400 latent_mse=0.05818 var=0.0112 cov=0.2340 elapsed_this_run=8.2s
+Saved to artifacts/pretrained. Next: python evaluate.py --model artifacts/pretrained

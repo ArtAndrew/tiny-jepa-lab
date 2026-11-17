@@ -1,0 +1,681 @@
+[
+  {
+    "step": 1,
+    "loss": 9.919914245605469,
+    "prediction_mse": 0.0029311012476682663,
+    "variance_penalty": 0.9890602827072144,
+    "covariance_penalty": 2.2589589920851694e-10
+  },
+  {
+    "step": 25,
+    "loss": 7.866954326629639,
+    "prediction_mse": 0.033622659742832184,
+    "variance_penalty": 0.7518589496612549,
+    "covariance_penalty": 0.01213813852518797
+  },
+  {
+    "step": 50,
+    "loss": 3.31549072265625,
+    "prediction_mse": 0.01129951886832714,
+    "variance_penalty": 0.13830271363258362,
+    "covariance_penalty": 1.8194684982299805
+  },
+  {
+    "step": 75,
+    "loss": 3.179973602294922,
+    "prediction_mse": 0.017089808359742165,
+    "variance_penalty": 0.08514625579118729,
+    "covariance_penalty": 2.1576130390167236
+  },
+  {
+    "step": 100,
+    "loss": 3.3770806789398193,
+    "prediction_mse": 0.04245622456073761,
+    "variance_penalty": 0.1085040345788002,
+    "covariance_penalty": 1.8674781322479248
+  },
+  {
+    "step": 125,
+    "loss": 3.4623889923095703,
+    "prediction_mse": 0.07665856182575226,
+    "variance_penalty": 0.10099892318248749,
+    "covariance_penalty": 1.6858141422271729
+  },
+  {
+    "step": 150,
+    "loss": 2.9413034915924072,
+    "prediction_mse": 0.09650633484125137,
+    "variance_penalty": 0.020816519856452942,
+    "covariance_penalty": 1.7680749893188477
+  },
+  {
+    "step": 175,
+    "loss": 3.0216057300567627,
+    "prediction_mse": 0.1180604100227356,
+    "variance_penalty": 0.032465435564517975,
+    "covariance_penalty": 1.5163472890853882
+  },
+  {
+    "step": 200,
+    "loss": 3.0715250968933105,
+    "prediction_mse": 0.12078770250082016,
+    "variance_penalty": 0.02204844355583191,
+    "covariance_penalty": 1.6431636810302734
+  },
+  {
+    "step": 225,
+    "loss": 3.5727853775024414,
+    "prediction_mse": 0.15277309715747833,
+    "variance_penalty": 0.03137180209159851,
+    "covariance_penalty": 1.7313364744186401
+  },
+  {
+    "step": 250,
+    "loss": 3.0964512825012207,
+    "prediction_mse": 0.1284082531929016,
+    "variance_penalty": 0.03199941664934158,
+    "covariance_penalty": 1.4923746585845947
+  },
+  {
+    "step": 275,
+    "loss": 3.7603983879089355,
+    "prediction_mse": 0.15404029190540314,
+    "variance_penalty": 0.03821069002151489,
+    "covariance_penalty": 1.837888479232788
+  },
+  {
+    "step": 300,
+    "loss": 3.0665464401245117,
+    "prediction_mse": 0.11934040486812592,
+    "variance_penalty": 0.005137726664543152,
+    "covariance_penalty": 1.8217650651931763
+  },
+  {
+    "step": 325,
+    "loss": 2.9901480674743652,
+    "prediction_mse": 0.10329771041870117,
+    "variance_penalty": 0.056663259863853455,
+    "covariance_penalty": 1.3905384540557861
+  },
+  {
+    "step": 350,
+    "loss": 3.0938644409179688,
+    "prediction_mse": 0.13627596199512482,
+    "variance_penalty": 0.017650023102760315,
+    "covariance_penalty": 1.5546045303344727
+  },
+  {
+    "step": 375,
+    "loss": 3.352206230163574,
+    "prediction_mse": 0.11919891089200974,
+    "variance_penalty": 0.04162611812353134,
+    "covariance_penalty": 1.7439559698104858
+  },
+  {
+    "step": 400,
+    "loss": 2.9709105491638184,
+    "prediction_mse": 0.10694147646427155,
+    "variance_penalty": 0.0210653617978096,
+    "covariance_penalty": 1.6908421516418457
+  },
+  {
+    "step": 425,
+    "loss": 2.7512316703796387,
+    "prediction_mse": 0.08956059068441391,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 1.8556257486343384
+  },
+  {
+    "step": 450,
+    "loss": 2.752531051635742,
+    "prediction_mse": 0.09056390821933746,
+    "variance_penalty": 0.04242689907550812,
+    "covariance_penalty": 1.4226230382919312
+  },
+  {
+    "step": 475,
+    "loss": 2.784360408782959,
+    "prediction_mse": 0.09043124318122864,
+    "variance_penalty": 0.04226864129304886,
+    "covariance_penalty": 1.4573615789413452
+  },
+  {
+    "step": 500,
+    "loss": 2.4118237495422363,
+    "prediction_mse": 0.06633460521697998,
+    "variance_penalty": 0.03443549573421478,
+    "covariance_penalty": 1.4041227102279663
+  },
+  {
+    "step": 525,
+    "loss": 2.655440330505371,
+    "prediction_mse": 0.08395074307918549,
+    "variance_penalty": 0.02802462875843048,
+    "covariance_penalty": 1.535686731338501
+  },
+  {
+    "step": 550,
+    "loss": 2.260122299194336,
+    "prediction_mse": 0.06696994602680206,
+    "variance_penalty": 0.011785410344600677,
+    "covariance_penalty": 1.4725686311721802
+  },
+  {
+    "step": 575,
+    "loss": 2.458388090133667,
+    "prediction_mse": 0.08566288650035858,
+    "variance_penalty": 0.02249053120613098,
+    "covariance_penalty": 1.3768539428710938
+  },
+  {
+    "step": 600,
+    "loss": 2.2272868156433105,
+    "prediction_mse": 0.0884871631860733,
+    "variance_penalty": 0.030159704387187958,
+    "covariance_penalty": 1.0408180952072144
+  },
+  {
+    "step": 625,
+    "loss": 1.9804996252059937,
+    "prediction_mse": 0.07359690219163895,
+    "variance_penalty": 0.018710806965827942,
+    "covariance_penalty": 1.0574225187301636
+  },
+  {
+    "step": 650,
+    "loss": 2.061188220977783,
+    "prediction_mse": 0.07994898408651352,
+    "variance_penalty": 0.01684866100549698,
+    "covariance_penalty": 1.0932116508483887
+  },
+  {
+    "step": 675,
+    "loss": 2.0002245903015137,
+    "prediction_mse": 0.0694868266582489,
+    "variance_penalty": 0.008600234985351562,
+    "covariance_penalty": 1.2193539142608643
+  },
+  {
+    "step": 700,
+    "loss": 1.8870069980621338,
+    "prediction_mse": 0.07792538404464722,
+    "variance_penalty": 0.007298082113265991,
+    "covariance_penalty": 1.034772276878357
+  },
+  {
+    "step": 725,
+    "loss": 1.8248534202575684,
+    "prediction_mse": 0.07454278320074081,
+    "variance_penalty": 0.0023144930601119995,
+    "covariance_penalty": 1.0562806129455566
+  },
+  {
+    "step": 750,
+    "loss": 1.9065477848052979,
+    "prediction_mse": 0.07309427112340927,
+    "variance_penalty": 0.011695526540279388,
+    "covariance_penalty": 1.0586497783660889
+  },
+  {
+    "step": 775,
+    "loss": 1.8192780017852783,
+    "prediction_mse": 0.0721248909831047,
+    "variance_penalty": 0.018064439296722412,
+    "covariance_penalty": 0.917384684085846
+  },
+  {
+    "step": 800,
+    "loss": 2.027125835418701,
+    "prediction_mse": 0.09938739985227585,
+    "variance_penalty": 0.0030378252267837524,
+    "covariance_penalty": 1.0028735399246216
+  },
+  {
+    "step": 825,
+    "loss": 1.664384126663208,
+    "prediction_mse": 0.05910905450582504,
+    "variance_penalty": 0.010404147207736969,
+    "covariance_penalty": 0.9692520499229431
+  },
+  {
+    "step": 850,
+    "loss": 1.731093406677246,
+    "prediction_mse": 0.06972573697566986,
+    "variance_penalty": 0.004456654191017151,
+    "covariance_penalty": 0.989269495010376
+  },
+  {
+    "step": 875,
+    "loss": 1.6871780157089233,
+    "prediction_mse": 0.06898020207881927,
+    "variance_penalty": 0.010968595743179321,
+    "covariance_penalty": 0.887690007686615
+  },
+  {
+    "step": 900,
+    "loss": 1.5374231338500977,
+    "prediction_mse": 0.06097591295838356,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.9276639223098755
+  },
+  {
+    "step": 925,
+    "loss": 1.8003365993499756,
+    "prediction_mse": 0.09806815534830093,
+    "variance_penalty": 0.003113195300102234,
+    "covariance_penalty": 0.7885231375694275
+  },
+  {
+    "step": 950,
+    "loss": 1.7709524631500244,
+    "prediction_mse": 0.0861000046133995,
+    "variance_penalty": 0.018166139721870422,
+    "covariance_penalty": 0.7282910346984863
+  },
+  {
+    "step": 975,
+    "loss": 1.427602767944336,
+    "prediction_mse": 0.07321687787771225,
+    "variance_penalty": 0.001526758074760437,
+    "covariance_penalty": 0.6801663637161255
+  },
+  {
+    "step": 1000,
+    "loss": 1.4273909330368042,
+    "prediction_mse": 0.06994612514972687,
+    "variance_penalty": 0.006768651306629181,
+    "covariance_penalty": 0.6602432131767273
+  },
+  {
+    "step": 1025,
+    "loss": 1.6150165796279907,
+    "prediction_mse": 0.06433453410863876,
+    "variance_penalty": 0.033597104251384735,
+    "covariance_penalty": 0.6357001662254333
+  },
+  {
+    "step": 1050,
+    "loss": 1.5580861568450928,
+    "prediction_mse": 0.06870578974485397,
+    "variance_penalty": 0.026838339865207672,
+    "covariance_penalty": 0.6026448011398315
+  },
+  {
+    "step": 1075,
+    "loss": 1.2775111198425293,
+    "prediction_mse": 0.0650254637002945,
+    "variance_penalty": 0.004518389701843262,
+    "covariance_penalty": 0.5820726752281189
+  },
+  {
+    "step": 1100,
+    "loss": 1.2858705520629883,
+    "prediction_mse": 0.0665377676486969,
+    "variance_penalty": 0.005553476512432098,
+    "covariance_penalty": 0.5649580955505371
+  },
+  {
+    "step": 1125,
+    "loss": 1.202612280845642,
+    "prediction_mse": 0.07042858749628067,
+    "variance_penalty": 0.003785371780395508,
+    "covariance_penalty": 0.4604727327823639
+  },
+  {
+    "step": 1150,
+    "loss": 1.2127329111099243,
+    "prediction_mse": 0.07254896312952042,
+    "variance_penalty": 0.000469110906124115,
+    "covariance_penalty": 0.482552170753479
+  },
+  {
+    "step": 1175,
+    "loss": 1.198486566543579,
+    "prediction_mse": 0.06704889982938766,
+    "variance_penalty": 0.005041986703872681,
+    "covariance_penalty": 0.4775776267051697
+  },
+  {
+    "step": 1200,
+    "loss": 1.1900054216384888,
+    "prediction_mse": 0.07120013982057571,
+    "variance_penalty": 0.0030871182680130005,
+    "covariance_penalty": 0.44713282585144043
+  },
+  {
+    "step": 1225,
+    "loss": 1.2454252243041992,
+    "prediction_mse": 0.07584358751773834,
+    "variance_penalty": 0.00413842499256134,
+    "covariance_penalty": 0.44560518860816956
+  },
+  {
+    "step": 1250,
+    "loss": 1.0840649604797363,
+    "prediction_mse": 0.05921662971377373,
+    "variance_penalty": 0.0029954612255096436,
+    "covariance_penalty": 0.4619441032409668
+  },
+  {
+    "step": 1275,
+    "loss": 1.0849802494049072,
+    "prediction_mse": 0.05866082385182381,
+    "variance_penalty": 0.006539829075336456,
+    "covariance_penalty": 0.43297380208969116
+  },
+  {
+    "step": 1300,
+    "loss": 1.2751102447509766,
+    "prediction_mse": 0.08023939281702042,
+    "variance_penalty": 0.0022274330258369446,
+    "covariance_penalty": 0.45044195652008057
+  },
+  {
+    "step": 1325,
+    "loss": 1.2279551029205322,
+    "prediction_mse": 0.07336938381195068,
+    "variance_penalty": 0.0016875043511390686,
+    "covariance_penalty": 0.4773862957954407
+  },
+  {
+    "step": 1350,
+    "loss": 1.2001041173934937,
+    "prediction_mse": 0.06935101747512817,
+    "variance_penalty": 0.0020302534103393555,
+    "covariance_penalty": 0.48629137873649597
+  },
+  {
+    "step": 1375,
+    "loss": 1.2637790441513062,
+    "prediction_mse": 0.06943415850400925,
+    "variance_penalty": 0.013779975473880768,
+    "covariance_penalty": 0.4316377341747284
+  },
+  {
+    "step": 1400,
+    "loss": 1.2186158895492554,
+    "prediction_mse": 0.07318510860204697,
+    "variance_penalty": 0.0016142204403877258,
+    "covariance_penalty": 0.47062259912490845
+  },
+  {
+    "step": 1425,
+    "loss": 1.121506690979004,
+    "prediction_mse": 0.06561806797981262,
+    "variance_penalty": 0.003419913351535797,
+    "covariance_penalty": 0.4311268925666809
+  },
+  {
+    "step": 1450,
+    "loss": 1.1161354780197144,
+    "prediction_mse": 0.0651424452662468,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.4647109806537628
+  },
+  {
+    "step": 1475,
+    "loss": 1.0906010866165161,
+    "prediction_mse": 0.06346852332353592,
+    "variance_penalty": 0.0030537769198417664,
+    "covariance_penalty": 0.42537811398506165
+  },
+  {
+    "step": 1500,
+    "loss": 1.2047637701034546,
+    "prediction_mse": 0.07205178588628769,
+    "variance_penalty": 0.006138324737548828,
+    "covariance_penalty": 0.4228626787662506
+  },
+  {
+    "step": 1525,
+    "loss": 1.0972156524658203,
+    "prediction_mse": 0.046660929918289185,
+    "variance_penalty": 0.014738045632839203,
+    "covariance_penalty": 0.48322588205337524
+  },
+  {
+    "step": 1550,
+    "loss": 1.1370834112167358,
+    "prediction_mse": 0.06804615259170532,
+    "variance_penalty": 0.005032837390899658,
+    "covariance_penalty": 0.40629351139068604
+  },
+  {
+    "step": 1575,
+    "loss": 0.9691556692123413,
+    "prediction_mse": 0.05212152376770973,
+    "variance_penalty": 0.0019328519701957703,
+    "covariance_penalty": 0.4286118447780609
+  },
+  {
+    "step": 1600,
+    "loss": 1.1640050411224365,
+    "prediction_mse": 0.06730140000581741,
+    "variance_penalty": 0.0075685009360313416,
+    "covariance_penalty": 0.4153059720993042
+  },
+  {
+    "step": 1625,
+    "loss": 0.9783003330230713,
+    "prediction_mse": 0.05313589423894882,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.4469413459300995
+  },
+  {
+    "step": 1650,
+    "loss": 0.9405807852745056,
+    "prediction_mse": 0.05139552056789398,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.4266255497932434
+  },
+  {
+    "step": 1675,
+    "loss": 1.062157154083252,
+    "prediction_mse": 0.061025235801935196,
+    "variance_penalty": 0.004503458738327026,
+    "covariance_penalty": 0.40687018632888794
+  },
+  {
+    "step": 1700,
+    "loss": 1.2612392902374268,
+    "prediction_mse": 0.07988213747739792,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.4624179005622864
+  },
+  {
+    "step": 1725,
+    "loss": 1.087064266204834,
+    "prediction_mse": 0.06313212960958481,
+    "variance_penalty": 0.005986161530017853,
+    "covariance_penalty": 0.3958813548088074
+  },
+  {
+    "step": 1750,
+    "loss": 0.9256161451339722,
+    "prediction_mse": 0.04676751792430878,
+    "variance_penalty": 0.0052659884095191956,
+    "covariance_penalty": 0.40528109669685364
+  },
+  {
+    "step": 1775,
+    "loss": 0.8835866451263428,
+    "prediction_mse": 0.04720818251371384,
+    "variance_penalty": 0.002237975597381592,
+    "covariance_penalty": 0.3891250491142273
+  },
+  {
+    "step": 1800,
+    "loss": 1.0793267488479614,
+    "prediction_mse": 0.057957060635089874,
+    "variance_penalty": 0.005466818809509277,
+    "covariance_penalty": 0.4450879395008087
+  },
+  {
+    "step": 1825,
+    "loss": 1.0954813957214355,
+    "prediction_mse": 0.06080937758088112,
+    "variance_penalty": 0.007683329284191132,
+    "covariance_penalty": 0.41055431962013245
+  },
+  {
+    "step": 1850,
+    "loss": 0.9696364998817444,
+    "prediction_mse": 0.05356929451227188,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.43394356966018677
+  },
+  {
+    "step": 1875,
+    "loss": 0.888180136680603,
+    "prediction_mse": 0.04122265428304672,
+    "variance_penalty": 0.0054871514439582825,
+    "covariance_penalty": 0.421082079410553
+  },
+  {
+    "step": 1900,
+    "loss": 0.9800467491149902,
+    "prediction_mse": 0.046911321580410004,
+    "variance_penalty": 0.005154997110366821,
+    "covariance_penalty": 0.4593835175037384
+  },
+  {
+    "step": 1925,
+    "loss": 1.0170669555664062,
+    "prediction_mse": 0.045319925993680954,
+    "variance_penalty": 0.007618747651576996,
+    "covariance_penalty": 0.48768022656440735
+  },
+  {
+    "step": 1950,
+    "loss": 0.9346288442611694,
+    "prediction_mse": 0.04987441748380661,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.43588465452194214
+  },
+  {
+    "step": 1975,
+    "loss": 0.8398524522781372,
+    "prediction_mse": 0.04269144684076309,
+    "variance_penalty": 0.004484690725803375,
+    "covariance_penalty": 0.3680911362171173
+  },
+  {
+    "step": 2000,
+    "loss": 0.9169569611549377,
+    "prediction_mse": 0.05063222721219063,
+    "variance_penalty": 0.001232825219631195,
+    "covariance_penalty": 0.3983064293861389
+  },
+  {
+    "step": 2025,
+    "loss": 0.7876097559928894,
+    "prediction_mse": 0.0367153137922287,
+    "variance_penalty": 0.004177950322628021,
+    "covariance_penalty": 0.3786771297454834
+  },
+  {
+    "step": 2050,
+    "loss": 0.9077751636505127,
+    "prediction_mse": 0.04850683733820915,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.4227067828178406
+  },
+  {
+    "step": 2075,
+    "loss": 0.9916972517967224,
+    "prediction_mse": 0.05253785476088524,
+    "variance_penalty": 0.006938964128494263,
+    "covariance_penalty": 0.3969290852546692
+  },
+  {
+    "step": 2100,
+    "loss": 1.1298710107803345,
+    "prediction_mse": 0.06539121270179749,
+    "variance_penalty": 0.00740543007850647,
+    "covariance_penalty": 0.4019045829772949
+  },
+  {
+    "step": 2125,
+    "loss": 0.8966000080108643,
+    "prediction_mse": 0.05205182358622551,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.37608179450035095
+  },
+  {
+    "step": 2150,
+    "loss": 0.8977345824241638,
+    "prediction_mse": 0.05141675844788551,
+    "variance_penalty": 0.00031031668186187744,
+    "covariance_penalty": 0.38046377897262573
+  },
+  {
+    "step": 2175,
+    "loss": 0.9560173749923706,
+    "prediction_mse": 0.05845502018928528,
+    "variance_penalty": 0.002464696764945984,
+    "covariance_penalty": 0.34682023525238037
+  },
+  {
+    "step": 2200,
+    "loss": 0.9737941026687622,
+    "prediction_mse": 0.059303827583789825,
+    "variance_penalty": 0.00010351836681365967,
+    "covariance_penalty": 0.3797207176685333
+  },
+  {
+    "step": 2225,
+    "loss": 0.8755995631217957,
+    "prediction_mse": 0.048338714987039566,
+    "variance_penalty": 0.003009498119354248,
+    "covariance_penalty": 0.3621174693107605
+  },
+  {
+    "step": 2250,
+    "loss": 1.0229123830795288,
+    "prediction_mse": 0.05520777404308319,
+    "variance_penalty": 0.007147148251533508,
+    "covariance_penalty": 0.3993631601333618
+  },
+  {
+    "step": 2275,
+    "loss": 0.8443340063095093,
+    "prediction_mse": 0.051926471292972565,
+    "variance_penalty": 0.000981353223323822,
+    "covariance_penalty": 0.3152557611465454
+  },
+  {
+    "step": 2300,
+    "loss": 0.8971983194351196,
+    "prediction_mse": 0.054330598562955856,
+    "variance_penalty": 0.001911953091621399,
+    "covariance_penalty": 0.3347727954387665
+  },
+  {
+    "step": 2325,
+    "loss": 0.8361773490905762,
+    "prediction_mse": 0.05041437968611717,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.33203360438346863
+  },
+  {
+    "step": 2350,
+    "loss": 0.7348381280899048,
+    "prediction_mse": 0.0478760190308094,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.25607794523239136
+  },
+  {
+    "step": 2375,
+    "loss": 0.9598722457885742,
+    "prediction_mse": 0.07090405374765396,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.2508316934108734
+  },
+  {
+    "step": 2400,
+    "loss": 0.7231885194778442,
+    "prediction_mse": 0.04838917404413223,
+    "variance_penalty": 0.0,
+    "covariance_penalty": 0.2392967939376831
+  }
+]

@@ -1,0 +1,210 @@
+{
+  "recipe": "recovered-temporal-jepa",
+  "date": "2026-11-17",
+  "seed": 42,
+  "action_seed": 31001,
+  "smoke_only": false,
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.1.3",
+    "torch": "2.5.1",
+    "platform": "macOS-27.2.1-arm64-arm-64bit",
+    "cpu": "Apple M2",
+    "architecture": "arm64",
+    "device": "cpu",
+    "threads": 2
+  },
+  "source_sha256": {
+    "train.py": "af214ca1e62373d3e7c33d26ff32de900c659a07a188ddfdc79126c608d0a327",
+    "evaluate.py": "063bd0ed30173e38dd688035813dbe8df0cd8215942312fca9efa3386354a8c6",
+    "tinyjepa/core.py": "ae7912a2d344116064b64e55d277f9f6c72d1e3c5c44a2d3dd66ee5821717ccc",
+    "tinyjepa/evaluation.py": "1c3c1f87dad1b0ccdc752fcaaabaa1b626ddb895def830254580885abddcf475",
+    "tinyjepa/__init__.py": "816d661cc9cae6a84ec244bc09c874306cedfe7dafe12205d0befefe063da45c",
+    "export_demo.py": "72e260e73f188a3902512152ec5c8a5963bec71b1a26d2ac95a678623bafc9fa",
+    "web/engine.js": "441e524abef87fc010e304bf21f4120233507eae4f72d63381029e12bd18b684",
+    "web/template.html": "74fbd58dd260fbf29dcef1230d7c52ab631c60ec40aeccc64988d059b9f0bdff",
+    "tests/test_core.py": "43043726ef2d1e291ec13c47c8e35b6ad284a0ad79c7127ec7b6ebceeb7dc336",
+    "tests/test_js.py": "138fb8f492333ad9b1b3568285253f98de93ee4f868d2674f6b89e1bab3a7917",
+    "train_actions.py": "a45bb68da77bf117e549fde66da08fd6b0e7321d72ef113f3a23daa1fa96f6b9",
+    "evaluate_actions.py": "e53c325b332685e03af5365f7637d3e317efcb2475dc669e20c21938b5c44b16",
+    "planning/model.py": "a116a3da0a1805ab8aa48f41b08234ca4c782596ea454170ca1ab84621c7420f",
+    "planning/__init__.py": "7697211aed95bfdddc247c716fce3ac590c96078cdf7ddcfbb0a1407188e3f77",
+    "web/orbit-core.js": "0a6ee7b38d6228738f7e295e12b16317a3d669aa84d51036689780aa9c61165b",
+    "tests/test_actions.py": "3400d18699a270fee7f763a690d5c2c09d4911bb2f317ceb47164d3c9dbfa335",
+    "tools/build_orbit.py": "ce4e819a09cc027426fe10466f68b5fb68db7888c7bbf4b1092b6e28e603e18c"
+  },
+  "pretrained_weights_read": false,
+  "empty_training_workspace_verified": true,
+  "stages": [
+    {
+      "name": "01_visual_train",
+      "command": [
+        "train.py",
+        "--out",
+        "artifacts/pretrained",
+        "--steps",
+        "2400",
+        "--seed",
+        "42",
+        "--threads",
+        "2"
+      ],
+      "elapsed_seconds_including_imports": 12.039561625002534,
+      "exit_code": 0
+    },
+    {
+      "name": "02_probe_evaluate",
+      "command": [
+        "evaluate.py",
+        "--model",
+        "artifacts/pretrained",
+        "--samples",
+        "2048",
+        "--probe-steps",
+        "800"
+      ],
+      "elapsed_seconds_including_imports": 2.206820915998833,
+      "exit_code": 0
+    },
+    {
+      "name": "03_action_train",
+      "command": [
+        "train_actions.py",
+        "--out",
+        "artifacts/action_jepa",
+        "--encoder",
+        "artifacts/pretrained",
+        "--steps",
+        "5000",
+        "--examples",
+        "65536",
+        "--seed",
+        "31001"
+      ],
+      "elapsed_seconds_including_imports": 6.5672582920014975,
+      "exit_code": 0
+    },
+    {
+      "name": "04_action_evaluate",
+      "command": [
+        "evaluate_actions.py"
+      ],
+      "elapsed_seconds_including_imports": 2.4921927499963203,
+      "exit_code": 0
+    },
+    {
+      "name": "05_browser_export",
+      "command": [
+        "tools/build_orbit.py",
+        "--skip-legacy"
+      ],
+      "elapsed_seconds_including_imports": 0.13466799999878276,
+      "exit_code": 0
+    },
+    {
+      "name": "06_visual_tests",
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_core.py",
+        "-v"
+      ],
+      "elapsed_seconds_including_imports": 1.8973572079994483,
+      "exit_code": 0
+    },
+    {
+      "name": "07_action_tests",
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_actions.py",
+        "-v"
+      ],
+      "elapsed_seconds_including_imports": 1.0359699170003296,
+      "exit_code": 0
+    },
+    {
+      "name": "08_browser_parity",
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_js.py",
+        "-v"
+      ],
+      "elapsed_seconds_including_imports": 1.0570372910005972,
+      "exit_code": 0
+    },
+    {
+      "name": "09_ablation_train",
+      "command": [
+        "train.py",
+        "--out",
+        "artifacts/no_regularization",
+        "--steps",
+        "2400",
+        "--seed",
+        "42",
+        "--variance-weight",
+        "0",
+        "--covariance-weight",
+        "0"
+      ],
+      "elapsed_seconds_including_imports": 12.216022334003355,
+      "exit_code": 0
+    },
+    {
+      "name": "10_ablation_evaluate",
+      "command": [
+        "evaluate.py",
+        "--model",
+        "artifacts/no_regularization",
+        "--samples",
+        "2048",
+        "--probe-steps",
+        "800"
+      ],
+      "elapsed_seconds_including_imports": 2.111751167001785,
+      "exit_code": 0
+    }
+  ],
+  "elapsed_seconds": 41.81129591700301,
+  "note": "Original numerical code unchanged. Cross-platform byte identity is not guaranteed. Probe supervision is limited to display; planner uses frozen EMA teacher features.",
+  "browser_model_id": "f911bf363f5f",
+  "historical_weight_comparison": {
+    "pretrained/model.npz": {
+      "sha256": "49e87f9705965d12bd4d75582f3be7badd51e760e636989c65562aca21117488",
+      "reference_sha256": "10e621e874dae6b876a2683b5a59a354afd810cb499249a39f5cd395e51fae06",
+      "matches_supplied_reference_bytes": false
+    },
+    "pretrained/probe.npz": {
+      "sha256": "0901ece57600dc0780dfe46f9826af58b98895b3df22fc8f757c4f64453978da",
+      "reference_sha256": "96f1147e8211ab2f2d992a89a8a7e1661ceb700ff7917ea755eaa9ad98874959",
+      "matches_supplied_reference_bytes": false
+    },
+    "action_jepa/predictor.npz": {
+      "sha256": "26a11966023c1761bebcc6d833ef21d59a880e31743446a4a9ea771bb0602630",
+      "reference_sha256": "22b92927abd4acfb28da842f65599c0dfd8b17e2d598b1eb8969fd6f35f2dba7",
+      "matches_supplied_reference_bytes": false
+    }
+  },
+  "visual_position_error_px": 0.7766087651252747,
+  "historical_scene_hit_rate": 0.68359375,
+  "artifacts_sha256": {
+    "encoder.npz": "932a6a23751af5ca2fbb0cad84eaa4d94591e991ba01a093d05836808a0e5688",
+    "predictor.npz": "26a11966023c1761bebcc6d833ef21d59a880e31743446a4a9ea771bb0602630",
+    "probe.npz": "0901ece57600dc0780dfe46f9826af58b98895b3df22fc8f757c4f64453978da",
+    "model.bin": "f911bf363f5f24761f46c88b52a981f89f84f1b1c0adb77c3dc178f8298ebb04"
+  }
+}
