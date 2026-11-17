@@ -61,4 +61,5 @@ test('opening examples respects daily-progress cancellation and cannot add a dai
   assert.equal(context.scene.seed,failures.cases[0].seed);
   assert.deepEqual(context.actions,failures.cases[0].actions);
   assert.ok(context.predicted);assert.equal(new URL(context.location.href).searchParams.get('example'),'optimistic');
+  assert.equal(new URL(context.location.href).hash,'#play');
 });

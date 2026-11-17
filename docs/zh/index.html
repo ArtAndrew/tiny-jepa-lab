@@ -556,7 +556,7 @@ function openFailure(id,scroll=true){
   scene=C.scenario(item.seed,item.noise);ranked=C.rankPlans(pack,scene.frames,scene.goalFrame);
   actions=ranked[0].actions.slice();predicted=C.predict(pack,scene.frames,actions);
   drawInputs();renderControls();renderStatus();renderInspection();renderFailures();draw();
-  const u=new URL(location.href);u.searchParams.set('example',id);history.replaceState(null,'',u);
+  const u=new URL(location.href);u.searchParams.set('example',id);u.hash='play';history.replaceState(null,'',u);
   if(scroll)$('play').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
 }
 function clearFailure(){
